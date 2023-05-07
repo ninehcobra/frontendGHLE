@@ -1,0 +1,109 @@
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.btn-edit {
+    width: 50px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: orange;
+
+    &:hover {
+        background-color: transparent !important;
+        color: orange !important;
+    }
+}
+
+.btn-delete {
+    width: 50px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: rgb(235, 15, 15);
+
+    &:hover {
+        background-color: transparent !important;
+        color: rgb(235, 15, 15) !important;
+    }
+}
+
+.modal-user-container {
+    .modal-user-body {
+        display: flex;
+        flex-wrap: wrap;
+
+        .input-col {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            flex: 0 0 41.666667%;
+            max-width: 41.666667%;
+
+            .input-container {
+                margin-bottom: 0px !important;
+
+                label {
+                    color: #5c6873 !important;
+                    margin: 2px !important;
+                    font-size: 14px;
+                    font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif !important;
+                    font-weight: 600 !important;
+                }
+
+                input {
+                    display: block;
+                    width: 100%;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    border: 1px solid #ced4da;
+                    height: 40px !important;
+                    border-radius: 16px !important;
+                    background: white !important;
+                    padding: 0 10px;
+
+                }
+
+                select {
+                    display: block;
+                    width: 100%;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    border: 1px solid #ced4da;
+                    height: 40px !important;
+                    border-radius: 16px !important;
+                    background: white !important;
+                    padding: 0 10px;
+                }
+            }
+
+        }
+
+
+    }
+}
