@@ -1,5 +1,5 @@
 .home-header-container {
-    height: 60px;
+    height: 65px;
     width: 100%;
     padding: 0 20px;
 
@@ -50,6 +50,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            .language-vi {
+                margin-left: 10px;
+                cursor: pointer;
+                opacity: 0.2;
+
+                &.active {
+                    color: orange;
+                    opacity: 1;
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .language-en {
+                margin-left: 10px;
+                cursor: pointer;
+
+                opacity: 0.2;
+
+                &.active {
+                    color: blue;
+                    opacity: 1;
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
 
             button {
                 display: inline-flex;
@@ -110,7 +141,7 @@
         background: url('../../assets/banner-header4.webp') center center no-repeat;
         height: 700px;
         width: 100%;
-        animation: change 15s infinite ease-in;
+        animation: change 25s infinite ease-in;
     }
 
     .slick-slide-list {

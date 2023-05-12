@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Header.scss'
+import { FormattedMessage } from 'react-intl';
+import { languages } from '../../utils'
+import { changeLanguageApp } from '../../store/actions'
+
+
 
 class Header extends Component {
+    changeLanguage = (language) => {
+        this.props.changeLanguageAppRedux(language)
+    }
 
     render() {
-
+        let language = this.props.language
 
         return (
             <React.Fragment>
@@ -20,25 +28,25 @@ class Header extends Component {
                         <div className='center-content'>
                             <div className='child-content'>
                                 <div>
-                                    <b>Trang chủ</b>
+                                    <b><FormattedMessage id="home-header.home-name" /></b>
                                 </div>
                                 <div></div>
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b>Dịch vụ</b>
+                                    <b><FormattedMessage id="home-header.service" /></b>
                                 </div>
                                 <div></div>
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b>Tin tức</b>
+                                    <b><FormattedMessage id="home-header.news" /></b>
                                 </div>
                                 <div></div>
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b>Thêm thông tin</b>
+                                    <b><FormattedMessage id="home-header.more-info" /></b>
                                 </div>
                                 <div></div>
                             </div>
@@ -46,13 +54,14 @@ class Header extends Component {
                         </div>
                         <div className='right-content'>
                             <div>
-                                <button> Đăng ký/Đăng nhập</button>
+                                <button> <FormattedMessage id="home-header.register-login" /></button>
                             </div>
                             <div className='search-form'>
-                                <input placeholder='Nhập mã đơn hàng mà bạn cần tra cứu...'></input>
+                                <input placeholder="Nhập mã đơn hàng mà bạn cần tra cứu..."></input>
                                 <i className="fas fa-search"></i>
                             </div>
-                            <div className='flag'>VN</div>
+                            <div className={language === languages.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changeLanguage(languages.VI)}>VN</span></div>
+                            <div className={language === languages.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changeLanguage(languages.EN)}>EN</span></div>
                         </div>
                     </div>
                 </div>
@@ -62,16 +71,16 @@ class Header extends Component {
                     </div>
                     <div className='slick-slide-list'>
                         <div className='slick-slide'>
-                            <p>Giảm Đến 25% <br /> Khi Mua Phụ Kiện Chính Hãng GHLE</p>
+                            <p><FormattedMessage id="home-header.slide1-1" /><br /><FormattedMessage id="home-header.slide1-2" /></p>
                         </div>
                         <div className='slick-slide'>
-                            <p class="">GHN Liên Tục Cập Nhật <br />  Danh Sách Khu Vực Giao Nhận</p>
+                            <p class=""><FormattedMessage id="home-header.slide2-1" /><br /> <FormattedMessage id="home-header.slide2-2" /></p>
                         </div>
                         <div className='slick-slide'>
-                            <p class="">Dịch Vụ <br /> Giao Hàng Nhanh</p>
+                            <p class=""><FormattedMessage id="home-header.slide3-1" /><br /> <FormattedMessage id="home-header.slide3-2" /></p>
                         </div>
                         <div className='slick-slide'>
-                            <p class="">Dịch Vụ Kho Bãi Và <br /> Xử Lý Hàng Hoá</p>
+                            <p class=""><FormattedMessage id="home-header.slide4-1" /><br /><FormattedMessage id="home-header.slide4-2" /></p>
                         </div>
 
                     </div>
@@ -84,12 +93,14 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language))
     };
 };
 

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
+import BannerSlick from './Section/BannerSlick';
+import Map from './Section/Map';
+import Partner from './Section/Partner';
 
 class HomePage extends Component {
 
@@ -11,6 +14,9 @@ class HomePage extends Component {
         return (
             <div>
                 <Header></Header>
+                <BannerSlick></BannerSlick>
+                <Map></Map>
+                <Partner></Partner>
             </div>
         );
     }
