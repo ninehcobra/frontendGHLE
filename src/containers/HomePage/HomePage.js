@@ -5,6 +5,7 @@ import Header from './Header';
 import BannerSlick from './Section/BannerSlick';
 import Map from './Section/Map';
 import Partner from './Section/Partner';
+import HomeFooter from './HomeFooter';
 
 class HomePage extends Component {
 
@@ -17,6 +18,7 @@ class HomePage extends Component {
                 <BannerSlick></BannerSlick>
                 <Map></Map>
                 <Partner></Partner>
+                <HomeFooter></HomeFooter>
             </div>
         );
     }
