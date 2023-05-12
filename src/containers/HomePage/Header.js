@@ -18,7 +18,7 @@ class Header extends Component {
 
         return (
             <React.Fragment>
-                <div className='home-header-container'>
+                <div className='home-header-container sticky-header'>
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className='fas fa-bars'></i>
