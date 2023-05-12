@@ -28,7 +28,7 @@ class Partner extends Component {
                 <div className='container'>
                     <div className='s-title'>
                         <h2>
-                            Đối tác của
+                            <FormattedMessage id="home-header.member" />
                             <span className='text-color'><FormattedMessage id="home-header.app-name" /></span>
                         </h2>
                     </div>
@@ -37,7 +37,7 @@ class Partner extends Component {
                         <div className='col-lg-8 col-md-12 col-sm-12 col-xs-12 pd-r2'>
                             <div className='utube-video'>
 
-                                <iframe src='https://www.youtube.com/embed/_Sjf4z7Ui0I?rel=0&autoplay=1'
+                                <iframe src='https://www.youtube.com/embed/UH4CyrzNPDU'
                                     allowFullScreen></iframe>
                             </div>
                         </div>

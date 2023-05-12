@@ -70,16 +70,16 @@ class Header extends Component {
 
                     </div>
                     <div className='slick-slide-list'>
-                        <div className='slick-slide'>
+                        <div className='slide-info'>
                             <p><FormattedMessage id="home-header.slide1-1" /><br /><FormattedMessage id="home-header.slide1-2" /></p>
                         </div>
-                        <div className='slick-slide'>
+                        <div className='slide-info'>
                             <p class=""><FormattedMessage id="home-header.slide2-1" /><br /> <FormattedMessage id="home-header.slide2-2" /></p>
                         </div>
-                        <div className='slick-slide'>
+                        <div className='slide-info'>
                             <p class=""><FormattedMessage id="home-header.slide3-1" /><br /> <FormattedMessage id="home-header.slide3-2" /></p>
                         </div>
-                        <div className='slick-slide'>
+                        <div className='slide-info'>
                             <p class=""><FormattedMessage id="home-header.slide4-1" /><br /><FormattedMessage id="home-header.slide4-2" /></p>
                         </div>
 

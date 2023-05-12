@@ -14,7 +14,7 @@
         "slide3-2": "Giao Hàng Nhanh",
         "slide4-1": "Dịch Vụ Kho Bãi Và",
         "slide4-2": "Xử Lý Hàng Hoá",
-        "section-h2": "GIAO HANG SIÊU NHANH",
+        "section-h2": "GIAO HÀNG SIÊU NHANH",
         "section-p": "GHLE giúp bạn giao hàng đến người nhận nhanh hơn 6 tiếng so với các đơn vị vận chuyển khác.",
         "post-offices": "Bưu cục",
         "app-name": " GHLE",
@@ -27,7 +27,8 @@
         "icon-info3-1": "Giao hàng nhanh",
         "icon-info3-2": "tỷ lệ hoàn hàng thấp",
         "icon-info4-1": "Hệ thống quản lý",
-        "icon-info4-2": "trực tuyến 24/7"
+        "icon-info4-2": "trực tuyến 24/7",
+        "member": "Thành viên của"
     },
     "common": {
         "add": "Thêm",
