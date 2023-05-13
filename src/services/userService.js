@@ -1,3 +1,4 @@
+import { removeTypeDuplicates } from "@babel/types"
 import axios from "../axios"
 
 const handleLoginApi = (email, password) => {
@@ -21,9 +22,15 @@ const deleteUserService = (id) => {
         }
     })
 }
+const getAllProvinceService=()=>{
+    return axios.get('/api/province')
+}
 
 const editUserService = (data) => {
     return axios.put('/api/edit-user', data)
 }
 
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService }
+const getAllDistrictService=(id)=>{
+    return axios.get(`/api/district?provinceId=${id}`)
+}
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService,getAllProvinceService,getAllDistrictService }

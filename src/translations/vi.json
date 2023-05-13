@@ -62,8 +62,8 @@
             "system-administrator": {
                 "header": "Quản trị hệ thống",
                 "user-manage": "Quản lý người sử dụng",
-                "product-manage": "Quản lý gói",
-                "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
+                "product-manage": "Quản lý đơn hàng",
+                "register-package-group-or-account": "Quản lý kho hàng"
             },
             "system-parameter": {
                 "header": "Tham số hệ thống"
