@@ -65,10 +65,11 @@
             "address": "Địa chỉ",
             "phonenumber": "Số điện thoại",
             "gender": "Giới tính",
-            "role-id": "Mã vai trò",
+            "role-id": "Vị trí",
             "position-id": "Mã vị trí",
             "image": "Ảnh đại diện",
-            "save": "Lưu"
+            "save": "Lưu",
+            "choose": "Chọn..."
         }
     }
 }

@@ -10,8 +10,6 @@ const getAllUsers = (id) => {
 }
 
 const createNewUserService = (data) => {
-    console.log("--------------------")
-    console.log(data)
     return axios.post('/api/create-a-new-user', data)
 }
 
@@ -22,7 +20,7 @@ const deleteUserService = (id) => {
         }
     })
 }
-const getAllProvinceService=()=>{
+const getAllProvinceService = () => {
     return axios.get('/api/province')
 }
 
@@ -30,7 +28,11 @@ const editUserService = (data) => {
     return axios.put('/api/edit-user', data)
 }
 
-const getAllDistrictService=(id)=>{
+const getAllDistrictService = (id) => {
     return axios.get(`/api/district?provinceId=${id}`)
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService,getAllProvinceService,getAllDistrictService }
+
+const getAllCodeService = (type) => {
+    return axios.get(`/api/allcode?type=${type}`)
+}
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllProvinceService, getAllDistrictService, getAllCodeService }

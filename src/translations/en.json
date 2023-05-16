@@ -68,7 +68,8 @@
             "role-id": "Role ID",
             "position-id": "Position ID",
             "image": "Image",
-            "save": "Save"
+            "save": "Save",
+            "choose": "Choose..."
         }
     }
 }
