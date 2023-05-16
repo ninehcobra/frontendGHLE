@@ -50,7 +50,7 @@ class ModalEditUser extends Component {
                 address: user.address,
                 phonenumber: user.phoneNumber,
             })
-            console.log("did mount edit modal", this.props.currentUser)
+
         }
 
     }

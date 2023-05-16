@@ -68,8 +68,9 @@
             "role-id": "Vị trí",
             "position-id": "Mã vị trí",
             "image": "Ảnh đại diện",
-            "save": "Lưu",
-            "choose": "Chọn..."
+            "save": "Tạo tài khoản",
+            "choose": "Chọn...",
+            "edit": "Lưu"
         }
     }
 }

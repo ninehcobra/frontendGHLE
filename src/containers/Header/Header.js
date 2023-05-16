@@ -26,7 +26,7 @@ class Header extends Component {
                 </div>
 
                 <div className='welcome'>
-                    <marquee><FormattedMessage id="home-header.welcome" /> {userInfo && userInfo.lastName ? userInfo.lastName : ""}!!</marquee>
+                    <marquee><FormattedMessage id="home-header.welcome" /> {userInfo && userInfo.firstName ? userInfo.firstName : ""}!!</marquee>
                     <div className={language === languages.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changeLanguage(languages.VI)}>VN</span></div>
                     <div className={language === languages.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changeLanguage(languages.EN)}>EN</span></div>
                 </div>

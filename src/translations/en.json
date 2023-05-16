@@ -68,8 +68,9 @@
             "role-id": "Role ID",
             "position-id": "Position ID",
             "image": "Image",
-            "save": "Save",
-            "choose": "Choose..."
+            "save": "Create user",
+            "choose": "Choose...",
+            "edit": "Save"
         }
     }
 }
