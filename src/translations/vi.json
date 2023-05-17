@@ -55,7 +55,8 @@
             "manage-product": "Quản lý sản phẩm",
             "manage-order": "Quản lý đơn hàng",
             "manage-warehouse": "Quản lý kho hàng",
-            "report-statistic": "Báo cáo và thống kê"
+            "report-statistic": "Báo cáo và thống kê",
+            "order": "Đơn hàng"
         },
         "manage-user": {
             "add": "Thêm mới người dùng",

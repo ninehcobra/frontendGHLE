@@ -33,11 +33,6 @@ export const adminMenu = [
             },
 
             {
-                name: 'menu.admin.manage-order', link: '/system/manage-order'
-
-            },
-
-            {
                 name: 'menu.admin.manage-warehouse', link: '/system/manage-warehouse'
 
             },
@@ -46,6 +41,15 @@ export const adminMenu = [
                 name: 'menu.admin.report-statistic', link: '/system/report-statistic'
 
             },
+        ]
+    },
+
+    { //Quản lý lên đơn
+        name: 'menu.admin.order', menus: [
+            {
+                name: 'menu.admin.manage-order', link: '/system/manage-order'
+            },
+
         ]
     },
 ];

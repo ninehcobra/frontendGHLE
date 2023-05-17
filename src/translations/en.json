@@ -70,7 +70,8 @@
             "image": "Image",
             "save": "Create user",
             "choose": "Choose...",
-            "edit": "Save"
+            "edit": "Save",
+            "order": "Order"
         }
     }
 }
