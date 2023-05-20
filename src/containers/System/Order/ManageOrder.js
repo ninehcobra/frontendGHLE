@@ -98,8 +98,47 @@ class ManageOrder extends Component {
                     <div className="col-md-8 offset-md-2"><hr /></div>
                     <div className='row'>
                         <div className='col-md-8 offset-md-2'>
-                            <div className='info-title block-center-between m-b-12'>
-                                <div className='orange-title'>| Sản phẩm</div>
+                            <div className='info-product-title'>
+                                | Sản phẩm
+                            </div>
+                            <div className='list-package'>
+                                <div className='package-item'>
+                                    <div className='pick-image-container'>
+                                        <div className='pick-image'>
+                                            <div className='pick-image-title'><div>Up anh</div></div>
+                                        </div>
+                                    </div>
+                                    <div className='item-name mx-1'>
+                                        <div className='block-center'>
+                                            <div className='packet-title mr-1'>1.</div>
+                                            <div className='product-input'>
+                                                <input placeholder='Nhap ten san pham' className='custom-input form-control'></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='item-code'>
+                                        <input placeholder='Nhap ma san pham' className='custom-input form-control'></input>
+                                    </div>
+                                    <div className='item-info ml-1'>
+                                        <div className='block-center'>
+                                            <div class="package-title">KL (gam)</div>
+                                            <input value={0} className='mx-1 custom-input form-control'></input>
+                                            <div class="package-title">SL</div>
+                                            <input value={1} className='mx-1 custom-input form-control'></input>
+                                            <div className='package-add-icon'>
+                                                <i className="fa fa-plus-square"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='row' style={{ width: '100%', marginLeft: '0' }}>
+                        <div className='col-md-8 offset-md-2 packet-full-info'>
+                            <div className='info-title'>| Thông tin gói hàng </div>
+                            <div className='package-border'>
+
                             </div>
                         </div>
                     </div>
