@@ -21,7 +21,7 @@ class ManageOrder extends Component {
     render() {
         return (
             <div className='manage-order-body mt-3'>
-                <div className='container'>
+                <div className='manage-order-container'>
                     <div className='row'>
                         <div className='row order-info' >
                             <div className='col-md-4 offset-md-2'>
@@ -134,10 +134,84 @@ class ManageOrder extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='row' style={{ width: '100%', marginLeft: '0' }}>
-                        <div className='col-md-8 offset-md-2 packet-full-info'>
+                    <div className='row'>
+                        <div className='col-md-8 offset-md-2 packet-full-info' >
                             <div className='info-title'>| Thông tin gói hàng </div>
                             <div className='package-border'>
+                                <div className='package-item'>
+                                    <div className='package-pick-image'>
+                                        <div>Up anh</div>
+                                    </div>
+                                    <div className='total-weight mx-1'>
+                                        <div className='package-title'>
+                                            Tong KL(gam)
+                                        </div>
+                                        <div className='total-weight-container'>
+                                            <input className='custom-input mx-1 form-control'></input>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className='cost-form'>
+                                <div className='cost-container'>
+                                    <label className='cost-title'>
+                                        <span>Tổng tiền thu hộ COD </span>
+                                        <span class="note fz-12">Thu hộ tiền(COD) là gì
+                                            <i className="fas fa-question-circle"></i>
+                                        </span>
+                                    </label>
+                                    <input className='form-control' disabled value={0}></input>
+                                </div>
+                                <div className='cost-container'>
+                                    <label className='cost-title'>
+                                        <span>Tổng giá trị hàng hoá</span>
+                                        <span class="note fz-12">Giá trị hàng hoá là gì
+                                            <i className="fas fa-question-circle"></i>
+                                        </span>
+                                    </label>
+                                    <input className='form-control' disabled value={0}></input>
+                                </div>
+                            </div>
+                            <div className='check-box'>
+                                <div className='check-box-container'>
+                                    <label>
+                                        <label className='check-box-content'>
+                                            <input type='checkbox'></input>
+                                            <span>Giao thất bại - thu tiền
+                                                <i className="fas fa-question-circle"></i>
+                                            </span>
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-8 offset-md-2"> <hr /></div>
+                    <div className='row'>
+                        <div className='col-sm-12 col-md-8 offset-md-2'>
+                            <div className='fee-info'>
+                                <div className='info-title'>
+                                    | Gói cước
+                                    <span className='info-title2'>
+                                        {" "}- cho khối lượng 500g
+                                    </span>
+                                </div>
+                                <div className='row'>
+                                    <div className='col-3'>
+                                        <div className='items'>
+                                            <div className='check'>
+                                                <i class="far fa-circle"></i>
+                                            </div>
+                                            <div className='info'>
+                                                <p style={{ color: "rgb(0, 70, 127)" }}>Chuyển phát thương mại điện tử </p>
+                                                <p style={{ color: "rgb(113, 113, 113)" }}>36.001 vnđ</p>
+                                                <p style={{ color: "rgb(113, 113, 113)" }}>Ngày giao dự kiến 25/5/2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
