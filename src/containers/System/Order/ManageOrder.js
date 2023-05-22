@@ -216,6 +216,60 @@ class ManageOrder extends Component {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-8 offset-md-2"><hr /></div>
+                    <div className='row' style={{ marginBottom: "45px" }} >
+                        <div className='col-sm-12 col-md-4 offset-md-2'>
+                            <div className='note-info'>
+                                <div className='info-title'>| Lưu ý - Ghi chú</div>
+                                <label className='note-required'>Lưu ý giao hàng
+                                    <span>
+                                        <i className='fas fa-question-circle fz-12'></i>
+                                    </span>
+                                </label>
+                                <div className='drop-down-select'>
+                                    <select className='form-control'>
+                                        <option>Không cho xem hàng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className='note-info'>
+                                <label className='note-required'>Lưu ý giao hàng
+                                    <span>
+                                        <i className='fas fa-question-circle fz-12'></i>
+                                    </span>
+                                </label>
+                                <div className='drop-down-select'>
+                                    <input className='form-control' placeholder='Nhập mã đơn khách hàng' />
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-sm-12 col-md-4 offset-md-0'>
+                            <div className='note-info'>
+                                <label className='note-required'>Ghi chú
+                                </label>
+                                <textarea maxlength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='create-form-right'>
+                    <div className='create-header'>
+                        <div className='create-items'>
+                            <span className='create-name'>Gói Chuyển phát thương mại điện tử</span>
+                            <span className='create-price'>29.000 vnđ</span>
+                        </div>
+
+                        <div className='discount-form'>
+                            <div className='hr'></div>
+                            <div className='discount-header'>
+                                <div>Áp dụng ưu đãi để được giảm giá</div>
+                            </div>
+                            <div className='discount-body'>
+                                <input placeholder='Nhập mã giảm giá' className='form-control input-discount'></input>
+                                <button>Áp dụng</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
