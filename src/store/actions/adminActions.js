@@ -45,6 +45,43 @@ export const fetchRoleFailed = () => ({
     type: actionTypes.FETCH_ROLE_FAILED
 })
 
+export const fetchNoteSuccess = (data) => ({
+    type: actionTypes.FETCH_NOTE_SUCCESS,
+    data: data
+})
+
+export const fetchNoteFailed = () => ({
+    type: actionTypes.FETCH_NOTE_FAILED
+})
+
+export const fetchPaySuccess = (data) => ({
+    type: actionTypes.FETCH_PAY_SUCCESS,
+    data: data
+})
+
+export const fetchPayFailed = () => ({
+    type: actionTypes.FETCH_PAY_FAILED
+})
+
+export const fetchPayStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService("pay");
+            if (res && res.errCode === 0) {
+                dispatch(fetchPaySuccess(res.data))
+            }
+            else {
+                dispatch(fetchPayFailed())
+            }
+        } catch (error) {
+            dispatch(fetchPayFailed())
+            console.log("fetchPayStart failed", error)
+        }
+
+    }
+
+}
+
 
 export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
@@ -59,6 +96,25 @@ export const fetchRoleStart = () => {
         } catch (error) {
             dispatch(fetchRoleFailed())
             console.log("fetchRoleStart failed", error)
+        }
+
+    }
+
+}
+
+export const fetchNoteStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService("note");
+            if (res && res.errCode === 0) {
+                dispatch(fetchNoteSuccess(res.data))
+            }
+            else {
+                dispatch(fetchNoteFailed())
+            }
+        } catch (error) {
+            dispatch(fetchNoteFailed())
+            console.log("fetchNoteStart failed", error)
         }
 
     }

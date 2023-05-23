@@ -4,7 +4,9 @@ const initialState = {
     genders: [],
     roles: [],
     position: [],
-    users: []
+    users: [],
+    notes: [],
+    pays: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -34,6 +36,30 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ROLE_FAILED:
             state.roles = []
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_NOTE_SUCCESS:
+            state.notes = action.data
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_NOTE_FAILED:
+            state.notes = []
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_PAY_SUCCESS:
+            state.pays = action.data
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_PAY_FAILED:
+            state.pays = []
             return {
                 ...state,
 
