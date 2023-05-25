@@ -23,9 +23,11 @@ class ManageOrder extends Component {
                 productImage: '',
                 productName: '',
                 productId: '',
-                productWeight: '',
-                productQuantity: '',
+                productWeight: "0",
+                productQuantity: 1,
+                productTotalWeight: 0,
             }],
+            totalWeight: 0,
 
         }
 
@@ -138,17 +140,44 @@ class ManageOrder extends Component {
         this.setState({
             arrProduct: copyState
         })
+        this.changeTotalWeight()
     }
 
-    onChangeInputProduct = (value, type, id) => {
+    onChangeInputProduct = async (value, type, id) => {
         let copyState = this.state.arrProduct.map((item, index) => {
             if (index === id) {
                 return { ...item, [type]: value }
             }
             return item
         })
-        this.setState({
+        await this.setState({
             arrProduct: copyState
+        })
+        this.changeTotalProductWeight(id)
+    }
+
+    changeTotalProductWeight = async (id) => {
+        let copyState = this.state.arrProduct.map((item, index) => {
+            if (index === id) {
+
+                return { ...item, productTotalWeight: item.productQuantity * item.productWeight }
+            }
+            return item
+        })
+        await this.setState({
+            arrProduct: copyState
+        })
+        this.changeTotalWeight()
+    }
+
+    changeTotalWeight = () => {
+        let weight = 0;
+        let copyState = this.state.arrProduct.map((item, index) => {
+            weight = weight + item.productTotalWeight
+        })
+
+        this.setState({
+            totalWeight: weight
         })
     }
 
@@ -171,7 +200,6 @@ class ManageOrder extends Component {
 
     render() {
 
-        console.log(this.state.arrProduct)
         let time = new Date();
         let hours = time.getHours()
         let month = time.getMonth() + 1;
@@ -293,9 +321,9 @@ class ManageOrder extends Component {
                                         <div className='item-info ml-1'>
                                             <div className='block-center'>
                                                 <div class="package-title">KL (gam)</div>
-                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productWeight', index)} value={item.productWeight ? item.productWeight : ""} type='number' className='mx-1 custom-input form-control'></input>
+                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productWeight', index)} value={item.productWeight ? item.productWeight : ""} min="0" type='number' className='mx-1 custom-input form-control'></input>
                                                 <div class="package-title">SL</div>
-                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productQuantity', index)} value={item.productQuantity ? item.productQuantity : ''} type='number' className='mx-1 custom-input form-control'></input>
+                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productQuantity', index)} value={item.productQuantity ? item.productQuantity : ''} min="0" type='number' className='mx-1 custom-input form-control'></input>
                                                 <div className='package-add-icon'>
                                                     {arrLength === index ? <i onClick={() => this.addProducts()} className="fa fa-plus-square"></i> : ''}
 
@@ -324,7 +352,7 @@ class ManageOrder extends Component {
                                         <div className='package-title'>
                                             Tổng KL(gam)                                        </div>
                                         <div className='total-weight-container'>
-                                            <input className='custom-input mx-1 form-control'></input>
+                                            <input className='custom-input mx-1 form-control' value={this.state.totalWeight}></input>
                                         </div>
 
                                     </div>
