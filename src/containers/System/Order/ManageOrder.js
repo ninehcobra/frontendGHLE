@@ -9,6 +9,8 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { toast } from 'react-toastify'
 import { languages, CRUD_ACTION, CommonUtils } from '../../../utils';
+import { add } from 'lodash';
+let numeral = require('numeral');
 class ManageOrder extends Component {
 
     constructor(props) {
@@ -23,12 +25,26 @@ class ManageOrder extends Component {
                 productImage: '',
                 productName: '',
                 productId: '',
-                productWeight: "0",
+                productWeight: 0,
                 productQuantity: 1,
                 productTotalWeight: 0,
             }],
+            image: "",
+            previewImageURL: '',
             totalWeight: 0,
-
+            CODCost: 0,
+            totalCost: 0,
+            receivePhone: '',
+            receiveName: '',
+            receiveAddress: '',
+            takeTime: '',
+            receiveProvince: '',
+            receiveDistrict: '',
+            noteOption: '',
+            payOption: '',
+            fee: '',
+            note: '',
+            userId: this.props.userInfo.id,
         }
 
     }
@@ -38,6 +54,7 @@ class ManageOrder extends Component {
         await this.getAllProvince()
         await this.props.getNoteStart()
         await this.props.fetchPayStart()
+        await this.props.fetchFeeStart()
     }
 
     componentDidUpdate(prevProps, preState, snapshot) {
@@ -77,7 +94,7 @@ class ManageOrder extends Component {
         }
     }
 
-    checkValidate = () => {
+    checkProductValidate = () => {
         let isValid = true;
         let arrCheck = [
             'productName',
@@ -108,13 +125,13 @@ class ManageOrder extends Component {
 
     addProducts = async () => {
 
-        let valid = this.checkValidate()
+        let valid = this.checkProductValidate()
         let productInfo = {
             productImage: "",
             productName: "",
             productId: "",
-            productWeight: '',
-            productQuantity: '',
+            productWeight: 0,
+            productQuantity: 1,
         }
         if (valid) {
 
@@ -156,6 +173,42 @@ class ManageOrder extends Component {
         this.changeTotalProductWeight(id)
     }
 
+    isNumber = (value) => {
+        return typeof value === 'number' && isFinite(value);
+    }
+
+    onChangeInput = async (event, id, condition = '') => {
+        if (condition === '') {
+            let copyState = { ...this.state }
+            copyState[id] = event.target.value
+            this.setState({
+                ...copyState
+            }, () => {
+            })
+        }
+        else if (condition === 2) {
+            let copyState = { ...this.state }
+            copyState[id] = event.target.value
+            this.setState({
+                ...copyState
+            }, () => {
+            })
+            await this.getAllDistrict(event.target.value)
+            this.totalFee()
+        }
+        else {
+
+            let copyState = { ...this.state }
+            if (!this.isNumber(event.target.value)) {
+                copyState[id] = parseInt(event.target.value.replace(/,/g, ""))
+                this.setState({
+                    ...copyState
+                }, () => {
+                })
+            }
+        }
+    }
+
     changeTotalProductWeight = async (id) => {
         let copyState = this.state.arrProduct.map((item, index) => {
             if (index === id) {
@@ -170,32 +223,248 @@ class ManageOrder extends Component {
         this.changeTotalWeight()
     }
 
-    changeTotalWeight = () => {
+    changeTotalWeight = async () => {
         let weight = 0;
         let copyState = this.state.arrProduct.map((item, index) => {
             weight = weight + item.productTotalWeight
         })
 
-        this.setState({
+        await this.setState({
             totalWeight: weight
         })
+
+        this.totalFee()
     }
 
-    handleOnChangeImage = async (event, id) => {
+    calFee = (weight, cost, addCost) => {
+        let fee = 0;
+        if (weight <= 500) {
+            fee = cost;
+        }
+        else {
+            let addWeight = weight - 500
+            if (addWeight % 500 !== 0 && addWeight / 500 >= 1) {
+                fee = cost + addCost + (addWeight / 500) * addCost
+            }
+            else if (addWeight % 500 === 0 && addWeight / 500 >= 1) {
+                fee = cost + (addWeight / 500) * addCost
+            }
+            else {
+                fee = cost + addCost
+            }
+        }
+        return fee
+    }
+
+    totalFee = () => {
+        let rec = this.typeAddress(this.state.receiveProvince)
+        let sen = 'v1'
+        let weight = this.state.totalWeight
+        let fee = 0
+        let feeTable = this.props.fee
+        if (sen.toString() === 'HN' && rec.toString() === 'HN' || sen.toString() === 'HCM' && rec.toString() === 'HCM' || sen.toString() === 'DN' && rec.toString() === 'DN') {
+            console.log("noi tinh")
+
+            feeTable.map((item, index) => {
+                if (item.id === 1) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else if (sen.toString() === 'HN' && rec.toString() === 'v3' || sen.toString() === 'DN' && rec.toString() === 'v2' || sen.toString() === 'HCM' && rec.toString() === 'v1') {
+            console.log("noi vung")
+
+            feeTable.map((item, index) => {
+                if (item.id === 2) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else if (sen.toString() === 'v3' && rec.toString() === 'v3' || sen.toString() === 'v2' && rec.toString() === 'v2' || sen.toString() === 'v1' && rec.toString() === 'v1') {
+            console.log("noi vung tinh")
+
+            feeTable.map((item, index) => {
+                if (item.id === 3) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else if (sen.toString() === 'HN' && rec.toString() === 'DN' || sen.toString() === 'DN' && rec.toString() === 'HCM' || sen.toString() === 'HCM' && rec.toString() === 'HN'
+            || sen.toString() === 'DN' && rec.toString() === 'HN' || sen.toString() === 'HCM' && rec.toString() === 'DN' || sen.toString() === 'HN' && rec.toString() === 'HCM'
+        ) {
+            console.log("noi vung dac biet")
+
+            feeTable.map((item, index) => {
+                if (item.id === 4) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else if (sen.toString() === 'HN' && (rec.toString() === 'v1' || rec.toString() === 'v2') || sen.toString() === 'DN' && (rec.toString() === 'v1' || rec.toString() === 'v3') || sen.toString() === 'HCM' && (rec.toString() === 'v2' || rec.toString() === 'v3')) {
+            console.log("lien vung")
+
+            feeTable.map((item, index) => {
+                if (item.id === 5) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else if (sen.toString() === 'v3' && (rec.toString() === 'v1' || rec.toString() === 'v2') || sen.toString() === 'v2' && (rec.toString() === 'v1' || rec.toString() === 'v3') || sen.toString() === 'v1' && (rec.toString() === 'v2' || rec.toString() === 'v3')) {
+            console.log("lien vung tinh")
+
+            feeTable.map((item, index) => {
+                if (item.id === 6) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+        else {
+            feeTable.map((item, index) => {
+                if (item.id === 7) {
+                    fee = this.calFee(weight, item.cost, item.addCost)
+                }
+            })
+            this.setState({
+                fee: fee
+            })
+        }
+    }
+
+    typeAddress = (address) => {
+        let type = ''
+        let arrAdd1 = [8, 21, 44, 18, 31, 19, 42, 35, 11, 19, 10, 52, 2, 9, 38, 20, 57, 7, 1, 61, 59, 13, 28, 50, 32, 5, 12]
+        let arrAdd2 = [47, 33, 46, 56, 49, 45]
+        let arrAdd3 = [25, 40, 55, 41, 29, 51, 39, 53, 42, 26, 27, 48, 3, 36, 54, 4, 14, 22, 60, 63, 37, 34, 18, 62, 6, 23, 30]
+        arrAdd1.map((item, index) => {
+            if (address.toString() === item.toString()) {
+                type = 'v1'
+            }
+        })
+        arrAdd2.map((item, index) => {
+            if (address.toString() === item.toString()) {
+                type = 'v2'
+            }
+        })
+        arrAdd3.map((item, index) => {
+            if (address.toString() === item.toString()) {
+                type = 'v3'
+            }
+        })
+        if (address.toString() === '58') {
+            type = 'HCM'
+        }
+        if (address.toString() === '15') {
+            type = 'DN'
+        }
+        if (address.toString() === '24') {
+            type = 'HN'
+        }
+        return type
+    }
+
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0]
         if (file) {
             let base64 = await CommonUtils.getBase64(file)
-            let copyState = this.state.arrProduct.map((item, index) => {
-                if (index === id) {
-                    return { ...item, productImage: base64 }
-                }
-                return item
-            })
+            let objectUrl = URL.createObjectURL(file)
             this.setState({
-                arrProduct: copyState
+                previewImageURL: objectUrl,
+                image: base64
             })
         }
+    }
+
+    handleCreateOrder = async () => {
+        let isValid = this.checkValidate()
+        if (isValid) {
+            let data = {
+                userId: this.props.userInfo.id,
+                takeName: this.props.userInfo.lastName + " " + this.props.userInfo.firstName,
+                takeAddress: this.props.userInfo.address,
+                takePhone: this.props.userInfo.phoneNumber,
+                takeProvince: 62,
+                takeDistrict: 666,
+                takeTime: this.state.takeTime,
+                receivePhone: this.state.receivePhone,
+                receiverName: this.state.receiveName,
+                receiverAddress: this.state.receiveAddress,
+                receiveProvince: this.state.receiveProvince,
+                receiveDistrict: this.state.receiveDistrict,
+                arrProduct: this.state.arrProduct,
+                imagePackage: this.state.image,
+                totalWeight: this.state.totalWeight,
+                CODCost: this.state.CODCost,
+                totalCost: this.state.totalCost,
+                note: this.state.note,
+                noteOption: this.state.noteOption,
+                fee: this.state.fee,
+                payOption: this.state.payOption,
+            }
+
+            let res = await this.props.createNewOrder(data)
+            if (res && res.errCode === 0) {
+                toast.success('🧐 Create order success!!!')
+            }
+            else if (!res) {
+                toast.error(`🧐 Create order Fail!!!`)
+            }
+
+
+
+        }
+
+    }
+
+    checkValidate = () => {
+        let isValid = true
+        let arrCheck = ['takeTime', 'receivePhone', 'receiveName', 'receiveAddress', 'receiveProvince', 'receiveDistrict', 'noteOption', 'payOption']
+        for (let i = 0; i < arrCheck.length; i++) {
+            if (!this.state[arrCheck[i]]) {
+                isValid = false
+                toast.warning(`🧐 Missing parameters: ${arrCheck[i]}`)
+                break
+            }
+        }
+
+        let arrCheck2 = [
+            'productName',
+            'productId',
+            'productWeight',
+            'productQuantity',
+        ]
+        if (isValid) {
+            this.state.arrProduct.map((item, index) => {
+                for (let i = 0; i < arrCheck2.length; i++) {
+                    if (!item[arrCheck2[i]]) {
+                        isValid = false
+                        toast.warning(`🧐 Missing parameters in product ${index + 1}: ${arrCheck2[i]}`)
+                        break;
+                    }
+                }
+            })
+
+        }
+
+        return isValid
     }
 
     render() {
@@ -208,9 +477,12 @@ class ManageOrder extends Component {
 
         let arrLength = this.state.arrProduct.length - 1;
 
+        console.log(this.state)
+
 
         return (
             <div className='manage-order-body mt-3'>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
                 <div className='manage-order-container'>
                     <div className='row'>
                         <div className='row order-info' >
@@ -221,10 +493,10 @@ class ManageOrder extends Component {
                                     </div>
                                     <div>
                                         <span>
-                                            <div className='shop-name'>Con cá tra - 0797260870</div>
-                                            <div className='shop-address'>Ấp 3 An Phước</div>
+                                            <div className='shop-name'>{this.props.userInfo.firstName} - {this.props.userInfo.phoneNumber}</div>
+                                            <div className='shop-address'>{this.props.userInfo.address}</div>
                                         </span>
-                                        <div className='pick-station'>
+                                        {/* <div className='pick-station'>
                                             <label className='title-pick'>
                                                 <span>
                                                     <i className='far fa-square'></i>
@@ -234,7 +506,7 @@ class ManageOrder extends Component {
                                                     <i className="fas fa-question-circle fz-12"></i>
                                                 </span>
                                             </label>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -253,10 +525,11 @@ class ManageOrder extends Component {
                                 <div className='return-info-check right'>
                                     <label>Chọn ca lấy hàng</label>
                                     <div >
-                                        <select className='form-control'>
-                                            {hours + 1 < 12 ? <option id='op-1' >Ca lấy {timeString} (7h00-12h00)</option> : ""}
-                                            {hours + 1 < 18 ? <option id='op-2'>Ca lấy {timeString} (12h00-18h00)</option> : ""}
-                                            <option id='op-3'>Ca lấy {timeNextDayString} (7h00-12h00)</option>
+                                        <select onChange={(e) => (this.onChangeInput(e, 'takeTime'))} className='form-control'>
+                                            <option value={''}>Chọn ca lấy hàng</option>
+                                            {hours + 1 < 12 ? <option value={[timeString, 1]} id='op-1' >Ca lấy {timeString} (7h00-12h00)</option> : ""}
+                                            {hours + 1 < 18 ? <option value={[timeString, 2]} id='op-2'>Ca lấy {timeString} (12h00-18h00)</option> : ""}
+                                            <option value={[timeNextDayString, 1]} id='op-3'>Ca lấy {timeNextDayString} (7h00-12h00)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -269,25 +542,25 @@ class ManageOrder extends Component {
                             <div className='deliver-info left'>
                                 <div className='info-title'> | Bên nhận</div>
                                 <label>Số điện thoại</label>
-                                <input className='form-control' type='text' placeholder='Nhập số điện thoại'></input>
+                                <input onChange={(e) => this.onChangeInput(e, 'receivePhone')} value={this.state.receivePhone ? this.state.receivePhone : ''} className='form-control' type='text' placeholder='Nhập số điện thoại'></input>
                                 <label>Họ tên</label>
-                                <input className='form-control' type='text' placeholder='Nhập họ tên'></input>
+                                <input onChange={(e) => this.onChangeInput(e, 'receiveName')} value={this.state.receiveName ? this.state.receiveName : ''} className='form-control' type='text' placeholder='Nhập họ tên'></input>
                             </div>
                         </div>
                         <div className='col-md-4 offset-md-0'>
                             <div className='deliver-info right'>
                                 <div className='info-title'></div>
                                 <label>Địa chỉ</label>
-                                <input className='form-control' type='text' placeholder='Nhập địa chỉ'></input>
+                                <input onChange={(e) => this.onChangeInput(e, 'receiveAddress')} value={this.state.receiveAddress ? this.state.receiveAddress : ''} className='form-control' type='text' placeholder='Nhập địa chỉ'></input>
                                 <label>Tỉnh-Thành phố</label>
-                                <select className='form-control' type='text' onChange={(event) => this.getAllDistrict(event.target.value)}>
-                                    <option>Chọn Tỉnh - Thành Phố</option>
+                                <select onChange={(e) => (this.onChangeInput(e, 'receiveProvince', 2))} className='form-control' type='text'>
+                                    <option value=''>Chọn Tỉnh - Thành Phố</option>
                                     {this.state.arrProvince.map((item, index) => {
                                         return (<option value={item.id}>{item.name}</option>)
                                     })}
                                 </select>
                                 <label>Quận-Huyện</label>
-                                <select className='form-control' type='text'>
+                                <select onChange={(e) => (this.onChangeInput(e, 'receiveDistrict'))} className='form-control' type='text'>
                                     <option>Chọn Quận - Huyện</option>
                                     {this.state.arrDistrict.map((item, index) => {
                                         return (<option value={item.id}>{item.name}</option>)
@@ -321,9 +594,9 @@ class ManageOrder extends Component {
                                         <div className='item-info ml-1'>
                                             <div className='block-center'>
                                                 <div class="package-title">KL (gam)</div>
-                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productWeight', index)} value={item.productWeight ? item.productWeight : ""} min="0" type='number' className='mx-1 custom-input form-control'></input>
+                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productWeight', index)} value={item.productWeight ? item.productWeight : "0"} min="0" type='number' className='mx-1 custom-input form-control'></input>
                                                 <div class="package-title">SL</div>
-                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productQuantity', index)} value={item.productQuantity ? item.productQuantity : ''} min="0" type='number' className='mx-1 custom-input form-control'></input>
+                                                <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productQuantity', index)} value={item.productQuantity ? item.productQuantity : '1'} min="0" type='number' className='mx-1 custom-input form-control'></input>
                                                 <div className='package-add-icon'>
                                                     {arrLength === index ? <i onClick={() => this.addProducts()} className="fa fa-plus-square"></i> : ''}
 
@@ -345,14 +618,36 @@ class ManageOrder extends Component {
                             <div className='info-title'>| Thông tin gói hàng </div>
                             <div className='package-border'>
                                 <div className='package-item'>
-                                    <div className='package-pick-image'>
-                                        <div>Up ảnh</div>
-                                    </div>
+                                    {this.state.isOpen === true &&
+                                        <Lightbox
+                                            mainSrc={this.state.previewImageURL}
+                                            onCloseRequest={() => this.setState({ isOpen: false })}
+                                        />
+                                    }
+                                    {this.state.previewImageURL ?
+                                        <div className='package-pick-image'>
+                                            <div className='preview-image'
+                                                style={{ backgroundImage: `url(${this.state.previewImageURL})` }}
+                                                onClick={() => { this.openPreviewImage() }}
+                                            >
+
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className='package-pick-image'>
+                                            <input id="previewImg" type='file' hidden
+                                                onChange={(event) => {
+                                                    this.handleOnChangeImage(event)
+
+                                                }}
+                                            />
+                                            <label className='label-upload' htmlFor='previewImg'>Up ảnh</label>
+                                        </div>}
                                     <div className='total-weight mx-1'>
                                         <div className='package-title'>
                                             Tổng KL(gam)                                        </div>
                                         <div className='total-weight-container'>
-                                            <input className='custom-input mx-1 form-control' value={this.state.totalWeight}></input>
+                                            <input disabled className='custom-input mx-1 form-control' value={this.state.totalWeight}></input>
                                         </div>
 
                                     </div>
@@ -367,7 +662,7 @@ class ManageOrder extends Component {
                                             <i className="fas fa-question-circle"></i>
                                         </span>
                                     </label>
-                                    <input className='form-control' disabled value={0}></input>
+                                    <input className='form-control' onChange={(e) => this.onChangeInput(e, 'CODCost', 1)} value={this.state.CODCost ? numeral(this.state.CODCost).format('0,0') : 0}></input>
                                 </div>
                                 <div className='cost-container'>
                                     <label className='cost-title'>
@@ -376,7 +671,7 @@ class ManageOrder extends Component {
                                             <i className="fas fa-question-circle"></i>
                                         </span>
                                     </label>
-                                    <input className='form-control' disabled value={0}></input>
+                                    <input className='form-control' onChange={(e) => this.onChangeInput(e, 'totalCost', 1)} value={this.state.totalCost ? numeral(this.state.totalCost).format('0,0') : 0}></input>
                                 </div>
                             </div>
                             <div className='check-box'>
@@ -406,12 +701,9 @@ class ManageOrder extends Component {
                                 <div className='row'>
                                     <div className='col-3'>
                                         <div className='items'>
-                                            <div className='check'>
-                                                <i class="far fa-circle"></i>
-                                            </div>
                                             <div className='info'>
                                                 <p style={{ color: "rgb(0, 70, 127)" }}>Chuyển phát thương mại điện tử </p>
-                                                <p style={{ color: "rgb(113, 113, 113)" }}>36.001 vnđ</p>
+                                                <p style={{ color: "rgb(113, 113, 113)" }}>{numeral(this.state.fee).format('0,0')} vnđ</p>
                                                 <p style={{ color: "rgb(113, 113, 113)" }}>Ngày giao dự kiến 25/5/2023</p>
                                             </div>
                                         </div>
@@ -432,14 +724,15 @@ class ManageOrder extends Component {
                                     </span>
                                 </label>
                                 <div className='drop-down-select'>
-                                    <select className='form-control'>
+                                    <select onChange={(e) => (this.onChangeInput(e, 'noteOption'))} className='form-control'>
+                                        <option value=''>Chọn lưu ý giao hàng</option>
                                         {this.state.arrNote && this.state.arrNote.map((item, index) => {
                                             return <option key={index} value={item.key}>{item.valueVi}</option>
                                         })}
                                     </select>
                                 </div>
                             </div>
-                            <div className='note-info'>
+                            {/* <div className='note-info'>
                                 <label className='note-required'>Lưu ý giao hàng
                                     <span>
                                         <i className='fas fa-question-circle fz-12'></i>
@@ -448,13 +741,13 @@ class ManageOrder extends Component {
                                 <div className='drop-down-select'>
                                     <input className='form-control' placeholder='Nhập mã đơn khách hàng' />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='col-sm-12 col-md-4 offset-md-0'>
                             <div className='note-info'>
                                 <label className='note-required'>Ghi chú
                                 </label>
-                                <textarea maxlength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
+                                <textarea onChange={(e) => (this.onChangeInput(e, 'note'))} value={this.state.note ? this.state.note : ""} maxlength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
                             </div>
                         </div>
                     </div>
@@ -463,7 +756,7 @@ class ManageOrder extends Component {
                     <div className='create-header'>
                         <div className='create-items'>
                             <span className='create-name'>Gói Chuyển phát thương mại điện tử</span>
-                            <span className='create-price'>29.000 vnđ</span>
+                            <span className='create-price'>{numeral(this.state.fee).format('0,0')} vnđ</span>
                         </div>
 
                         <div className='discount-form'>
@@ -480,7 +773,8 @@ class ManageOrder extends Component {
                     <div className='create-footer'>
                         <p className='footer-header'>Vui lòng chọn bên trả phí</p>
                         <div className='footer-body'>
-                            <select className='form-control footer-input'>
+                            <select onChange={(e) => (this.onChangeInput(e, 'payOption'))} className='form-control footer-input'>
+                                <option value=''>Chọn bên trả phí</option>
                                 {this.state.arrPay && this.state.arrPay.map((item, index) => {
                                     return <option key={index} value={item.key}>{item.valueVi}</option>
                                 })}
@@ -488,11 +782,11 @@ class ManageOrder extends Component {
                         </div>
                         <div className='info-cost'>
                             <p className='info-cost-label'>Tổng phí</p>
-                            <p className='info-cost-detail'>200.000 vnđ</p>
+                            <p className='info-cost-detail'>{numeral(this.state.fee).format('0,0')} vnđ</p>
                             <span>Chưa tính tiền thu hộ</span>
                         </div>
                         <div className='button-create-container'>
-                            <button onClick={() => this.timenow()} className='button-create'>Tạo đơn</button>
+                            <button onClick={() => this.handleCreateOrder()} className='button-create'>Tạo đơn</button>
                         </div>
                     </div>
                 </div>
@@ -505,14 +799,18 @@ class ManageOrder extends Component {
 const mapStateToProps = state => {
     return {
         note: state.admin.notes,
-        pay: state.admin.pays
+        pay: state.admin.pays,
+        fee: state.admin.fees,
+        userInfo: state.user.userInfo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getNoteStart: () => dispatch(actions.fetchNoteStart()),
-        fetchPayStart: () => dispatch(actions.fetchPayStart())
+        fetchPayStart: () => dispatch(actions.fetchPayStart()),
+        fetchFeeStart: () => dispatch(actions.fetchFeeStart()),
+        createNewOrder: (data) => dispatch(actions.createNewOrder(data))
     };
 };
 

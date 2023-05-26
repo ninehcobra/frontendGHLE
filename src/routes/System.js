@@ -5,6 +5,7 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';
 import ManageOrder from '../containers/System/Order/ManageOrder';
 import Header from '../containers/Header/Header';
+import OrderReception from '../containers/System/Order/OrderReception';
 class System extends Component {
     render() {
 
@@ -18,6 +19,7 @@ class System extends Component {
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />
+                            <Route path="/system/order-reception" component={OrderReception} />
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

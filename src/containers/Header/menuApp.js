@@ -23,6 +23,11 @@ export const adminMenu = [
                 name: 'menu.admin.crud-redux', link: '/system/user-redux'
 
             },
+
+
+
+
+
         ]
     },
 
@@ -48,6 +53,22 @@ export const adminMenu = [
         name: 'menu.admin.order', menus: [
             {
                 name: 'menu.admin.manage-order', link: '/system/manage-order'
+            },
+            //Quản lý đơn hàng
+
+            {
+                name: 'menu.transport.order-reception', link: '/system/order-reception'
+            },
+        ]
+    },
+];
+
+export const transportMenu = [
+
+    { //Quản lý đơn hàng
+        name: 'menu.transport.manage-transport', menus: [
+            {
+                name: 'menu.transport.order-reception', link: '/system/order-reception'
             },
 
         ]

@@ -35,4 +35,29 @@ const getAllDistrictService = (id) => {
 const getAllCodeService = (type) => {
     return axios.get(`/api/allcode?type=${type}`)
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllProvinceService, getAllDistrictService, getAllCodeService }
+
+const getFeeService = () => {
+    return axios.get('/api/fee')
+}
+
+const createNewOrderService = (data) => {
+    return axios.post('/api/create-order', data)
+}
+
+const getOrderReceptionService = () => {
+    return axios.get('/api/get-order-reception')
+}
+
+export {
+    handleLoginApi
+    , getAllUsers
+    , createNewUserService
+    , deleteUserService
+    , editUserService
+    , getAllProvinceService
+    , getAllDistrictService
+    , getAllCodeService
+    , getFeeService,
+    createNewOrderService,
+    getOrderReceptionService
+}

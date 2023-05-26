@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import { getAllCodeService } from '../../services/userService';
-import { createNewUserService, getAllUsers, deleteUserService, editUserService } from '../../services/userService';
+import { createNewUserService, getAllUsers, deleteUserService, editUserService, getFeeService, createNewOrderService, getOrderReceptionService } from '../../services/userService';
 import { toast } from 'react-toastify'
 
 // export const fetchGenderStart = () => ({
@@ -62,6 +62,34 @@ export const fetchPaySuccess = (data) => ({
 export const fetchPayFailed = () => ({
     type: actionTypes.FETCH_PAY_FAILED
 })
+
+export const fetchFeeSuccess = (data) => ({
+    type: actionTypes.FETCH_FEE_SUCCESS,
+    data: data
+})
+
+export const fetchFeeFailed = () => ({
+    type: actionTypes.FETCH_FEE_FAILED
+})
+
+export const fetchFeeStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getFeeService();
+            if (res && res.errCode === 0) {
+                dispatch(fetchFeeSuccess(res.data))
+            }
+            else {
+                dispatch(fetchFeeFailed())
+            }
+        } catch (error) {
+            dispatch(fetchFeeFailed())
+            console.log("fetchFeeStart failed", error)
+        }
+
+    }
+
+}
 
 export const fetchPayStart = () => {
     return async (dispatch, getState) => {
@@ -143,6 +171,36 @@ export const createNewUser = (data) => {
     }
 }
 
+export const createNewOrder = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewOrderService(data);
+            if (res && res.errCode === 0) {
+                toast.success('🥳 Create Order success!!')
+                console.log("check create Order", res)
+                dispatch(createOrderSucces())
+            }
+            else {
+                toast.error(`😔 ${res.message}`)
+                dispatch(createOrderFailed())
+            }
+        } catch (error) {
+            dispatch(createOrderFailed())
+            toast.error(`😔 ${error}`)
+            console.log("saveOrderFailed failed", error)
+        }
+
+    }
+}
+
+export const createOrderSucces = () => ({
+    type: 'CREATE_ORDER_SUCCESS'
+})
+
+export const createOrderFailed = () => ({
+    type: 'CREATE_ORDER_FAILED'
+})
+
 export const saveUserSucces = () => ({
     type: 'CREATE_USER_SUCCESS'
 })
@@ -189,6 +247,34 @@ export const fetchAllUsersStart = () => {
     }
 
 }
+
+export const fetchOrderReceptionStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getOrderReceptionService();
+            if (res && res.errCode === 0) {
+                dispatch(fetchOrderReceptionSuccess(res.data))
+            }
+            else {
+                dispatch(fetchOrderReceptionFailed())
+            }
+        } catch (error) {
+            dispatch(fetchOrderReceptionFailed())
+            console.log("fetchOrderReceptionStart failed", error)
+        }
+
+    }
+
+}
+
+export const fetchOrderReceptionSuccess = (data) => ({
+    type: 'FETCH_ORDER_RECEPTION_SUCCESS',
+    users: data
+})
+
+export const fetchOrderReceptionFailed = () => ({
+    type: 'FETCH_ORDER_RECEPTION_FAILED'
+})
 
 export const fetchAllUsersSuccess = (data) => ({
     type: 'FETCH_ALL_USERS_SUCCESS',

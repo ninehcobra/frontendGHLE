@@ -72,6 +72,10 @@
             "choose": "Choose...",
             "edit": "Save",
             "order": "Order"
+        },
+        "transport": {
+            "manage-transport": "Manage order",
+            "order-reception": "Order reception"
         }
     }
 }

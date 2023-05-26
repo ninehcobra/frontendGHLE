@@ -6,7 +6,9 @@ const initialState = {
     position: [],
     users: [],
     notes: [],
-    pays: []
+    pays: [],
+    fees: [],
+    orderReception: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -24,6 +26,18 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_GENDER_FAILED:
             state.genders = []
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_ORDER_RECEPTION_SUCCESS:
+            state.orderReception = action.data
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_ORDER_RECEPTION_FAILED:
+            state.orderReception = []
             return {
                 ...state,
 
@@ -60,6 +74,18 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_PAY_FAILED:
             state.pays = []
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_FEE_SUCCESS:
+            state.fees = action.data
+            return {
+                ...state,
+
+            }
+        case actionTypes.FETCH_FEE_FAILED:
+            state.fees = []
             return {
                 ...state,
 

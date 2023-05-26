@@ -72,6 +72,10 @@
             "save": "Tạo tài khoản",
             "choose": "Chọn...",
             "edit": "Lưu"
+        },
+        "transport": {
+            "manage-transport": "Quản lý đơn hàng",
+            "order-reception": "Tiếp nhận đơn hàng"
         }
     }
 }
