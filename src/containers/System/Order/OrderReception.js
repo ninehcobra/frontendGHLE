@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './OrderReception.scss'
 import * as actions from '../../../store/actions'
 import { getOrderReceptionService } from '../../../services/userService';
+import { withRouter } from 'react-router';
 let numeral = require('numeral');
 
 class OrderReception extends Component {
@@ -29,6 +30,11 @@ class OrderReception extends Component {
 
     }
 
+    handleViewDetailProduct = (order) => {
+        console.log(order)
+        this.props.history.push(`/orders/${order.id}`)
+    }
+
 
     render() {
         let orderReception = this.state.orderReception
@@ -40,7 +46,7 @@ class OrderReception extends Component {
                 </div>
                 <table id="customers" className='mt-3 mx-1'>
                     <tbody>
-                        <tr>
+                        <tr style={{ cursor: 'pointer' }}>
                             <th>Mã đơn hàng</th>
                             <th>Địa chỉ lấy hàng</th>
                             <th>Địa chỉ giao hàng</th>
@@ -52,7 +58,9 @@ class OrderReception extends Component {
                         </tr>
                         {orderReception && orderReception.map((item, index) => {
                             return (
-                                <tr>
+
+
+                                <tr onClick={() => this.handleViewDetailProduct(item)}>
                                     <td>{item.id}</td>
                                     <td>{item.takeAddress}</td>
                                     <td>{item.receiverAddress}</td>
@@ -62,6 +70,7 @@ class OrderReception extends Component {
                                     <td>{item.totalWeight}</td>
                                     <td>{item.status}</td>
                                 </tr>
+
                             )
                         })}
 
@@ -87,4 +96,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderReception);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderReception));

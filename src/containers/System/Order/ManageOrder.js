@@ -10,6 +10,8 @@ import 'react-image-lightbox/style.css';
 import { toast } from 'react-toastify'
 import { languages, CRUD_ACTION, CommonUtils } from '../../../utils';
 import { add } from 'lodash';
+import { getAddressName } from '../../../services/userService';
+import axios from 'axios';
 let numeral = require('numeral');
 class ManageOrder extends Component {
 
@@ -393,8 +395,21 @@ class ManageOrder extends Component {
         }
     }
 
+    getDistrictCoordinate = async (id) => {
+        if (id) {
+            let name = await getAddressName(id)
+            let nameString = name.districtName + ' ' + name.provinceName
+            let res = await axios.get(`https://api.opencagedata.com/geocode/v1/json?key=8eff5dfdb1374a5db3a3415aa2f1747c&q=${nameString}`
+            )
+            return (res.data.results[0].geometry)
+        }
+
+    }
+
     handleCreateOrder = async () => {
         let isValid = this.checkValidate()
+        let coordinate = await this.getDistrictCoordinate(666)
+        console.log(coordinate)
         if (isValid) {
             let data = {
                 userId: this.props.userInfo.id,
@@ -427,9 +442,6 @@ class ManageOrder extends Component {
             else if (!res) {
                 toast.error(`🧐 Create order Fail!!!`)
             }
-
-
-
         }
 
     }
@@ -476,8 +488,6 @@ class ManageOrder extends Component {
         let timeNextDayString = time.getDate() + 1 + "-" + month + "-" + time.getFullYear();
 
         let arrLength = this.state.arrProduct.length - 1;
-
-        console.log(this.state)
 
 
         return (

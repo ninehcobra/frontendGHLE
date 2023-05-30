@@ -24,6 +24,10 @@ const getAllProvinceService = () => {
     return axios.get('/api/province')
 }
 
+const createNewWareHouse = (data) => {
+    return axios.post('/api/create-warehouse', data)
+}
+
 const editUserService = (data) => {
     return axios.put('/api/edit-user', data)
 }
@@ -48,6 +52,16 @@ const getOrderReceptionService = () => {
     return axios.get('/api/get-order-reception')
 }
 
+const getOrderDetail = (id) => {
+    return axios.get(`api/get-order-history?id=${id}`)
+}
+
+const getAddressName = async (id) => {
+    return await axios.get(`/api/get-address-name?id=${id}`)
+}
+
+
+
 export {
     handleLoginApi
     , getAllUsers
@@ -59,5 +73,8 @@ export {
     , getAllCodeService
     , getFeeService,
     createNewOrderService,
-    getOrderReceptionService
+    getOrderReceptionService,
+    getOrderDetail,
+    createNewWareHouse,
+    getAddressName
 }

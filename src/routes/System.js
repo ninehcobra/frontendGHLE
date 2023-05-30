@@ -6,6 +6,7 @@ import UserRedux from '../containers/System/Admin/UserRedux';
 import ManageOrder from '../containers/System/Order/ManageOrder';
 import Header from '../containers/Header/Header';
 import OrderReception from '../containers/System/Order/OrderReception';
+import Warehouse from '../containers/Warehouse/Warehouse';
 class System extends Component {
     render() {
 
@@ -17,6 +18,7 @@ class System extends Component {
                     <div className="system-list">
                         <Switch>
                             <Route path="/system/user-manage" component={UserManage} />
+                            <Route path="/system/manage-warehouse" component={Warehouse} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />
                             <Route path="/system/order-reception" component={OrderReception} />

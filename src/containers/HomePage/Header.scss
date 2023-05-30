@@ -41,6 +41,10 @@
             .child-content {
                 text-transform: uppercase;
                 font-size: 13px;
+
+                div {
+                    cursor: pointer;
+                }
             }
         }
 
@@ -197,4 +201,9 @@
     top: 0;
     background-color: white;
     z-index: 100000;
+}
+
+a {
+    text-decoration: none;
+    color: #575757;
 }

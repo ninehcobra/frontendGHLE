@@ -6,6 +6,7 @@ import BannerSlick from './Section/BannerSlick';
 import Map from './Section/Map';
 import Partner from './Section/Partner';
 import HomeFooter from './HomeFooter';
+import BannerHeader from './Section/BannerHeader';
 
 class HomePage extends Component {
 
@@ -15,6 +16,7 @@ class HomePage extends Component {
         return (
             <div>
                 <Header></Header>
+                <BannerHeader></BannerHeader>
                 <BannerSlick></BannerSlick>
                 <Map></Map>
                 <Partner></Partner>
