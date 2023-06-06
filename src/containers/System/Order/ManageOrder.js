@@ -12,6 +12,7 @@ import { languages, CRUD_ACTION, CommonUtils } from '../../../utils';
 import { add } from 'lodash';
 import { getAddressName } from '../../../services/userService';
 import axios from 'axios';
+import { getNearestWarehouse } from '../../../services/userService';
 let numeral = require('numeral');
 class ManageOrder extends Component {
 
@@ -47,6 +48,7 @@ class ManageOrder extends Component {
             fee: '',
             note: '',
             userId: this.props.userInfo.id,
+
         }
 
     }
@@ -260,7 +262,7 @@ class ManageOrder extends Component {
 
     totalFee = () => {
         let rec = this.typeAddress(this.state.receiveProvince)
-        let sen = 'v1'
+        let sen = this.typeAddress(this.props.userInfo.districtId)
         let weight = this.state.totalWeight
         let fee = 0
         let feeTable = this.props.fee
@@ -408,40 +410,48 @@ class ManageOrder extends Component {
 
     handleCreateOrder = async () => {
         let isValid = this.checkValidate()
-        let coordinate = await this.getDistrictCoordinate(666)
-        console.log(coordinate)
-        if (isValid) {
-            let data = {
-                userId: this.props.userInfo.id,
-                takeName: this.props.userInfo.lastName + " " + this.props.userInfo.firstName,
-                takeAddress: this.props.userInfo.address,
-                takePhone: this.props.userInfo.phoneNumber,
-                takeProvince: 62,
-                takeDistrict: 666,
-                takeTime: this.state.takeTime,
-                receivePhone: this.state.receivePhone,
-                receiverName: this.state.receiveName,
-                receiverAddress: this.state.receiveAddress,
-                receiveProvince: this.state.receiveProvince,
-                receiveDistrict: this.state.receiveDistrict,
-                arrProduct: this.state.arrProduct,
-                imagePackage: this.state.image,
-                totalWeight: this.state.totalWeight,
-                CODCost: this.state.CODCost,
-                totalCost: this.state.totalCost,
-                note: this.state.note,
-                noteOption: this.state.noteOption,
-                fee: this.state.fee,
-                payOption: this.state.payOption,
-            }
+        let coordinatesen = await this.getDistrictCoordinate(this.props.userInfo.districtId)
+        let resWarehouse = await getNearestWarehouse(coordinatesen.lat, coordinatesen.lng)
 
-            let res = await this.props.createNewOrder(data)
-            if (res && res.errCode === 0) {
-                toast.success('🧐 Create order success!!!')
+        if (resWarehouse.errCode === 0) {
+            if (isValid) {
+                let data = {
+                    userId: this.props.userInfo.id,
+                    takeName: this.props.userInfo.lastName + " " + this.props.userInfo.firstName,
+                    takeAddress: this.props.userInfo.address,
+                    takePhone: this.props.userInfo.phoneNumber,
+                    takeProvince: '',
+                    takeDistrict: this.props.userInfo.districtId,
+                    takeTime: this.state.takeTime,
+                    receivePhone: this.state.receivePhone,
+                    receiverName: this.state.receiveName,
+                    receiverAddress: this.state.receiveAddress,
+                    receiveProvince: this.state.receiveProvince,
+                    receiveDistrict: this.state.receiveDistrict,
+                    arrProduct: this.state.arrProduct,
+                    imagePackage: this.state.image,
+                    totalWeight: this.state.totalWeight,
+                    CODCost: this.state.CODCost,
+                    totalCost: this.state.totalCost,
+                    note: this.state.note,
+                    noteOption: this.state.noteOption,
+                    fee: this.state.fee,
+                    payOption: this.state.payOption,
+                    warehouseId: resWarehouse.warehouseId
+                }
+
+                let res = await this.props.createNewOrder(data)
+
+                if (res && res.errCode === 0) {
+                    toast.success('🧐 Create order success!!!')
+                }
+                else if (!res) {
+                    // toast.error(`🧐 Create order Fail!!!`)
+                }
             }
-            else if (!res) {
-                toast.error(`🧐 Create order Fail!!!`)
-            }
+        }
+        else {
+            toast.error('🧐 Hiện tại app chưa hỗ trợ lấy hàng tại đây!!!')
         }
 
     }

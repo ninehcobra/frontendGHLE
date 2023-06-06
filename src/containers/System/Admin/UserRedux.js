@@ -10,6 +10,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { toast } from 'react-toastify'
 import TableManageUser from './TableManageUser';
+import { getAllProvinceService, getAllDistrictService } from '../../../services/userService';
 class UserRedux extends Component {
 
     constructor(props) {
@@ -17,6 +18,8 @@ class UserRedux extends Component {
         this.state = {
             genderArr: [],
             roleArr: [],
+            arrProvince: [],
+            arrDistrict: [],
             previewImageURL: null,
             isOpen: false,
 
@@ -33,12 +36,15 @@ class UserRedux extends Component {
             image: '',
             action: '',
             userEditId: '',
+            districtId: ''
         }
     }
 
     async componentDidMount() {
+        await this.getAllProvince()
         this.props.getGenderStart()
         this.props.getRoleStart()
+
     }
 
     componentDidUpdate(prevProps, preState, snapshot) {
@@ -115,7 +121,8 @@ class UserRedux extends Component {
                 phonenumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleid: this.state.role,
-                image: this.state.image
+                image: this.state.image,
+                districtId: this.state.districtId
             })
             this.props.fetchUserRedux()
         }
@@ -144,7 +151,8 @@ class UserRedux extends Component {
             'phoneNumber',
             'address',
             'gender',
-            'role']
+            'role',
+            'districtId']
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false
@@ -186,6 +194,29 @@ class UserRedux extends Component {
         })
     }
 
+    getAllProvince = async () => {
+        let response = await getAllProvinceService()
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrProvince: response.data
+            })
+
+        }
+    }
+
+    getAllDistrict = async (id) => {
+        let response = await getAllDistrictService(id)
+
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrDistrict: []
+            })
+            this.setState({
+                arrDistrict: response.data
+            })
+
+        }
+    }
 
 
     render() {
@@ -235,18 +266,33 @@ class UserRedux extends Component {
                                     value={lastName}
                                     onChange={(event) => { this.onChangeInput(event, 'lastName') }} className='form-control' type='text'></input>
                             </div>
-                            <div className='col-9'>
+                            <div className='col-6'>
                                 <label><FormattedMessage id="menu.manage-user.address" /></label>
                                 <input
                                     value={address}
                                     onChange={(event) => { this.onChangeInput(event, 'address') }} className='form-control' type='text'></input>
                             </div>
+
                             <div className='col-3'>
-                                <label><FormattedMessage id="menu.manage-user.phonenumber" /></label>
-                                <input
-                                    value={phoneNumber}
-                                    onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} className='form-control' type='text'></input>
+                                <label><FormattedMessage id="menu.manage-user.province" /></label>
+                                <select onChange={(event) => this.getAllDistrict(event.target.value)} className='form-control'>
+                                    <option value={''}>Chọn Tỉnh/Thành phố</option>
+                                    {this.state.arrProvince.map((item, index) => {
+                                        return (<option value={item.id}>{item.name}</option>)
+                                    })}
+                                </select>
                             </div>
+
+                            <div className='col-3'>
+                                <label><FormattedMessage id="menu.manage-user.district" /></label>
+                                <select onChange={(event) => { this.onChangeInput(event, 'districtId') }} className='form-control'>
+                                    <option value={''}>Chọn Quận/Huyện</option>
+                                    {this.state.arrDistrict.map((item, index) => {
+                                        return (<option value={item.id}>{item.name}</option>)
+                                    })}
+                                </select>
+                            </div>
+
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.gender" /></label>
                                 <select id="inputState" class="form-control"
@@ -260,7 +306,7 @@ class UserRedux extends Component {
 
                                 </select>
                             </div>
-                            <div className='col-6'>
+                            <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.role-id" /></label>
                                 <select id="inputState" class="form-control"
                                     value={role}
@@ -270,6 +316,12 @@ class UserRedux extends Component {
                                         return <option key={index} value={item.key}>{language === languages.VI ? item.valueVi : item.valueEn}</option>
                                     })}
                                 </select>
+                            </div>
+                            <div className='col-3'>
+                                <label><FormattedMessage id="menu.manage-user.phonenumber" /></label>
+                                <input
+                                    value={phoneNumber}
+                                    onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} className='form-control' type='text'></input>
                             </div>
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.image" /></label>

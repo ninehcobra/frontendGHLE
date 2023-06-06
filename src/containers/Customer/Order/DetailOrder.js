@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import search from '../../../assets/search.png'
+import missing from '../../../assets/missing.png'
 import logo from '../../../assets/logo-giaohangle.png'
 import './DetailOrder.scss'
 import { getOrderDetail } from '../../../services/userService';
@@ -93,14 +94,28 @@ class DetailOrder extends Component {
                 <div className='detail-order-body'>
 
                     {!this.state.isValid ?
-                        <div className='order-tracking'>
-                            <div className='order-tracking-body'>
-                                <img src={search}></img>
-                                <div className='error-title'>Mã đơn hàng không đúng</div>
-                                <div className='error-content'>Chúng tôi không tìm thấy mã đơn hàng của bạn trong hệ thống.</div>
-                                <div className='error-content'>Vui lòng kiểm tra lại mã đơn hàng.</div>
+                        this.state.orderId ?
+
+
+                            <div className='order-tracking' >
+                                <div className='order-tracking-body'>
+                                    <img src={search}></img>
+                                    <div className='error-title'>Mã đơn hàng không đúng</div>
+                                    <div className='error-content'>Chúng tôi không tìm thấy mã đơn hàng của bạn trong hệ thống.</div>
+                                    <div className='error-content'>Vui lòng kiểm tra lại mã đơn hàng.</div>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            <div className='order-tracking' >
+                                <div className='order-tracking-body'>
+                                    <img src={missing}></img>
+                                    <div className='error-title'>Chưa nhập mã đơn hàng</div>
+                                    <div className='error-content'>Vui lòng nhập mã đơn hàng để kiểm tra</div>
+
+                                </div>
+                            </div>
+
+
                         :
                         <div className='container'>
                             <div className='header'>
@@ -135,7 +150,7 @@ class DetailOrder extends Component {
 
 
                 </div>
-            </div>
+            </div >
         );
     }
 }

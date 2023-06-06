@@ -10,6 +10,7 @@
     top: 0;
     z-index: 100000;
 
+
     .btn-logout {
         color: $common-text-color;
         line-height: 40px;
@@ -61,5 +62,206 @@
                 opacity: 1;
             }
         }
+    }
+}
+
+.app-customer {
+    .app_header {
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+        border: none;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .body {
+        margin: 0px
+    }
+
+    .app_header__brand {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 64px;
+        padding: 0;
+        margin-right: 0;
+        background: rgba(0, 70, 127, 0.98);
+
+    }
+
+    .brand_text {
+        color: rgba(255, 0, 0, 0.9);
+        font-size: 15px;
+        font-family: 'Bruno Ace SC', cursive !important;
+        margin-right: 20px;
+    }
+
+    .brand-logo {
+        width: 75px;
+    }
+
+    .button_switch {
+        background-color: transparent;
+        border-style: none;
+        height: 16px;
+        width: 25px;
+        margin-left: 16px;
+
+    }
+
+    .app_header__shop-switch {
+        height: 48px;
+        width: 280px;
+        background: #fff;
+        border-radius: 48px;
+        display: flex;
+        align-items: center;
+        box-shadow: 2px 2px 2px 2px rgba(255, 165, 0, 0.1);
+    }
+
+    .shop-switch__text-box {
+        display: flex;
+        align-items: center;
+        width: 240px;
+        height: 36px;
+    }
+
+    .shop-witch_icon-box {
+        height: 32px;
+        width: 32px;
+        border: 2px solid var(--primary-color);
+        background: #fff;
+        margin-left: 6px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+    }
+
+    .shop-swtich__text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        margin-left: 8px;
+        font-size: 16px;
+        line-height: 20px;
+        color: var(--secondary-color);
+        margin-left: 4px;
+        font-weight: 600;
+        font-family: "Google Sans", Helvetica, Arial, sans-serif !important;
+
+
+    }
+
+    .shop-witch_icon {
+        color: var(--primary-color);
+    }
+
+    .shop-switch__drop-down-icon-box {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        margin-left: 12px;
+    }
+
+    .shop-switch__drop-down-icon {
+        color: var(--secondary-color)
+    }
+
+    .app_header__help-icon-box {
+        width: 13px;
+        height: 13px;
+        margin-left: 12px;
+    }
+
+    .app_header__help-icon {
+        font-size: 14px;
+    }
+
+    .app_header__search {
+        width: 25%;
+        margin: auto;
+        display: block;
+
+    }
+
+    .app_header__search-group {
+        display: flex;
+        width: 100%;
+    }
+
+    .search-group__icon {
+        display: flex;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .btn_search {
+        background: none;
+        border: none;
+        color: grey;
+        font-size: 18px;
+        padding: 4px;
+    }
+
+    .form_search {
+        border: none;
+        padding: 4px;
+        height: 40px;
+        border-radius: 16px;
+        font-size: 14px;
+        background: #fff;
+        font-weight: 600;
+        display: block;
+        width: 100%;
+        outline: 0;
+        color: #4b4b4b !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+    }
+
+    .btn_header {
+        width: 163px;
+        padding: 5px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff !important;
+        height: 40px !important;
+        border-radius: 16px !important;
+        border: none !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        padding-bottom: 4px !important;
+        background: var(--primary-color) !important;
+        text-align: center;
+        vertical-align: middle;
+        text-decoration: none !important;
+    }
+
+    .btn_header .fas {
+        padding-right: 8px;
+    }
+
+    .app_header__notification {
+        margin-right: 24px !important;
+        margin-left: 12px !important;
+        position: relative;
+        min-width: 50px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .fas.fa-bell {
+        font-size: 20px;
+        color: #082952;
     }
 }

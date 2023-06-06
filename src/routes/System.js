@@ -7,10 +7,15 @@ import ManageOrder from '../containers/System/Order/ManageOrder';
 import Header from '../containers/Header/Header';
 import OrderReception from '../containers/System/Order/OrderReception';
 import Warehouse from '../containers/Warehouse/Warehouse';
+import CustomerHome from '../containers/Customer/CustomerHome/CustomerHome';
 class System extends Component {
     render() {
 
-        const { systemMenuPath, isLoggedIn } = this.props;
+        const { systemMenuPath, isLoggedIn, userInfo } = this.props;
+        if (userInfo.roleId === 'R5') {
+            return <Redirect to="/testing" />;
+        }
+
         return (
             <>
                 {isLoggedIn && <Header />}
@@ -22,19 +27,22 @@ class System extends Component {
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />
                             <Route path="/system/order-reception" component={OrderReception} />
-                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+
                         </Switch>
                     </div>
                 </div>
             </>
         );
+
+
     }
 }
 
 const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        isLoggedIn: state.user.isLoggedIn, userInfo: state.user.userInfo,
     };
 };
 

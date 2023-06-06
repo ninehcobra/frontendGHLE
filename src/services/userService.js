@@ -60,6 +60,9 @@ const getAddressName = async (id) => {
     return await axios.get(`/api/get-address-name?id=${id}`)
 }
 
+const getNearestWarehouse = async (lat, lng) => {
+    return await axios.get(`/api/get-nearest-warehouse?lat=${lat}&lng=${lng}`)
+}
 
 
 export {
@@ -76,5 +79,6 @@ export {
     getOrderReceptionService,
     getOrderDetail,
     createNewWareHouse,
-    getAddressName
+    getAddressName,
+    getNearestWarehouse
 }

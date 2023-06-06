@@ -74,3 +74,29 @@ export const transportMenu = [
         ]
     },
 ];
+
+export const customerMenu = [
+
+    { //Quản lý đơn hàng
+        name: 'menu.transport.manage-transport', menus: [
+            {
+                name: 'Báo cáo - Live', link: '/system/order-reception'
+            },
+            {
+                name: 'Quản lý đơn hàng', link: '/system/order-reception1'
+            },
+            {
+                name: 'Lên đơn Excel', link: '/system/order-reception2'
+            },
+            {
+                name: 'Quản lý cửa hàng', link: '/system/order-reception3'
+            },
+            {
+                name: 'COD & đối soát', link: '/system/order-reception4'
+            },
+            {
+                name: 'Let gogo', link: '/system/order-reception5'
+            },
+        ]
+    },
+];

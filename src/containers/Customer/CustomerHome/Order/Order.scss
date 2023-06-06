@@ -1,0 +1,28 @@
+.order-container {
+    .notfound-container {
+        text-align: center;
+        position: fixed;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        top: calc(50% + -155px);
+        left: calc(50% + -104px);
+
+        .image {
+            width: 50%;
+        }
+
+        .notfound-text {
+            outline-offset: -1px;
+            outline: rgb(255, 87, 34) solid 1px !important;
+            padding-top: 12px;
+            font-size: 16px;
+            color: #00467f;
+            font-weight: 600;
+
+            .date {
+                color: #f26522;
+                font-size: 16px;
+            }
+        }
+    }
+}

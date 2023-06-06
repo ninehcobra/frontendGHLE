@@ -23,6 +23,8 @@ import HomePage from './HomePage/HomePage'
 import CustomScrollbars from '../components/CustomScrollbars';
 import Header from './Header/Header';
 
+import CustomerHome from './Customer/CustomerHome/CustomerHome';
+
 class App extends Component {
 
     handlePersistorState = () => {
@@ -58,6 +60,7 @@ class App extends Component {
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
+                                    <Route path={'/testing'} component={CustomerHome} />
                                     <Route path={"/orders/:id"} component={DetailOrder}></Route>
                                 </Switch>
                             </CustomScrollbars>

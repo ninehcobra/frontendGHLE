@@ -71,7 +71,9 @@
             "image": "Ảnh đại diện",
             "save": "Tạo tài khoản",
             "choose": "Chọn...",
-            "edit": "Lưu"
+            "edit": "Lưu",
+            "province": "Tỉnh/Thành phố",
+            "district": "Quận/Huyện"
         },
         "transport": {
             "manage-transport": "Quản lý đơn hàng",

@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { languages } from '../../utils'
 import { changeLanguageApp } from '../../store/actions'
 import { useLocation } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
@@ -28,6 +28,12 @@ class Header extends Component {
             orderId: e.target.value
         })
     }
+
+    handleButtonClick = () => {
+        const { history } = this.props;
+        // Điều hướng qua link khác
+        history.push('/login');
+    };
 
     render() {
         let language = this.props.language
@@ -69,7 +75,7 @@ class Header extends Component {
                         </div>
                         <div className='right-content'>
                             <div>
-                                <button> <FormattedMessage id="home-header.register-login" /></button>
+                                <button onClick={() => this.handleButtonClick()}> <FormattedMessage id="home-header.register-login" /></button>
                             </div>
                             <div className='search-form'>
                                 <input onChange={(e) => this.handleChangeInput(e)} value={this.state.orderId ? this.state.orderId : ''} placeholder="Nhập mã đơn hàng mà bạn cần tra cứu..."></input>
@@ -101,4 +107,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
