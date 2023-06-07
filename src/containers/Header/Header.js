@@ -90,7 +90,7 @@ class Header extends Component {
                                         </button>
                                     </div>
                                     <input placeholder="Nhập số điện thoại - Mã đơn hàng - Tên người nhận" type="text"
-                                        className="form_search" maxlength="60" value="" />
+                                        className="form_search" maxLength="60" value="" />
                                 </div>
                             </div>
                             <div className="app_header__navbar">

@@ -767,7 +767,7 @@ class ManageOrder extends Component {
                             <div className='note-info'>
                                 <label className='note-required'>Ghi chú
                                 </label>
-                                <textarea onChange={(e) => (this.onChangeInput(e, 'note'))} value={this.state.note ? this.state.note : ""} maxlength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
+                                <textarea onChange={(e) => (this.onChangeInput(e, 'note'))} value={this.state.note ? this.state.note : ""} maxLength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
                             </div>
                         </div>
                     </div>

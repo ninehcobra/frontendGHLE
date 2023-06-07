@@ -74,7 +74,7 @@ class Login extends Component {
     render() {
         return (
             <div className='login-background'>
-                <script src="https://kit.fontawesome.com/03244eb91d.js" crossorigin="anonymous"></script>
+                <script src="https://kit.fontawesome.com/03244eb91d.js" crossOrigin="anonymous"></script>
                 <div className='login-container'>
                     <div className='login-content row'>
                         <div className='col-12 login-text'>LOGIN</div>

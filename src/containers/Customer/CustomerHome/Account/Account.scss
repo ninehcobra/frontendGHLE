@@ -1,0 +1,123 @@
+.account-container {
+    margin: 0 24px;
+
+    .breadcrump {
+        background: #fff;
+        width: 100%;
+        height: 40px;
+        position: fixed;
+        top: 64px;
+        z-index: 10;
+        left: 0;
+        border-bottom: 1px solid #ececec;
+
+        .breadcrump-content {
+            padding-left: 212px;
+            padding-top: 12px;
+            font-size: 12px;
+            line-height: 15px;
+            color: #717171;
+        }
+    }
+
+    .body {
+        margin-top: 40px;
+
+        .info-title {
+            color: #f26522;
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: -8px;
+
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            background: #fff;
+            border-radius: 50%;
+            margin: 12px 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            img {
+                max-width: 70px;
+                height: 70px;
+                border-radius: 150px;
+                vertical-align: initial;
+            }
+
+        }
+
+        .change {
+            width: 80%;
+
+            .change-header {
+                width: 100%;
+                margin-top: 12px !important;
+                color: #5c6873;
+                margin: 2px !important;
+                font-weight: 600;
+            }
+
+
+            input {
+                border: 1px solid #00467f !important;
+                border-radius: 16px !important;
+                color: #4b4b4b !important;
+                font-weight: 600;
+                font-size: 14px;
+                background: #fff;
+                height: 40px;
+                margin-bottom: 5px;
+            }
+
+            select {
+                border: 1px solid #00467f !important;
+                border-radius: 16px !important;
+                color: #4b4b4b !important;
+                font-weight: 600;
+                font-size: 14px;
+                background: #fff;
+                height: 40px;
+                margin-bottom: 5px;
+            }
+
+            .input-disabled {
+                position: relative;
+
+                input {
+                    background-color: #e4e7ea;
+                    opacity: 1;
+                    border: none !important;
+                }
+            }
+
+            .forgot {
+                text-align: right;
+                width: 100%;
+                margin-top: 8px;
+                color: #00467f;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .btn-update {
+                margin-top: 8px;
+                background: #00467f !important;
+                color: #fff !important;
+                height: 40px !important;
+                border-radius: 16px !important;
+                border: none !important;
+                font-size: 15px !important;
+                font-weight: 600 !important;
+                padding-bottom: 4px !important;
+                float: right;
+            }
+        }
+    }
+}

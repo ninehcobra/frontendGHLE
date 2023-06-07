@@ -12,6 +12,7 @@ import ManageOrder from '../../System/Order/ManageOrder'
 import CustomerManageOrder from './CustomerManageOrder'
 import supportImg from '../../../assets/support.png'
 import Report from './Report/Report';
+import Account from './Account/Account';
 
 class CustomerHome extends Component {
 
@@ -85,7 +86,7 @@ class CustomerHome extends Component {
                                     </button>
                                 </div>
                                 <input placeholder="Nhập số điện thoại - Mã đơn hàng - Tên người nhận" type="text"
-                                    className="form_search" maxlength="60" value="" />
+                                    className="form_search" maxLength="60" value="" />
                             </div>
                         </div>
                         <div className="app_header__navbar">
@@ -111,23 +112,24 @@ class CustomerHome extends Component {
                     <div className='app_body'>
                         <div class="app_body__slidebar">
                             <div>
-                                <div class="user_info">
-                                    <div class="avatar_logo">
-                                        <img src={userInfo.image ? imageBase64 : "https://tse3.mm.bing.net/th?id=OIP.OxiqvM22plgyUpyyxytsrgHaHa&amp;pid=Api&amp;P=0"} alt="" class="user_img" />
-                                    </div>
-                                    <div class="user_name">
-                                        <a href="">
-                                            <div >{userInfo.lastName + " " + userInfo.firstName}</div>
-                                        </a>
-                                        <a href="">
-                                            <div>Chủ cửa hàng
-                                                <i style={{ marginLeft: '5px' }} class="fas fa-user-tie" aria-hidden="true"></i>
-                                            </div>
+                                <Link onClick={() => this.handleButtonClick('')} to='/testing/account' style={{ cursor: 'pointer' }}>
+                                    <div class="user_info">
+                                        <div class="avatar_logo">
+                                            <img src={userInfo.image ? imageBase64 : "https://tse3.mm.bing.net/th?id=OIP.OxiqvM22plgyUpyyxytsrgHaHa&amp;pid=Api&amp;P=0"} alt="" class="user_img" />
+                                        </div>
+                                        <div class="user_name">
+                                            <a >
+                                                <div >{userInfo.lastName + " " + userInfo.firstName}</div>
+                                            </a>
+                                            <a >
+                                                <div>Chủ cửa hàng
+                                                    <i style={{ marginLeft: '5px' }} class="fas fa-user-tie" aria-hidden="true"></i>
+                                                </div>
 
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-
-                                </div>
+                                </Link>
                                 <a href='mailto:giaohangle290302@gmail.com'>
                                     <div class="connect_form">
                                         <div class="connect_form__avatar">
@@ -215,6 +217,7 @@ class CustomerHome extends Component {
                         <div className='body_content'>
                             <div className=''>
                                 <Route exact path="/testing" component={Report} />
+                                <Route path="/testing/account" component={Account} />
                                 <Route path="/testing/order" component={CustomerManageOrder} />
                                 <Route path="/testing/create-order" component={ManageOrder} />
                                 <Route path="/testing/report" component={Report} />
