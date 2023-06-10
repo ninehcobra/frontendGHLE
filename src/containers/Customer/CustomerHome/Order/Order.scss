@@ -1,4 +1,8 @@
 .order-container {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+
     .notfound-container {
         text-align: center;
         position: fixed;
@@ -23,6 +27,105 @@
                 color: #f26522;
                 font-size: 16px;
             }
+        }
+    }
+
+    .line {
+        border-top: 1px solid rgb(212, 210, 210);
+    }
+
+    .order-header-box {
+        margin-left: 20px;
+        margin-right: 244px;
+
+
+        .order-header {
+            line-height: 2.4rem;
+            padding: 4px 0;
+            text-align: left;
+            color: grey;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+
+    .order-info-box {
+        margin-left: 20px;
+        margin-right: 244px;
+
+        .order-info {
+            line-height: 2.4rem;
+            padding: 20px 0;
+            text-align: left;
+            color: grey;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            flex-direction: column;
+
+            .order-info-btn-box {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .info-btn {
+                    height: 90%;
+                    width: 48%;
+                    margin-left: 5px;
+                    color: #00467f;
+                    background: #f0f0f0;
+                    border-radius: 16px !important;
+                    border: none !important;
+                    font-size: 12px;
+                    margin-right: 6px;
+                    text-align: center;
+                    vertical-align: middle;
+                    display: inline-block;
+                    font-weight: 600;
+
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+
+                .disabled {
+                    height: 90%;
+                    width: 48%;
+                    margin-left: 5px;
+                    color: #00467f;
+                    background: #f0f0f0;
+                    border-radius: 16px !important;
+                    border: none !important;
+                    font-size: 12px;
+                    margin-right: 6px;
+                    text-align: center;
+                    vertical-align: middle;
+                    display: inline-block;
+                    font-weight: 600;
+                    opacity: 0.5;
+                    cursor: not-allowed;
+
+
+                }
+            }
+
+        }
+
+        .blue-color {
+            color: #00467f;
+        }
+
+        .orange-color {
+            color: #f26522;
+        }
+
+        .black-color {
+            color: black;
         }
     }
 }

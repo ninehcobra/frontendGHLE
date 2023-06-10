@@ -1,0 +1,27 @@
+.update-container {
+
+    height: 100%;
+    width: 100%;
+
+    .update-content {
+        text-align: center;
+        position: fixed;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        top: calc(50% + -100px);
+        left: calc(50% + 10px);
+
+        .image {
+            width: 80%;
+        }
+
+        .update-text {
+            outline-offset: -1px;
+            outline: rgb(255, 87, 34) solid 1px !important;
+            padding-top: 12px;
+            font-size: 16px;
+            color: #00467f;
+            font-weight: 600;
+        }
+    }
+}

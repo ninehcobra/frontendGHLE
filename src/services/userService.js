@@ -64,6 +64,14 @@ const getNearestWarehouse = async (lat, lng) => {
     return await axios.get(`/api/get-nearest-warehouse?lat=${lat}&lng=${lng}`)
 }
 
+const getProvinceByDistrict = async (provinceId) => {
+    return await axios.get(`/api/get-province-by-district?id=${provinceId}`)
+}
+
+const getUserOrder = async (data) => {
+    return await axios.get(`/api/get-user-order?id=${data.id}&status=${data.status}&startDate=${data.startDate}&endDate=${data.endDate}`)
+}
+
 
 export {
     handleLoginApi
@@ -80,5 +88,7 @@ export {
     getOrderDetail,
     createNewWareHouse,
     getAddressName,
-    getNearestWarehouse
+    getNearestWarehouse,
+    getProvinceByDistrict,
+    getUserOrder
 }

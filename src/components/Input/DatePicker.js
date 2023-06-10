@@ -29,12 +29,7 @@ class DatePicker extends Component {
         const keyCode = event.which || event.keyCode;
         if (keyCode === KeyCodeUtils.ENTER) {
             event.preventDefault();
-            const { onChange } = this.props;
-            const value = event.target.value;
 
-            // Take the blur event and process the string value
-            const valueMoment = moment(value, 'DD/MM/YYYY');
-            onChange([valueMoment.toDate(), valueMoment.toDate()]);
         }
     }
 
@@ -46,13 +41,7 @@ class DatePicker extends Component {
     }
 
     handleBlur = (event) => {
-        const { onChange } = this.props;
-        const value = event.target.value;
 
-        // Take the blur event and process the string value
-        event.preventDefault();
-        const valueMoment = moment(value, 'DD/MM/YYYY');
-        onChange([valueMoment.toDate(), valueMoment.toDate()]);
     };
 
     onOpen = () => {

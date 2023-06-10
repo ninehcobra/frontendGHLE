@@ -13,6 +13,7 @@ import CustomerManageOrder from './CustomerManageOrder'
 import supportImg from '../../../assets/support.png'
 import Report from './Report/Report';
 import Account from './Account/Account';
+import UpdateLater from './UpdateLater/UpdateLater';
 
 class CustomerHome extends Component {
 
@@ -159,37 +160,37 @@ class CustomerHome extends Component {
                                             <span class="text_block">Quản lý đơn hàng</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button3')} className={`button ${selectedButton === 'button3' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 far fa-file-excel" aria-hidden="true"></i>
                                             <span class="text_block">Lên đơn Excel</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button4')} className={`button ${selectedButton === 'button4' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class=" p-r-8 fz-18 fas fa-store" aria-hidden="true"></i>
                                             <span class="text_block">Quản lý cửa hàng</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button5')} className={`button ${selectedButton === 'button5' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-17 fas fa-money-check" aria-hidden="true"></i>
                                             <span class="text_block">COD &amp; đối soát</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button6')} className={`button ${selectedButton === 'button6' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 fas fa-exclamation-triangle" aria-hidden="true"></i>
                                             <span class="text_block">Khiếu nại</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button7')} className={`button ${selectedButton === 'button7' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 fas fa-user-cog" aria-hidden="true"></i>
                                             <span class="text_block">Phân quyền</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing">
+                                    <Link to="/testing/updating">
                                         <div onClick={() => this.handleButtonClick('button8')} className={`button ${selectedButton === 'button8' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="   p-r-8 fz-21 fas fa-print" aria-hidden="true"></i>
                                             <span class="text_block">Vận đơn &amp; tiện ích</span>
@@ -198,10 +199,7 @@ class CustomerHome extends Component {
                                 </div>
                                 <div class="school-info" >
                                     <a href="">
-                                        <div class="item_menu">
-                                            <i class=" p-r-8 fz-20 fas fa-sign-out-alt" aria-hidden="true"></i>
-                                            <span class="text_block">Đăng xuất</span>
-                                        </div>
+
                                         <div class="text_version">Phiên bản 1.0.0</div>
                                     </a><div class="uit"><a href="">
                                     </a><a href="">
@@ -221,6 +219,7 @@ class CustomerHome extends Component {
                                 <Route path="/testing/order" component={CustomerManageOrder} />
                                 <Route path="/testing/create-order" component={ManageOrder} />
                                 <Route path="/testing/report" component={Report} />
+                                <Route path="/testing/updating" component={UpdateLater} />
 
                             </div>
                         </div>

@@ -13,6 +13,7 @@ import { add } from 'lodash';
 import { getAddressName } from '../../../services/userService';
 import axios from 'axios';
 import { getNearestWarehouse } from '../../../services/userService';
+import moment from 'moment';
 let numeral = require('numeral');
 class ManageOrder extends Component {
 
@@ -496,7 +497,7 @@ class ManageOrder extends Component {
         let month = time.getMonth() + 1;
         let timeString = time.getDate() + "-" + month + "-" + time.getFullYear();
         let timeNextDayString = time.getDate() + 1 + "-" + month + "-" + time.getFullYear();
-
+        let timeDeliveryDayString = time.getDate() + 3 + "-" + month + "-" + time.getFullYear();
         let arrLength = this.state.arrProduct.length - 1;
 
 
@@ -724,7 +725,7 @@ class ManageOrder extends Component {
                                             <div className='info'>
                                                 <p style={{ color: "rgb(0, 70, 127)" }}>Chuyển phát thương mại điện tử </p>
                                                 <p style={{ color: "rgb(113, 113, 113)" }}>{numeral(this.state.fee).format('0,0')} vnđ</p>
-                                                <p style={{ color: "rgb(113, 113, 113)" }}>Ngày giao dự kiến 25/5/2023</p>
+                                                <p style={{ color: "rgb(113, 113, 113)" }}>Ngày giao dự kiến {timeDeliveryDayString}</p>
                                             </div>
                                         </div>
                                     </div>
