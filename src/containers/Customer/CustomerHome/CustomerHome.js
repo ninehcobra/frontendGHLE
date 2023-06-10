@@ -92,7 +92,7 @@ class CustomerHome extends Component {
                         </div>
                         <div className="app_header__navbar">
                             <div className="" >
-                                <Link to='/testing/create-order' onClick={() => this.handleButtonClick('button2')} className="btn_header">
+                                <Link to='/customer/create-order' onClick={() => this.handleButtonClick('button2')} className="btn_header">
                                     <i className="fas fa-pencil-alt">
                                     </i>
                                     <div>
@@ -113,7 +113,7 @@ class CustomerHome extends Component {
                     <div className='app_body'>
                         <div class="app_body__slidebar">
                             <div>
-                                <Link onClick={() => this.handleButtonClick('')} to='/testing/account' style={{ cursor: 'pointer' }}>
+                                <Link onClick={() => this.handleButtonClick('')} to='/customer/account' style={{ cursor: 'pointer' }}>
                                     <div class="user_info">
                                         <div class="avatar_logo">
                                             <img src={userInfo.image ? imageBase64 : "https://tse3.mm.bing.net/th?id=OIP.OxiqvM22plgyUpyyxytsrgHaHa&amp;pid=Api&amp;P=0"} alt="" class="user_img" />
@@ -148,49 +148,49 @@ class CustomerHome extends Component {
                             </div>
                             <div class="slidebar_menu">
                                 <div class="slidebar_menu__body">
-                                    <Link to="/testing/report">
+                                    <Link to="/customer/report">
                                         <div onClick={() => this.handleButtonClick('button1')} className={`button ${selectedButton === 'button1' ? 'activate item_menu' : 'item_menu'}`} >
                                             <i class=" p-r-8 undefined fas fa-chalkboard" aria-hidden="true"></i>
                                             <span class="text_block">Báo cáo - Live</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/order">
+                                    <Link to="/customer/order">
                                         <div onClick={() => this.handleButtonClick('button2')} className={`button ${selectedButton === 'button2' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-21 fas fa-clipboard-list" aria-hidden="true"></i>
                                             <span class="text_block">Quản lý đơn hàng</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button3')} className={`button ${selectedButton === 'button3' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 far fa-file-excel" aria-hidden="true"></i>
                                             <span class="text_block">Lên đơn Excel</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button4')} className={`button ${selectedButton === 'button4' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class=" p-r-8 fz-18 fas fa-store" aria-hidden="true"></i>
                                             <span class="text_block">Quản lý cửa hàng</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button5')} className={`button ${selectedButton === 'button5' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-17 fas fa-money-check" aria-hidden="true"></i>
                                             <span class="text_block">COD &amp; đối soát</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button6')} className={`button ${selectedButton === 'button6' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 fas fa-exclamation-triangle" aria-hidden="true"></i>
                                             <span class="text_block">Khiếu nại</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button7')} className={`button ${selectedButton === 'button7' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="  p-r-8 fz-18 fas fa-user-cog" aria-hidden="true"></i>
                                             <span class="text_block">Phân quyền</span>
                                         </div>
                                     </Link>
-                                    <Link to="/testing/updating">
+                                    <Link to="/customer/updating">
                                         <div onClick={() => this.handleButtonClick('button8')} className={`button ${selectedButton === 'button8' ? 'activate item_menu' : 'item_menu'}`}>
                                             <i class="   p-r-8 fz-21 fas fa-print" aria-hidden="true"></i>
                                             <span class="text_block">Vận đơn &amp; tiện ích</span>
@@ -214,12 +214,12 @@ class CustomerHome extends Component {
 
                         <div className='body_content'>
                             <div className=''>
-                                <Route exact path="/testing" component={Report} />
-                                <Route path="/testing/account" component={Account} />
-                                <Route path="/testing/order" component={CustomerManageOrder} />
-                                <Route path="/testing/create-order" component={ManageOrder} />
-                                <Route path="/testing/report" component={Report} />
-                                <Route path="/testing/updating" component={UpdateLater} />
+                                <Route exact path="/customer" component={Report} />
+                                <Route path="/customer/account" component={Account} />
+                                <Route path="/customer/order" component={CustomerManageOrder} />
+                                <Route path="/customer/create-order" component={ManageOrder} />
+                                <Route path="/customer/report" component={Report} />
+                                <Route path="/customer/updating" component={UpdateLater} />
 
                             </div>
                         </div>

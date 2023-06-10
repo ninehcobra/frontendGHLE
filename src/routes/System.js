@@ -8,12 +8,13 @@ import Header from '../containers/Header/Header';
 import OrderReception from '../containers/System/Order/OrderReception';
 import Warehouse from '../containers/Warehouse/Warehouse';
 import CustomerHome from '../containers/Customer/CustomerHome/CustomerHome';
+import SystemHome from '../containers/System/SystemHome';
 class System extends Component {
     render() {
 
         const { systemMenuPath, isLoggedIn, userInfo } = this.props;
         if (userInfo.roleId === 'R5') {
-            return <Redirect to="/testing" />;
+            return <Redirect to="/customer" />;
         }
 
         return (
@@ -22,6 +23,7 @@ class System extends Component {
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
+
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/manage-warehouse" component={Warehouse} />
                             <Route path="/system/user-redux" component={UserRedux} />

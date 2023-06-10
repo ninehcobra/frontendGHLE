@@ -60,7 +60,7 @@ class App extends Component {
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
-                                    <Route path={'/testing'} component={CustomerHome} />
+                                    <Route path={'/customer'} component={CustomerHome} />
                                     <Route path={"/orders/:id"} component={DetailOrder}></Route>
                                 </Switch>
                             </CustomScrollbars>

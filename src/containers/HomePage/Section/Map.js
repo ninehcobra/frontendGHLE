@@ -7,6 +7,7 @@ import { async } from 'q';
 import { getAllProvinceService } from '../../../services/userService';
 import { getAllDistrictService } from '../../../services/userService';
 
+
 class Map extends Component {
     constructor(props) {
         super(props);
@@ -91,6 +92,9 @@ class Map extends Component {
     }
 
 }
+
+
+
 
 const mapStateToProps = state => {
     return {

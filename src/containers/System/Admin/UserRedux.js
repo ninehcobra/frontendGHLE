@@ -10,7 +10,8 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { toast } from 'react-toastify'
 import TableManageUser from './TableManageUser';
-import { getAllProvinceService, getAllDistrictService } from '../../../services/userService';
+import { getAllProvinceService, getAllDistrictService, getProvinceByDistrict } from '../../../services/userService';
+
 class UserRedux extends Component {
 
     constructor(props) {
@@ -22,6 +23,8 @@ class UserRedux extends Component {
             arrDistrict: [],
             previewImageURL: null,
             isOpen: false,
+            userProvince: '',
+            userDistrict: '',
 
             isUserCreated: true,
 
@@ -44,6 +47,8 @@ class UserRedux extends Component {
         await this.getAllProvince()
         this.props.getGenderStart()
         this.props.getRoleStart()
+        await this.getAllProvince()
+
 
     }
 
@@ -78,8 +83,23 @@ class UserRedux extends Component {
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
                 image: '',
                 action: CRUD_ACTION.CREATE,
+                districtId: '',
+                userProvince: '',
+                userDistrict: '',
 
             })
+        }
+    }
+
+    getUserDistrict = async (districtId) => {
+        let res = await getProvinceByDistrict(
+            districtId
+        )
+        if (res.errCode === 0) {
+            await this.setState({
+                userProvince: res.provinceId
+            })
+            this.getAllDistrict(res.provinceId)
         }
     }
 
@@ -137,7 +157,8 @@ class UserRedux extends Component {
                 phonenumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleid: this.state.role,
-                image: this.state.image
+                image: this.state.image,
+                districtId: this.state.districtId
             })
         }
     }
@@ -170,6 +191,14 @@ class UserRedux extends Component {
             ...copyState
         }, () => {
         })
+        if (id === 'userProvince') {
+            this.getAllDistrict(event.target.value)
+        }
+        else if (id === 'userDistrict') {
+            this.setState({
+                districtId: event.target.value
+            })
+        }
     }
 
     handleEditUserFromParent = (user) => {
@@ -191,7 +220,10 @@ class UserRedux extends Component {
             previewImageURL: imageBase64,
             action: CRUD_ACTION.EDIT,
             userEditId: user.id,
+            userDistrict: user.districtId,
+            districtId: user.districtId
         })
+        this.getUserDistrict(user.districtId)
     }
 
     getAllProvince = async () => {
@@ -221,6 +253,7 @@ class UserRedux extends Component {
 
     render() {
         const { language } = this.props
+        const { userDistrict, userProvince } = this.state
         let { email,
             password,
             firstName,
@@ -233,7 +266,7 @@ class UserRedux extends Component {
 
         return (
             <div className='user-redux-container'>
-                <div className="title text-center" >User Redux</div>
+                <div className="title text-center" >Quản lý người dùng</div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
@@ -275,7 +308,7 @@ class UserRedux extends Component {
 
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.province" /></label>
-                                <select onChange={(event) => this.getAllDistrict(event.target.value)} className='form-control'>
+                                <select value={userProvince ? userProvince : ''} onChange={(event) => this.onChangeInput(event, 'userProvince')} className='form-control'>
                                     <option value={''}>Chọn Tỉnh/Thành phố</option>
                                     {this.state.arrProvince.map((item, index) => {
                                         return (<option value={item.id}>{item.name}</option>)
@@ -285,7 +318,7 @@ class UserRedux extends Component {
 
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.district" /></label>
-                                <select onChange={(event) => { this.onChangeInput(event, 'districtId') }} className='form-control'>
+                                <select value={userDistrict ? userDistrict : ''} onChange={(event) => { this.onChangeInput(event, 'userDistrict') }} className='form-control'>
                                     <option value={''}>Chọn Quận/Huyện</option>
                                     {this.state.arrDistrict.map((item, index) => {
                                         return (<option value={item.id}>{item.name}</option>)

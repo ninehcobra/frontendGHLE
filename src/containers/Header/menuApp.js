@@ -10,12 +10,7 @@ export const adminMenu = [
             },
 
             {
-                name: 'menu.admin.manage-admin', link: '/system/user-admin'
-
-            },
-
-            {
-                name: 'menu.admin.crud', link: '/system/user-manage'
+                name: 'menu.admin.manage-warehouse', link: '/system/manage-warehouse'
 
             },
 
