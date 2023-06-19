@@ -29,6 +29,18 @@ class BannerHeader extends Component {
         })
     }
 
+    componentDidMount() {
+        // this.interval = setInterval(() => {
+        //     this.setState((prevState) => ({
+        //         activeIndex: (prevState.activeIndex + 1) % prevState.texts.length,
+        //     }));
+        // }, 3000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     render() {
         let language = this.props.language
 

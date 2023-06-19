@@ -191,7 +191,7 @@ class Account extends Component {
                         />
                         <div className='avatar'>
                             <label htmlFor='previewImg'>
-                                <img htmlFor='previewImg' src={new Buffer(this.state.image, 'base64').toString('binary')}></img>
+                                <img htmlFor='previewImg' src={this.state.image ? new Buffer(this.state.image, 'base64').toString('binary') : 'https://tse3.mm.bing.net/th?id=OIP.OxiqvM22plgyUpyyxytsrgHaHa&amp;pid=Api&amp;P=0'}></img>
                             </label>
 
                         </div>

@@ -4,13 +4,13 @@ import { push } from "connected-react-router";
 
 import * as actions from "../../store/actions";
 
-import './Login.scss';
+import './Forgot.scss';
 import { FormattedMessage } from 'react-intl';
 import { handleLoginApi } from '../../services/userService';
 import img from '../../../src/assets/login.png'
 import logo from '../../../src/assets/logo-giaohangle.png'
 
-class Login extends Component {
+class Forgot extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -113,37 +113,36 @@ class Login extends Component {
                         <div className='form-content'>
                             <div className='login-content'>
                                 <div className='title-login'>
-                                    <span className='login-row-1'>Đăng nhập</span>
-                                    <p className='login-row-2'>Chào ngày mới! Cùng chốt nhiều đơn hôm nay nhé!</p>
+                                    <span className='login-row-1'>BẠN ĐÃ QUÊN MẬT KHẨU?</span>
+                                    <p className='login-row-2'>GHLE rất tiếc vì sự cố này và sẵn sàng hỗ trợ!</p>
                                 </div>
                                 <div className='login-form'>
                                     <div className='row'>
                                         <div className='col-3'></div>
                                         <div className='col-6'>
                                             <div className='form-group'>
-                                                <label >Tài khoản</label>
+                                                <label >Nhập email của bạn</label>
                                                 <input placeholder='Vui lòng nhập email của bạn' type='text' value={this.state.username} onChange={(event) => this.handleOnChangeUsername(event)} className='form-control'></input>
                                                 <p ></p>
                                             </div>
                                             <div className='form-group'>
-                                                <label >Mật khẩu</label>
-                                                <a href='/forgot' >Quên mật khẩu?</a>
-                                                <input placeholder='Vui lòng nhập mật khẩu' type={this.state.isShowPassword ? 'text' : 'password'}
-                                                    value={this.state.password} onChange={(event) => this.handleOnChangePassword(event)} className='form-control'></input>
-                                                <span onClick={() => { this.handleShowHidePassword() }}>
-                                                    <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
-                                                </span>
-                                                <p >{this.state.errMessage}</p>
+                                                <label >Nhập mật khẩu mới của bạn</label>
+                                                <input placeholder='Tối thiểu 8 ký tự bao gồm chữ cái và số' type='password' value={this.state.username} onChange={(event) => this.handleOnChangeUsername(event)} className='form-control'></input>
+                                                <p ></p>
                                             </div>
+                                            <div className='form-group'>
+                                                <label >Xác nhận lại mật khẩu</label>
+                                                <input placeholder='Tối thiểu 8 ký tự bao gồm chữ cái và số' type='password' value={this.state.username} onChange={(event) => this.handleOnChangeUsername(event)} className='form-control'></input>
+                                                <p ></p>
+                                            </div>
+
                                             <p></p>
-                                            <button onClick={() => { this.handleLogin() }} className='login-button'>Đăng nhập</button>
+                                            <button onClick={() => { this.handleLogin() }} className='login-button'>Khôi phục</button>
                                             <div className='login-row-3'>
-                                                <label class="">{'Bạn chưa có tài khoản '}</label>
-                                                <a href='/register'> <span>Đăng ký ngay</span></a>
+                                                <label class="">{'Quay lại trang '}</label>
+                                                <a href='/login'><span> Đăng nhập</span></a>
                                             </div>
-                                            <div className='note'>
-                                                Nhân sự của GHLE hiện tại chưa có trang đăng nhập riêng. Đăng nhập hệ thống ngay tại đây.
-                                            </div>
+
                                         </div>
                                         <div className='col-3'></div>
                                     </div>
@@ -179,4 +178,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Forgot);

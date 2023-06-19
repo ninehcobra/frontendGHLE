@@ -49,7 +49,7 @@ class ManageOrder extends Component {
             fee: '',
             note: '',
             userId: this.props.userInfo.id,
-
+            displayWeight: ''
         }
 
     }
@@ -716,7 +716,7 @@ class ManageOrder extends Component {
                                 <div className='info-title'>
                                     | Gói cước
                                     <span className='info-title2'>
-                                        {" "}- cho khối lượng 500g
+                                        {" "}- cho khối lượng {this.state.displayWeight ? this.state.displayWeight : '500g'}
                                     </span>
                                 </div>
                                 <div className='row'>

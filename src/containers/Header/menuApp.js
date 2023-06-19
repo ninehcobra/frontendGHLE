@@ -56,6 +56,17 @@ export const adminMenu = [
             },
         ]
     },
+
+    { //Quản lý tin tức
+        name: 'Tin tức', menus: [
+            {
+                name: 'Quản lý tin tức', link: '/system/news'
+            },
+            //Quản lý đơn hàng
+
+
+        ]
+    },
 ];
 
 export const transportMenu = [

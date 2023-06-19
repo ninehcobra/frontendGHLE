@@ -1,0 +1,48 @@
+.breadcrumb-news {
+    text-decoration: none;
+
+    &:hover {
+        color: #f26522;
+        text-decoration: none;
+    }
+}
+
+.heading-new {
+    padding: 35px 0 60px;
+    text-align: center;
+
+    h1 {
+        font-family: 'Montserrat', Helvetica, sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        line-height: initial;
+        color: #00467f;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #00467f;
+    }
+}
+
+.content-new {
+    margin-bottom: 50px;
+
+    ul {
+        li {
+            list-style: circle;
+
+            &:first-child {
+                list-style: circle;
+            }
+
+
+        }
+    }
+
+    img {
+        width: 100%;
+        margin: 20px;
+    }
+}

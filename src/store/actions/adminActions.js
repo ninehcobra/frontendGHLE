@@ -157,15 +157,18 @@ export const createNewUser = (data) => {
                 toast.success('🥳 Create user success!!')
                 console.log("check create user", res)
                 dispatch(saveUserSucces())
+                return true;
             }
             else {
                 toast.error(`😔 ${res.message}`)
                 dispatch(saveUserFailed())
+                return false;
             }
         } catch (error) {
             dispatch(saveUserFailed())
             toast.error(`😔 ${error}`)
             console.log("saveUserFailed failed", error)
+            return false;
         }
 
     }

@@ -26,6 +26,7 @@
     "react-flatpickr": "^3.10.7",
     "react-image-lightbox": "^5.1.1",
     "react-intl": "^5.20.2",
+    "react-leaflet": "^4.2.1",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -63,11 +64,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.22.5",
-    "@babel/preset-env": "^7.22.5",
-    "@babel/preset-react": "^7.22.5",
-    "babel-loader": "^9.1.2"
   }
 }

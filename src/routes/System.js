@@ -9,6 +9,7 @@ import OrderReception from '../containers/System/Order/OrderReception';
 import Warehouse from '../containers/Warehouse/Warehouse';
 import CustomerHome from '../containers/Customer/CustomerHome/CustomerHome';
 import SystemHome from '../containers/System/SystemHome';
+import New from '../containers/System/New';
 class System extends Component {
     render() {
 
@@ -25,6 +26,7 @@ class System extends Component {
                         <Switch>
 
                             <Route path="/system/user-manage" component={UserManage} />
+                            <Route path="/system/news" component={New} />
                             <Route path="/system/manage-warehouse" component={Warehouse} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />

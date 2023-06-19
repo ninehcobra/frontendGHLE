@@ -23,6 +23,16 @@ class Partner extends Component {
             autoplay: true,
             speed: 1500,
         };
+
+        const settings2 = {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            autoplay: true,
+            speed: 1500,
+        };
         return (
             <div className='section-partner'>
                 <div className='container'>
@@ -101,7 +111,44 @@ class Partner extends Component {
                             </Slider>
                         </div>
                     </div>
+
+                    <Slider {...settings2}>
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner1.webp'></img>
+
+                        </div>
+
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner2.webp'></img>
+                        </div>
+
+                        <div className='item-slide-partner'>
+
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner3.webp'></img>
+                        </div>
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner4.webp'></img>
+
+                        </div>
+
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner5.webp'></img>
+                        </div>
+
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner6.webp'></img>
+                        </div>
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner7.webp'></img>
+                        </div>
+
+                        <div className='item-slide-partner'>
+                            <img src='https://raw.githubusercontent.com/ninehcobra/free-host-image/main/News/logo_partner8.webp'></img>
+                        </div>
+
+                    </Slider>
                 </div>
+
             </div>
         );
     }

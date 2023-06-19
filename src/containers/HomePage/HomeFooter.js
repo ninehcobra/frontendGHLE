@@ -11,6 +11,111 @@ class HomeFooter extends Component {
     render() {
         return (
             <>
+                <div className='home-footer-top'>
+                    <div className='container'>
+                        <div class="row">
+
+                            <div class="col-md-4 col-sm-6 col-xs-12 col-lg">
+                                <div class="footer-col">
+                                    <h4 class="footer-title">
+                                        CÔNG TY CỔ PHẦN DỊCH VỤ GIAO HÀNG LẸ
+                                    </h4>
+                                    <div class="footer-content">
+                                        <p>Đây là đồ án 1 của sinh viên Trương Nguyễn Công Chính - 20520884 trường Đại Học Công Nghệ Thông Tin dưới sự hướng dẫn của Th.S Nguyễn Trịnh Đông
+
+                                            <br />Mọi thông tin liên quan đến đồ án có thể liên hệ trực tiếp với tôi (Mr. Chính) để trao đổi </p>
+                                        <div class="hr"></div>
+                                        <ul>
+                                            <li><b><i class="fa fa-map-marker"></i>Địa chỉ: </b>Hẻm 224, ấp 3, xã An Phước, Long Thành, Đồng Nai</li>
+                                            <li><b><i class="fa fa-envelope"></i>Email: </b>20520884@gm.uit.edu.vn</li>
+                                            <li><b><i class="fa fa-phone"></i>Hotline: </b>0797260870</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2 col-sm-6 col-xs-12 col-lg">
+                                <div class="footer-col footer-link">
+                                    <h4 class="footer-title">
+                                        VỀ GHN
+                                    </h4>
+                                    <div class="footer-content toggle-footer">
+                                        <ul>
+
+                                            <li>
+                                                <a title="Giới thiệu GHN">Giới thiệu GHN</a>
+                                            </li>
+
+                                            <li>
+                                                <a title="Tuyển dụng">Tuyển dụng</a>
+                                            </li>
+
+                                            <li>
+                                                <a title="Liên hệ">Liên hệ</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3 col-sm-6 col-xs-12 col-lg">
+                                <div class="footer-col footer-link">
+                                    <h4 class="footer-title">
+                                        THÔNG TIN DỊCH VỤ
+                                    </h4>
+                                    <div class="footer-content toggle-footer">
+                                        <ul>
+
+                                            <li>
+                                                <a href="/news/1">Chính sách</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/news/2" >Quy định</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/news/3" >Danh sách cấm</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/news/4" >Chính sách bảo mật</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/news/5">Hàng hoá không vận chuyển</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3 col-sm-6 col-xs-12 col-lg">
+                                <div class="footer-col footer-link">
+                                    <h4 class="footer-title">
+                                        Kết nối
+                                    </h4>
+                                    <div class="footer-content toggle-footer">
+                                        <ul>
+
+                                            <li>
+                                                <a href="https://www.facebook.com/congchinh.truongnguyen.5/" >Facebook</a>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div className='home-footer'>
                     <div className='container'>
                         <div className='row'>

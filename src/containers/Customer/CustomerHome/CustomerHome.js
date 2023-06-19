@@ -44,7 +44,12 @@ class CustomerHome extends Component {
         }
         const { selectedButton } = this.state;
 
-        let imageBase64 = new Buffer(userInfo.image, 'base64').toString('binary')
+        let imageBase64 = ''
+        try {
+            imageBase64 = new Buffer(userInfo.image, 'base64').toString('binary')
+        } catch (error) {
+
+        }
         return (
             <Router>
                 <div className='app'>

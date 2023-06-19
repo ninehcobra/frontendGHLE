@@ -72,6 +72,17 @@ const getUserOrder = async (data) => {
     return await axios.get(`/api/get-user-order?id=${data.id}&status=${data.status}&startDate=${data.startDate}&endDate=${data.endDate}`)
 }
 
+const getNew = async (limit) => {
+    return await axios.get(`api/get-new?limit=${limit}`)
+}
+
+const getNewById = async (id) => {
+    return await axios.get(`api/get-new-by-id?id=${id}`)
+}
+
+const saveNew = async (data) => {
+    return await axios.post('/api/save-new', data)
+}
 
 export {
     handleLoginApi
@@ -90,5 +101,8 @@ export {
     getAddressName,
     getNearestWarehouse,
     getProvinceByDistrict,
-    getUserOrder
+    getUserOrder,
+    getNew,
+    saveNew,
+    getNewById
 }

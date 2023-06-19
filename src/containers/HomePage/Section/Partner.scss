@@ -108,3 +108,25 @@
         }
     }
 }
+
+.item-slide-partner {
+    padding: 65px;
+    padding-top: 50px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        max-height: 45px;
+        -webkit-filter: grayscale(1);
+
+        &:hover {
+            -webkit-filter: grayscale(0);
+            /* Loại bỏ hiệu ứng grayscale khi hover */
+            filter: grayscale(0);
+        }
+    }
+
+
+}

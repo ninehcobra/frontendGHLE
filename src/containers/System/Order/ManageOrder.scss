@@ -2,6 +2,10 @@
     margin-right: 250px;
     margin-bottom: 24px;
 
+    .form-control {
+        height: calc(2.5rem + 0.75rem + 2px);
+    }
+
     .order-info {
         width: 100%;
         margin-left: 0px;

@@ -24,7 +24,11 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import Header from './Header/Header';
 
 import CustomerHome from './Customer/CustomerHome/CustomerHome';
-
+import Register from './Auth/Register';
+import Forgot from './Auth/Forgot';
+import New from './Customer/CustomerHome/New/New';
+import DichVuGH from './System/ServiceNews/DichVuGH';
+import DichVuKB from './System/ServiceNews/DichVuKB';
 class App extends Component {
 
     handlePersistorState = () => {
@@ -58,10 +62,15 @@ class App extends Component {
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                    <Route path={'/register'} component={userIsNotAuthenticated(Register)} />
+                                    <Route path={'/forgot'} component={userIsNotAuthenticated(Forgot)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={'/customer'} component={CustomerHome} />
                                     <Route path={"/orders/:id"} component={DetailOrder}></Route>
+                                    <Route path={"/news/:id"} component={New}></Route>
+                                    <Route path={"/services/dich-vu-giao-hang"} component={DichVuGH}></Route>
+                                    <Route path={"/services/dich-vu-kho-bai"} component={DichVuKB}></Route>
                                 </Switch>
                             </CustomScrollbars>
                         </div>

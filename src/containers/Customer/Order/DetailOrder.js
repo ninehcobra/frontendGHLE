@@ -28,6 +28,8 @@ class DetailOrder extends Component {
                 isValid: true
             })
         }
+
+
     }
 
     formatDay = (time) => {
@@ -56,6 +58,18 @@ class DetailOrder extends Component {
         })
     }
 
+    handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            // Xử lý logic khi nhấn phím Enter ở đây
+
+
+            if (event.target.value) {
+                window.location.href = `/orders/` + event.target.value
+            }
+
+        }
+    };
+
     render() {
         let orderId = this.state.orderId
         return (
@@ -75,7 +89,7 @@ class DetailOrder extends Component {
                                 <div className='col-md-8 col-sm-10 col-10'>
                                     <div className='header-search'>
                                         <div className='input-search'>
-                                            <input value={this.state.id} onChange={(e) => this.changeInput(e)} placeholder='Nhập mã đơn hàng để tìm kiếm' className='search-input form-control'></input>
+                                            <input onKeyPress={this.handleKeyPress} value={this.state.id} onChange={(e) => this.changeInput(e)} placeholder='Nhập mã đơn hàng để tìm kiếm' className='search-input form-control'></input>
                                         </div>
                                         <a href={"/orders/" + this.state.id} style={{ textDecoration: "none" }}>
                                             <button type='button' className='search-button'>
