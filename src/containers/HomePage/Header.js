@@ -77,10 +77,11 @@ class Header extends Component {
             <React.Fragment>
                 <div className='home-header-container sticky-header'>
                     <div className='home-header-content'>
-                        <div className='left-content'>
+
+                        <a href='/home' className='left-content'>
                             <div className='header-logo'></div>
 
-                        </div>
+                        </a>
                         <div className='center-content'>
                             <div className='child-content'>
                                 <a className='link-href' href='/' style={{ textDecoration: 'none' }}>

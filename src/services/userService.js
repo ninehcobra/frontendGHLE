@@ -84,6 +84,10 @@ const saveNew = async (data) => {
     return await axios.post('/api/save-new', data)
 }
 
+const getWarehouse = async (id) => {
+    return await axios.get(`/api/get-warehouse?id=${id}`)
+}
+
 export {
     handleLoginApi
     , getAllUsers
@@ -104,5 +108,6 @@ export {
     getUserOrder,
     getNew,
     saveNew,
-    getNewById
+    getNewById,
+    getWarehouse
 }

@@ -98,3 +98,66 @@
 
     }
 }
+
+.address-cont {
+    .address-detail {
+        overflow: auto;
+        max-height: 415px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 4px;
+
+        .address-link {
+            border-top: 1px solid #f5f5f5;
+            margin-bottom: 0px;
+            padding: 0;
+            list-style-type: none;
+
+            .address-item {
+                border-bottom: 1px solid #f5f5f5 !important;
+
+
+                padding-left: 14px;
+                border: 0;
+                background: #fff;
+                cursor: pointer;
+
+                a {
+                    display: block;
+                    line-height: 18px;
+                    width: 100%;
+                    padding: 8px 0;
+                    box-sizing: border-box;
+                    position: relative;
+                    font-size: 14px;
+                    color: #444;
+                    text-decoration: none;
+                    outline: none;
+
+                    b {
+                        font-family: 'Montserrat', Helvetica, sans-serif;
+                        font-weight: bold;
+                        display: block;
+                        margin-bottom: 5px;
+                        padding: 0;
+                    }
+
+                    .item-detail {
+                        margin-bottom: 5px;
+
+                    }
+
+                    span {
+                        display: block;
+                        margin-bottom: 2px;
+                    }
+
+                    .item-time {
+                        margin-bottom: 5px;
+                    }
+                }
+
+            }
+        }
+    }
+}
