@@ -17,6 +17,7 @@ class UserRedux extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            sort: '',
             genderArr: [],
             roleArr: [],
             arrProvince: [],
@@ -249,6 +250,8 @@ class UserRedux extends Component {
 
         }
     }
+
+
 
 
     render() {

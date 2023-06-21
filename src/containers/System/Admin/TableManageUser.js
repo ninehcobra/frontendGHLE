@@ -10,6 +10,7 @@ class TableManageUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            sort: '',
             usersRedux: [],
             roleArr: []
         }
@@ -49,12 +50,27 @@ class TableManageUser extends Component {
         return role
     }
 
+    onChangeSort = (id) => {
+        this.setState({
+            sort: id
+        })
+    }
+
+
+
     render() {
         let arrUsers = this.state.usersRedux
+        console.log(this.state.sort)
         return (
 
             <table id='TableManageUser'  >
-                <tbody>
+                <select onChange={(event) => { this.onChangeSort(event.target.value) }} className='sort-select'>
+                    <option value=''>Tất cả</option>
+                    <option value='R2'>Nhân viên giao hàng</option>
+                    <option value='R3'>Quản lý kho</option>
+                    <option value='R5'>Khách hàng</option>
+                </select>
+                <tbody className='list-user-box'>
                     <tr>
                         <th>Email</th>
                         <th>Role</th>
@@ -68,19 +84,38 @@ class TableManageUser extends Component {
                     {arrUsers && arrUsers.length > 0 &&
                         arrUsers.map((item, index) => {
                             return (
-                                <tr>
-                                    <td>{item.email}</td>
-                                    <td>{this.getRole(item.roleId)}</td>
-                                    <td>{item.firstName}</td>
-                                    <td>{item.lastName}</td>
-                                    <td>{item.address}</td>
-                                    <td>
-                                        <button
-                                            onClick={() => this.handleEditUser(item)}
-                                            className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
-                                        <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
-                                    </td>
-                                </tr>
+
+                                this.state.sort === '' ?
+
+                                    <tr>
+                                        <td>{item.email}</td>
+                                        <td>{this.getRole(item.roleId)}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.address}</td>
+                                        <td>
+                                            <button
+                                                onClick={() => this.handleEditUser(item)}
+                                                className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
+                                            <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
+                                        </td>
+                                    </tr>
+                                    :
+                                    item.roleId === this.state.sort ?
+                                        <tr>
+                                            <td>{item.email}</td>
+                                            <td>{this.getRole(item.roleId)}</td>
+                                            <td>{item.firstName}</td>
+                                            <td>{item.lastName}</td>
+                                            <td>{item.address}</td>
+                                            <td>
+                                                <button
+                                                    onClick={() => this.handleEditUser(item)}
+                                                    className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
+                                                <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
+                                            </td>
+                                        </tr> : ''
+
                             )
                         })}
 

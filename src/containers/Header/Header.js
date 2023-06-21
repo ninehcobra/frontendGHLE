@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu, customerMenu, transportMenu } from './menuApp';
+import { adminMenu, transportMenu, WarehouseMenu } from './menuApp';
 import './Header.scss';
 import { USER_ROLE, languages } from '../../utils'
 import { changeLanguageApp } from '../../store/actions'
@@ -32,8 +32,11 @@ class Header extends Component {
                 menu = adminMenu
             }
 
-            if (role === USER_ROLE.TRANSPORT) {
+            if (role === USER_ROLE.DELIVERY) {
                 menu = transportMenu
+            }
+            if (role === USER_ROLE.WAREHOUSE) {
+                menu = WarehouseMenu
             }
 
 
@@ -41,6 +44,7 @@ class Header extends Component {
         this.setState({
             menuApp: menu
         })
+
     }
 
     render() {

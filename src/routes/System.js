@@ -31,6 +31,7 @@ class System extends Component {
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />
                             <Route path="/system/order-reception" component={OrderReception} />
+                            <Route path="/system/home" />
 
                         </Switch>
                     </div>
