@@ -5,21 +5,115 @@ import './DichVuGH.scss'
 
 import Header from '../../HomePage/Header';
 import HomeFooter from '../../HomePage/HomeFooter';
-
+import { getAllDistrictService, getAllProvinceService } from '../../../services/userService';
+import { toast } from 'react-toastify';
 
 class DichVuGH extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            onChoosen: 1
+            onChoosen: 1,
+
+            selectedProvince: '',
+            selectedDistrict: '',
+            name: '',
+            email: '',
+            phoneNumber: '',
+            address: '',
+
+
+            arrProvince: [],
+            arrDistrict: [],
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.getAllProvince()
+    }
+
+    getAllProvince = async () => {
+        let response = await getAllProvinceService()
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrProvince: response.data
+            })
+
+        }
+    }
+
+    onChangeInput = async (event, id, condition = '') => {
+        if (condition === '') {
+            let copyState = { ...this.state }
+            copyState[id] = event.target.value
+            this.setState({
+                ...copyState
+            }, () => {
+            })
+        }
+        else if (condition === 2) {
+            let copyState = { ...this.state }
+            copyState[id] = event.target.value
+            this.setState({
+                ...copyState
+            }, () => {
+            })
+            await this.getAllDistrict(event.target.value)
+        }
+
     }
 
 
+    getAllDistrict = async (id) => {
+        let response = await getAllDistrictService(id)
+
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrDistrict: []
+            })
+            this.setState({
+                arrDistrict: response.data
+            })
+
+        }
+    }
+
+    checkValidate = () => {
+        let isValid = true;
+        let arrCheck = [
+            'selectedProvince',
+            'selectedDistrict',
+            'name',
+            'phoneNumber',
+            'address',
+            'email'
+        ]
+        for (let i = 0; i < arrCheck.length; i++) {
+            if (!this.state[arrCheck[i]]) {
+                isValid = false
+                toast.warning(`🧐 Missing parameters: ${arrCheck[i]}`)
+                break
+            }
+        }
+        return isValid
+    }
+
+    registerSupport = () => {
+        let isValid = this.checkValidate()
+        if (isValid) {
+
+
+            toast.success("Đã đăng ký tư vấn thành công! Nhân viên sẽ sớm liên hệ với bạn")
+            this.setState({
+                selectedProvince: '',
+                selectedDistrict: '',
+                name: '',
+                email: '',
+                phoneNumber: '',
+                address: '',
+            })
+        }
+    }
 
 
     render() {
@@ -46,46 +140,52 @@ class DichVuGH extends Component {
                                             <div className='row'>
                                                 <div className='col-sm-12 col-xs-12'>
                                                     <div className='input-group'>
-                                                        <input placeholder='Họ và tên' className='form-control'></input>
+                                                        <input value={this.state.name} onChange={(e) => (this.onChangeInput(e, 'name'))} placeholder='Họ và tên' className='form-control'></input>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-sm-6 col-xs-12'>
                                                     <div className='input-group'>
-                                                        <input placeholder='Email' className='form-control'></input>
+                                                        <input value={this.state.email} onChange={(e) => (this.onChangeInput(e, 'email'))} placeholder='Email' className='form-control'></input>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-sm-6 col-xs-12'>
                                                     <div className='input-group'>
-                                                        <input placeholder='Số điện thoại' className='form-control'></input>
+                                                        <input value={this.state.phoneNumber} onChange={(e) => (this.onChangeInput(e, 'phoneNumber'))} placeholder='Số điện thoại' className='form-control'></input>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-lg-6 col-md-12 col-sm-12'>
                                                     <div className='input-group'>
-                                                        <select className='form-control'>
-                                                            <option>Tỉnh/Thành phố</option>
+                                                        <select value={this.state.selectedProvince} onChange={(e) => (this.onChangeInput(e, 'selectedProvince', 2))} className='form-control'>
+                                                            <option value={''}>Tỉnh/Thành phố</option>
+                                                            {this.state.arrProvince.map((item, index) => {
+                                                                return (<option value={item.id}>{item.name}</option>)
+                                                            })}
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-lg-6 col-md-12 col-sm-12'>
                                                     <div className='input-group'>
-                                                        <select className='form-control'>
-                                                            <option>Quận/Huyện</option>
+                                                        <select value={this.state.selectedDistrict} onChange={(e) => (this.onChangeInput(e, 'selectedDistrict'))} className='form-control'>
+                                                            <option value={''}>Quận/Huyện</option>
+                                                            {this.state.arrDistrict.map((item, index) => {
+                                                                return (<option value={item.id}>{item.name}</option>)
+                                                            })}
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-lg-12 col-md-12 col-sm-12'>
                                                     <div className='input-group'>
-                                                        <input placeholder='Địa chỉ (số nhà, tên tòa nhà, tên đường, tên khu vực)' className='form-control'></input>
+                                                        <input value={this.state.address} onChange={(e) => (this.onChangeInput(e, 'address'))} placeholder='Địa chỉ (số nhà, tên tòa nhà, tên đường, tên khu vực)' className='form-control'></input>
                                                     </div>
                                                 </div>
 
                                                 <div className='col-lg-12'>
-                                                    <button className='support-btn'>Đăng ký nhận tư vấn</button>
+                                                    <button onClick={() => { this.registerSupport() }} className='support-btn'>Đăng ký nhận tư vấn</button>
                                                 </div>
 
 

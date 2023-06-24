@@ -26,9 +26,11 @@ class Report extends Component {
         await status.map(async (item, index) => {
             let orderWait = await getUserOrder({
                 id: this.props.userInfo.id,
-                status: item
+                status: item,
+                startDate: '',
+                endDate: ''
             })
-
+            console.log(orderWait.data)
             if (item === 'S2') {
                 let data = orderWait.data
                 await this.setState({
@@ -121,27 +123,27 @@ class Report extends Component {
                                     <div className='row top-content'>
                                         <div className='col-5'>
                                             <div className='box-content'>
-                                                <div className='box-header'>Lấy hàng thành công</div>
+                                                <div className='box-header'>Chờ xác nhận</div>
+                                                <div className='box-value'>
+                                                    <span style={{ fontSize: '24px' }}>{this.state.orderWaitarr.length}</span>
+                                                    {' đơn hàng'}
+                                                    <i className="fas fa-chevron-right icon"></i>
+                                                </div>
+                                            </div>
+
+                                            <div className='box-content'>
+                                                <div className='box-header'>Chờ bàn giao</div>
+                                                <div className='box-value'>
+                                                    <span style={{ fontSize: '24px' }}>{this.state.orderTakeWaitarr.length}</span>
+                                                    {' đơn hàng'}
+                                                    <i className="fas fa-chevron-right icon"></i>
+                                                </div>
+                                            </div>
+
+                                            <div className='box-content'>
+                                                <div className='box-header'>Đã bàn giao-đang giao</div>
                                                 <div className='box-value'>
                                                     <span style={{ fontSize: '24px' }}>{this.state.orderSendingarr.length}</span>
-                                                    {' đơn hàng'}
-                                                    <i className="fas fa-chevron-right icon"></i>
-                                                </div>
-                                            </div>
-
-                                            <div className='box-content'>
-                                                <div className='box-header'>Giao thành công</div>
-                                                <div className='box-value'>
-                                                    <span style={{ fontSize: '24px' }}>{this.state.orderSuccessarr.length}</span>
-                                                    {' đơn hàng'}
-                                                    <i className="fas fa-chevron-right icon"></i>
-                                                </div>
-                                            </div>
-
-                                            <div className='box-content'>
-                                                <div className='box-header'>Hoàn hàng thành công</div>
-                                                <div className='box-value'>
-                                                    <span style={{ fontSize: '24px' }}>{this.state.orderSuccessarr.length}</span>
                                                     {' đơn hàng'}
                                                     <i className="fas fa-chevron-right icon"></i>
                                                 </div>
@@ -149,25 +151,25 @@ class Report extends Component {
                                         </div>
                                         <div className='col-7'>
                                             <div className='box-content'>
-                                                <div className='box-header'>Đang giao hàng</div>
+                                                <div className='box-header'>Hàng thất lạc hư hỏng</div>
                                                 <div className='box-value'>
-                                                    <span style={{ fontSize: '24px' }}>{this.state.orderSendingarr.length}</span>
+                                                    <span style={{ fontSize: '24px' }}>{this.state.orderLostarr.length}</span>
                                                     {' đơn hàng'}
                                                     <i className="fas fa-chevron-right icon"></i>
                                                 </div>
                                             </div>
 
                                             <div className='box-content'>
-                                                <div className='box-header'>Giao thất bại - Lưu kho giao lại</div>
+                                                <div className='box-header'>Hoàn tất</div>
                                                 <div className='box-value'>
-                                                    <span style={{ fontSize: '24px' }}>{this.state.orderReSendarr.length}</span>
+                                                    <span style={{ fontSize: '24px' }}>{this.state.orderSuccessarr.length}</span>
                                                     {' đơn hàng'}
                                                     <i className="fas fa-chevron-right icon"></i>
                                                 </div>
                                             </div>
 
                                             <div className='box-content'>
-                                                <div className='box-header'>Hàng thất lạc - Hư hỏng</div>
+                                                <div className='box-header'>Đơn hủy</div>
                                                 <div className='box-value'>
                                                     <span style={{ fontSize: '24px' }}>{this.state.orderLostarr.length}</span>
                                                     {' đơn hàng'}

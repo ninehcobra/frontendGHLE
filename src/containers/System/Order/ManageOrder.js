@@ -13,6 +13,8 @@ import { add } from 'lodash';
 import { getAddressName } from '../../../services/userService';
 import axios from 'axios';
 import { getNearestWarehouse } from '../../../services/userService';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
+
 import moment from 'moment';
 let numeral = require('numeral');
 class ManageOrder extends Component {
@@ -20,6 +22,7 @@ class ManageOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            payGate: '',
             isOpen: false,
             arrProvince: [],
             arrDistrict: [],
@@ -113,7 +116,7 @@ class ManageOrder extends Component {
                 for (let i = 0; i < arrCheck.length; i++) {
                     if (!item[arrCheck[i]]) {
                         isValid = false
-                        toast.warning(`🧐 Missing parameters: ${arrCheck[i]}`)
+
                         break
                     }
                 }
@@ -131,6 +134,7 @@ class ManageOrder extends Component {
     addProducts = async () => {
 
         let valid = this.checkProductValidate()
+
         let productInfo = {
             productImage: "",
             productName: "",
@@ -145,6 +149,7 @@ class ManageOrder extends Component {
             })
 
         }
+
 
 
     }
@@ -449,6 +454,9 @@ class ManageOrder extends Component {
                 else if (!res) {
                     // toast.error(`🧐 Create order Fail!!!`)
                 }
+            }
+            else {
+                toast.warning(`🧐 Missing parameters!`)
             }
         }
         else {
@@ -801,14 +809,61 @@ class ManageOrder extends Component {
                                 })}
                             </select>
                         </div>
+
+                        {this.state.payOption === 'P1' ?
+                            <div style={{ marginTop: '10px' }} className='footer-body'>
+                                <select onChange={(e) => (this.onChangeInput(e, 'payGate'))} className='form-control footer-input'>
+                                    <option value=''>Hình thức thanh toán</option>
+                                    <option value='1'>Trực tuyến</option>
+                                    <option value='2'>Giao khi lấy hàng</option>
+
+                                </select>
+                            </div> : ''}
+
+
+                        {this.state.payGate === '1' ?
+                            <div style={{ marginTop: '10px', overflow: 'hide', marginBottom: '25px' }}>
+                                <PayPalScriptProvider options={{ "client-id": "ATB021v7PNCgCGfG5cYkEJVwGS-SnAWjHCLg8tZnkqk0yMIQWKLSphyh72YpWezyCy3dHXpXG3ZsQejb" }}>
+                                    <PayPalButtons disabled={this.checkProductValidate() ? false : true}
+                                        createOrder={(data, actions) => {
+                                            let value = (this.state.fee / 23000).toFixed(2).toString()
+
+                                            return actions.order.create({
+                                                purchase_units: [{
+                                                    amount: {
+                                                        value: value
+                                                    }
+                                                }]
+                                            })
+                                        }}
+                                        onApprove={() => {
+                                            toast.success('Thanh toán thành công')
+
+                                            setTimeout(() => { this.handleCreateOrder() }, 3000)
+
+                                        }}
+
+                                        onCancel={() => {
+                                            // setTimeout(() => { toast.success('Thanh toán thành công') }, 10000)
+                                            toast.warning('Thanh toán thất bại')
+
+                                        }}
+                                    ></PayPalButtons>
+                                </PayPalScriptProvider>
+                            </div> : ''
+
+                        }
+
                         <div className='info-cost'>
                             <p className='info-cost-label'>Tổng phí</p>
                             <p className='info-cost-detail'>{numeral(this.state.fee).format('0,0')} vnđ</p>
                             <span>Chưa tính tiền thu hộ</span>
                         </div>
-                        <div className='button-create-container'>
-                            <button onClick={() => this.handleCreateOrder()} className='button-create'>Tạo đơn</button>
-                        </div>
+                        {this.state.payGate === '1' ? "" :
+                            <div className='button-create-container'>
+                                <button onClick={() => this.handleCreateOrder()} className='button-create'>Lên đơn</button>
+                            </div>}
+
                     </div>
                 </div>
             </div>

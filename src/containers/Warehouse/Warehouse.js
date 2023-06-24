@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import './Warehouse.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { getAllProvinceService } from '../../services/userService';
-import { getAllDistrictService } from '../../services/userService';
+
 import { toast } from 'react-toastify'
 import { createNewWareHouse } from '../../services/userService';
-import { getAddressName } from '../../services/userService';
+import { getAddressName, getWarehouse, getAllDistrictService, getAllProvinceService, getAllUsers } from '../../services/userService';
+
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 import axios from 'axios';
 
@@ -24,20 +25,42 @@ class Warehouse extends Component {
             name: '',
             phoneNumber: '',
             address: '',
-            addressCoordinate: ''
+            addressCoordinate: '',
+            arrWarehouses: '',
+            arrUsers: '',
+            sortId: '',
+            staffId: '',
+
+            add: 0
         }
     }
 
     async componentDidMount() {
         await this.getAllProvince()
+        let res = await getWarehouse('All')
 
-
-
+        this.setState({
+            arrWarehouses: res.data.reverse()
+        })
+        let users = await getAllUsers('All')
+        this.setState({
+            arrUsers: users.users
+        })
 
     }
 
-    componentDidUpdate(prevProps, preState, snapshot) {
+    async componentDidUpdate(prevProps, preState, snapshot) {
+        if (preState.add !== this.state.add) {
+            let res = await getWarehouse('All')
 
+            this.setState({
+                arrWarehouses: res.data.reverse()
+            })
+            let users = await getAllUsers('All')
+            this.setState({
+                arrUsers: users.users
+            })
+        }
     }
 
     getAllProvince = async () => {
@@ -99,7 +122,7 @@ class Warehouse extends Component {
 
     handleCreateWareHouse = async () => {
         let coordinate = await this.getDistrictCoordinate(this.state.selectedDistrict)
-        console.log(coordinate)
+
         let isValid = this.checkValidate()
         if (isValid) {
 
@@ -108,13 +131,18 @@ class Warehouse extends Component {
                 address: this.state.address,
                 phoneNumber: this.state.phoneNumber,
                 districtId: this.state.selectedDistrict,
-                addressCoordinate: coordinate
+                addressCoordinate: coordinate,
+                staffId: this.state.staffId
             }
 
             let res = await createNewWareHouse(data)
             if (res && res.errCode === 0) {
                 toast.success(`🧐 Create WareHouse success!!`)
+                this.setState({
+                    add: this.state.add + 1
+                })
             }
+
         }
 
     }
@@ -126,7 +154,8 @@ class Warehouse extends Component {
             'selectedDistrict',
             'name',
             'phoneNumber',
-            'address'
+            'address',
+            'staffId'
         ]
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
@@ -159,9 +188,17 @@ class Warehouse extends Component {
         return res
     }
 
+    onChangeSort = (id) => {
+
+        this.setState({
+            sortId: id
+        })
+    }
+
 
     render() {
 
+        let { arrWarehouses } = this.state
 
 
         return (
@@ -173,9 +210,33 @@ class Warehouse extends Component {
                             <label for="inputEmail4">Tên kho</label>
                             <input value={this.state.name} onChange={(e) => (this.onChangeInput(e, 'name'))} type="text" className="form-control" id="inputEmail4" placeholder="Nhập tên kho" />
                         </div>
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-3">
                             <label for="inputPassword4">Số điện thoại thường trực kho</label>
                             <input value={this.state.phoneNumber} onChange={(e) => (this.onChangeInput(e, 'phoneNumber'))} type="text" className="form-control" id="inputPassword4" placeholder="Nhập số điện thoại" />
+                        </div>
+                        <div className="form-group col-md-3">
+                            <label for="inputPassword4">Quản lý kho</label>
+                            <select value={this.state.staffId} onChange={(e) => (this.onChangeInput(e, 'staffId'))} type="text" className="form-control" id="inputPassword4" placeholder="Nhập số điện thoại" >
+                                <option value={''}>Chọn nhân viên quản lý</option>
+                                {this.state.arrUsers && this.state.arrUsers.map((item, index) => {
+                                    if (item.roleId === 'R3') {
+                                        let isValid = true
+                                        this.state.arrWarehouses.map((warehouse, index) => {
+                                            if (warehouse.staffId === item.id) {
+                                                isValid = false
+                                            }
+                                        })
+                                        if (isValid) {
+                                            console.log(item.id)
+                                            return (
+                                                <option value={item.id}>{item.lastName + ' ' + item.firstName}</option>
+                                            )
+                                        }
+                                    }
+
+
+                                })}
+                            </select>
                         </div>
                     </div>
                     <div className="form-row">
@@ -203,6 +264,66 @@ class Warehouse extends Component {
                         </div>
                     </div>
                     <button onClick={() => this.handleCreateWareHouse()} className="btn btn-primary">Tạo kho</button>
+                    <table id='TableManageUser'  >
+                        <select onChange={(event) => { this.onChangeSort(event.target.value) }} value={this.state.sortId} className='sort-select'>
+                            <option value=''>Tất cả</option>
+                            {this.state.arrProvince.map((item, index) => {
+                                return (<option value={item.name}>{item.name}</option>)
+                            })}
+                        </select>
+
+
+                        <tbody className='list-user-box'>
+                            <tr>
+                                <th>Tên kho</th>
+                                <th>Địa chỉ</th>
+                                <th>Hotline</th>
+                                <th>Tỉnh/Thành phố</th>
+                                <th>Quận/huyện</th>
+                                <th>Thao tác</th>
+                            </tr>
+
+                            {arrWarehouses && arrWarehouses.length > 0 &&
+                                arrWarehouses.map((item, index) => {
+                                    return (
+                                        this.state.sortId === '' ?
+                                            <tr>
+                                                <td>{item.name}</td>
+                                                <td>{item.address}</td>
+                                                <td>{item.phoneNumber}</td>
+                                                <td>{item.provinceName}</td>
+                                                <td>{item.districtName}</td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => this.handleEditUser(item)}
+                                                        className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
+                                                    <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
+                                                </td>
+                                            </tr>
+                                            : item.provinceName === this.state.sortId ?
+                                                <tr>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.address}</td>
+                                                    <td>{item.phoneNumber}</td>
+                                                    <td>{item.provinceName}</td>
+                                                    <td>{item.districtName}</td>
+                                                    <td>
+                                                        <button
+                                                            onClick={() => this.handleEditUser(item)}
+                                                            className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
+                                                        <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
+                                                    </td>
+                                                </tr> : ''
+                                    )
+                                })}
+
+
+
+
+
+                        </tbody>
+
+                    </table>
 
                 </div>
             </div>
@@ -211,6 +332,8 @@ class Warehouse extends Component {
     }
 
 }
+
+
 
 const mapStateToProps = state => {
     return {
