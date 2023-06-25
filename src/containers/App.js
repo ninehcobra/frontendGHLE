@@ -69,6 +69,7 @@ class App extends Component {
                                     <Route path={'/customer'} component={CustomerHome} />
                                     <Route path={"/orders/:id"} component={DetailOrder}></Route>
                                     <Route path={"/news/:id"} component={New}></Route>
+                                    <Route path={"/news"} component={New}></Route>
                                     <Route path={"/services/dich-vu-giao-hang"} component={DichVuGH}></Route>
                                     <Route path={"/services/dich-vu-kho-bai"} component={DichVuKB}></Route>
                                 </Switch>

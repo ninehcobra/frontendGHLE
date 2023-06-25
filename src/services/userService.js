@@ -20,6 +20,15 @@ const deleteUserService = (id) => {
         }
     })
 }
+
+const deleteWarehouseService = (id) => {
+    return axios.delete('/api/delete-warehouse', {
+        data: {
+            id: id
+        }
+    })
+}
+
 const getAllProvinceService = () => {
     return axios.get('/api/province')
 }
@@ -48,8 +57,8 @@ const createNewOrderService = (data) => {
     return axios.post('/api/create-order', data)
 }
 
-const getOrderReceptionService = () => {
-    return axios.get('/api/get-order-reception')
+const getOrderReceptionService = (id) => {
+    return axios.get(`/api/get-order-reception?id=${id}`)
 }
 
 const getOrderDetail = (id) => {
@@ -88,6 +97,14 @@ const getWarehouse = async (id) => {
     return await axios.get(`/api/get-warehouse?id=${id}`)
 }
 
+const getProvinceId = async (provinceName) => {
+    return await axios.get(`/api/get-province-id?provinceName=${provinceName}`)
+}
+
+const editWarehouse = async (data) => {
+    return await axios.put(`/api/edit-warehouse`, data)
+}
+
 export {
     handleLoginApi
     , getAllUsers
@@ -109,5 +126,8 @@ export {
     getNew,
     saveNew,
     getNewById,
-    getWarehouse
+    getWarehouse,
+    getProvinceId,
+    editWarehouse,
+    deleteWarehouseService
 }

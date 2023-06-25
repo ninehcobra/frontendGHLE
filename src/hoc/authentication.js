@@ -13,6 +13,6 @@ export const userIsNotAuthenticated = connectedRouterRedirect({
     // Want to redirect the user when they are authenticated
     authenticatedSelector: state => !state.user.isLoggedIn,
     wrapperDisplayName: 'UserIsNotAuthenticated',
-    redirectPath: '/',
-    allowRedirectBack: false
+    redirectPath: '/system/home',
+    allowRedirectBack: true
 });

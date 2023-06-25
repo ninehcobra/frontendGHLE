@@ -142,7 +142,9 @@ class Header extends Component {
                                 <div></div>
                             </div>
                             <div className='child-content'>
-                                <a onMouseEnter={() => this.handleMouseEnter(0)}
+                                <a
+                                    href='/news'
+                                    onMouseEnter={() => this.handleMouseEnter(0)}
                                     onMouseLeave={() => this.handleMouseLeave(0)} className='link-href' style={{ textDecoration: 'none' }}>
                                     <div>
                                         <b><FormattedMessage id="home-header.news" /></b>

@@ -7,7 +7,10 @@ import 'react-image-lightbox/style.css';
 
 import { toast } from 'react-toastify'
 import { createNewWareHouse } from '../../services/userService';
-import { getAddressName, getWarehouse, getAllDistrictService, getAllProvinceService, getAllUsers } from '../../services/userService';
+import {
+    getAddressName, getWarehouse, getAllDistrictService, getAllProvinceService, getAllUsers, getProvinceId
+    , editWarehouse, deleteWarehouseService
+} from '../../services/userService';
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -18,6 +21,7 @@ class Warehouse extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            warehouseId: '',
             arrProvince: [],
             arrDistrict: [],
             selectedProvince: '',
@@ -31,7 +35,8 @@ class Warehouse extends Component {
             sortId: '',
             staffId: '',
 
-            add: 0
+            add: 0,
+            isEdit: false
         }
     }
 
@@ -50,6 +55,18 @@ class Warehouse extends Component {
     }
 
     async componentDidUpdate(prevProps, preState, snapshot) {
+        if (preState.name !== this.state.name) {
+            let res = await getWarehouse('All')
+
+            this.setState({
+                arrWarehouses: res.data.reverse()
+            })
+            let users = await getAllUsers('All')
+            this.setState({
+                arrUsers: users.users
+            })
+        }
+
         if (preState.add !== this.state.add) {
             let res = await getWarehouse('All')
 
@@ -88,25 +105,36 @@ class Warehouse extends Component {
     }
 
     getDistrictCoordinate = async (id) => {
-        if (id) {
-            let name = await getAddressName(id)
-            let nameString = name.districtName + ' ' + name.provinceName
+        if (!this.state.isEdit) {
+            if (id) {
+                let name = await getAddressName(id)
+                let nameString = name.districtName + ' ' + name.provinceName
+                let res = await axios.get(`https://api.opencagedata.com/geocode/v1/json?key=8eff5dfdb1374a5db3a3415aa2f1747c&q=${nameString}`
+                )
+                return (res.data.results[0].geometry)
+            }
+        }
+        else {
+            let nameString = this.state.selectedDistrict + ' ' + this.state.selectedProvince
             let res = await axios.get(`https://api.opencagedata.com/geocode/v1/json?key=8eff5dfdb1374a5db3a3415aa2f1747c&q=${nameString}`
             )
             return (res.data.results[0].geometry)
         }
 
+
     }
 
 
     onChangeInput = async (event, id, condition = '') => {
+
         if (condition === '') {
             let copyState = { ...this.state }
             copyState[id] = event.target.value
-            this.setState({
+            await this.setState({
                 ...copyState
             }, () => {
             })
+
         }
         else if (condition === 2) {
             let copyState = { ...this.state }
@@ -115,36 +143,95 @@ class Warehouse extends Component {
                 ...copyState
             }, () => {
             })
-            await this.getAllDistrict(event.target.value)
+            if (!this.state.isEdit) {
+                let provinceId = await (await getProvinceId(event.target.value)).data
+                await this.getAllDistrict(provinceId)
+            }
+            else {
+                let provinceId = await (await getProvinceId(event.target.value)).data
+                await this.getAllDistrict(provinceId)
+            }
+
         }
 
     }
 
     handleCreateWareHouse = async () => {
-        let coordinate = await this.getDistrictCoordinate(this.state.selectedDistrict)
+        let districtId = ''
 
-        let isValid = this.checkValidate()
-        if (isValid) {
-
-            let data = {
-                name: this.state.name,
-                address: this.state.address,
-                phoneNumber: this.state.phoneNumber,
-                districtId: this.state.selectedDistrict,
-                addressCoordinate: coordinate,
-                staffId: this.state.staffId
-            }
-
-            let res = await createNewWareHouse(data)
-            if (res && res.errCode === 0) {
-                toast.success(`🧐 Create WareHouse success!!`)
-                this.setState({
-                    add: this.state.add + 1
-                })
-            }
-
+        if (this.state.arrDistrict) {
+            this.state.arrDistrict.map((item, index) => {
+                if (item.name === this.state.selectedDistrict) {
+                    districtId = item.id
+                }
+            })
         }
 
+        let coordinate = await this.getDistrictCoordinate(districtId)
+        if (this.state.isEdit === false) {
+            let isValid = this.checkValidate()
+            if (isValid) {
+
+                let data = {
+                    name: this.state.name,
+                    address: this.state.address,
+                    phoneNumber: this.state.phoneNumber,
+                    districtId: districtId,
+                    addressCoordinate: coordinate,
+                    staffId: this.state.staffId
+                }
+
+                let res = await createNewWareHouse(data)
+                if (res && res.errCode === 0) {
+                    toast.success(`🧐 Create WareHouse success!!`)
+                    this.setState({
+                        name: '',
+                        address: '',
+                        phoneNumber: '',
+                        districtId: '',
+                        addressCoordinate: '',
+                        staffId: ''
+                    })
+
+
+                }
+
+            }
+        }
+        else {
+            let isValid = this.checkValidate()
+            if (isValid) {
+                let data = {
+                    id: this.state.warehouseId,
+                    name: this.state.name,
+                    address: this.state.address,
+                    phoneNumber: this.state.phoneNumber,
+                    districtName: this.state.selectedDistrict,
+                    provinceName: this.state.selectedProvince,
+                    addressCoordinate: coordinate,
+                    staffId: this.state.staffId
+                }
+                console.log(data)
+                let res = await editWarehouse(data)
+                if (res.errCode === 0) {
+                    toast.success("Cập nhật thông tin kho hàng thành công")
+                    this.setState({
+                        warehouseId: '',
+                        name: '',
+                        address: '',
+                        phoneNumber: '',
+                        selectedDistrict: '',
+                        selectedProvince: '',
+                        addressCoordinate: '',
+                        staffId: '',
+                        isEdit: false
+                    })
+                }
+                else {
+                    toast.warning("Cập nhật lỗi")
+                }
+            }
+        }
     }
 
     checkValidate = () => {
@@ -195,11 +282,52 @@ class Warehouse extends Component {
         })
     }
 
+    handleEditWarehouse = async (item) => {
+        let res = await getProvinceId(item.provinceName)
+        this.getAllDistrict(res.data)
+        this.setState({
+            warehouseId: item.id,
+            name: item.name,
+            address: item.address,
+            phoneNumber: item.phoneNumber,
+            selectedProvince: item.provinceName,
+            selectedDistrict: item.districtName,
+            addressCoordinate: '',
+            staffId: item.staffId,
+            isEdit: true
+        })
+        console.log('state ne', this.state)
+
+    }
+
+    getStaffName = () => {
+        let name = ''
+        this.state.arrUsers.map((item, index) => {
+            if (item.id === this.state.staffId) {
+
+                name = item.lastName + " " + item.firstName
+
+            }
+        })
+        return name
+    }
+
+    handleDeleteWarehouse = async (id) => {
+        let res = await deleteWarehouseService(id)
+        if (res && res.errCode !== 0) {
+            toast.warning("Xóa kho thất bại")
+        }
+        else {
+            toast.success("Xóa kho thành công")
+            this.setState({
+                add: this.state.add + 1
+            })
+        }
+    }
 
     render() {
-
+        console.log(this.state.arrDistrict)
         let { arrWarehouses } = this.state
-
 
         return (
             <div>
@@ -217,7 +345,8 @@ class Warehouse extends Component {
                         <div className="form-group col-md-3">
                             <label for="inputPassword4">Quản lý kho</label>
                             <select value={this.state.staffId} onChange={(e) => (this.onChangeInput(e, 'staffId'))} type="text" className="form-control" id="inputPassword4" placeholder="Nhập số điện thoại" >
-                                <option value={''}>Chọn nhân viên quản lý</option>
+                                {!this.state.isEdit ? <option value={''}>Chọn nhân viên quản lý</option> : ''}
+                                {this.state.isEdit && this.state.staffId ? <option value={parseInt(this.state.staffId)}>{this.getStaffName()}</option> : ''}
                                 {this.state.arrUsers && this.state.arrUsers.map((item, index) => {
                                     if (item.roleId === 'R3') {
                                         let isValid = true
@@ -227,7 +356,6 @@ class Warehouse extends Component {
                                             }
                                         })
                                         if (isValid) {
-                                            console.log(item.id)
                                             return (
                                                 <option value={item.id}>{item.lastName + ' ' + item.firstName}</option>
                                             )
@@ -246,24 +374,24 @@ class Warehouse extends Component {
                         </div>
                         <div className="form-group col-md-3">
                             <label for="inputState">Tỉnh/Thành Phố</label>
-                            <select onChange={(e) => (this.onChangeInput(e, 'selectedProvince', 2))} id="inputState" className="form-control">
-                                <option value={''} selected>Chọn Tỉnh/Thành Phố</option>
+                            <select value={this.state.selectedProvince} onChange={(e) => (this.onChangeInput(e, 'selectedProvince', 2))} id="inputState" className="form-control">
+                                <option value={''} >Chọn Tỉnh/Thành Phố</option>
                                 {this.state.arrProvince.map((item, index) => {
-                                    return (<option value={item.id}>{item.name}</option>)
+                                    return (<option value={item.name}>{item.name}</option>)
                                 })}
                             </select>
                         </div>
                         <div className="form-group col-md-3">
                             <label for="inputState">Quận/Huyện</label>
-                            <select onChange={(e) => (this.onChangeInput(e, 'selectedDistrict'))} id="inputState" className="form-control">
-                                <option selected>Chọn Quận/Huyện</option>
+                            <select value={this.state.selectedDistrict} onChange={(e) => (this.onChangeInput(e, 'selectedDistrict'))} id="inputState" className="form-control">
+                                <option >Chọn Quận/Huyện</option>
                                 {this.state.arrDistrict.map((item, index) => {
-                                    return (<option value={item.id}>{item.name}</option>)
+                                    return (<option value={item.name}>{item.name}</option>)
                                 })}
                             </select>
                         </div>
                     </div>
-                    <button onClick={() => this.handleCreateWareHouse()} className="btn btn-primary">Tạo kho</button>
+                    <button onClick={() => this.handleCreateWareHouse()} className={this.state.isEdit ? "btn btn-primary btn-yellow" : "btn btn-primary"}>{this.state.isEdit ? 'Lưu chỉnh sửa' : 'Tạo kho'}</button>
                     <table id='TableManageUser'  >
                         <select onChange={(event) => { this.onChangeSort(event.target.value) }} value={this.state.sortId} className='sort-select'>
                             <option value=''>Tất cả</option>
@@ -295,9 +423,9 @@ class Warehouse extends Component {
                                                 <td>{item.districtName}</td>
                                                 <td>
                                                     <button
-                                                        onClick={() => this.handleEditUser(item)}
+                                                        onClick={() => this.handleEditWarehouse(item)}
                                                         className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
-                                                    <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
+                                                    <button onClick={() => this.handleDeleteWarehouse(item.id)} className='btn-delete'><i className='fas fa-trash'></i></button>
                                                 </td>
                                             </tr>
                                             : item.provinceName === this.state.sortId ?
@@ -309,7 +437,7 @@ class Warehouse extends Component {
                                                     <td>{item.districtName}</td>
                                                     <td>
                                                         <button
-                                                            onClick={() => this.handleEditUser(item)}
+                                                            onClick={() => this.handleEditWarehouse(item)}
                                                             className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
                                                         <button onClick={() => this.handleDeleteUser(item)} className='btn-delete'><i className='fas fa-trash'></i></button>
                                                     </td>

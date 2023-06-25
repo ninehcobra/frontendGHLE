@@ -44,7 +44,7 @@ class Login extends Component {
 
     redirectToSystemPage = () => {
         const { navigate } = this.props;
-        const redirectPath = '/system/user-manage';
+        const redirectPath = '/system/home';
         navigate(`${redirectPath}`);
     }
 
@@ -66,7 +66,7 @@ class Login extends Component {
 
         adminLoginSuccess(adminInfo);
         this.refresh();
-        this.redirectToSystemPage();
+        navigate('/system/home')
         try {
             adminService.login(loginBody)
         } catch (e) {
@@ -164,7 +164,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        navigate: (path) => dispatch(push(path)),
+        navigate: (path) => dispatch(replace(path)),
         adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
         adminLoginFail: () => dispatch(actions.adminLoginFail()),
     };

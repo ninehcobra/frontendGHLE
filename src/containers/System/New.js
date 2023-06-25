@@ -25,6 +25,7 @@ class New extends Component {
             header: '',
             contentMarkdown: '',
             contentHTML: '',
+            banner: ''
         }
     }
 
@@ -40,7 +41,7 @@ class New extends Component {
 
     checkValidate = () => {
         let isValid = true
-        let arrCheck = ['contentHTML', 'contentMarkdown', 'header']
+        let arrCheck = ['contentHTML', 'contentMarkdown', 'header', 'banner']
         for (let i = 0; i < arrCheck.length; i++) {
             if (this.state[arrCheck[i]] === '') {
                 isValid = false
@@ -56,7 +57,8 @@ class New extends Component {
             let res = await saveNew({
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
-                header: this.state.header
+                header: this.state.header,
+                banner: this.state.banner
             })
 
             if (res.errCode !== 0) {
@@ -67,7 +69,8 @@ class New extends Component {
                 this.setState({
                     contentHTML: '',
                     contentMarkdown: '',
-                    header: ''
+                    header: '',
+                    banner: ''
                 })
             }
         }
@@ -80,6 +83,12 @@ class New extends Component {
         })
     }
 
+    onChangeBanner = (e) => {
+        this.setState({
+            banner: e.target.value
+        })
+    }
+
     render() {
         return (
             <div className>
@@ -87,6 +96,9 @@ class New extends Component {
                     <div className='new-title'>Thêm tin tức</div>
                     <label style={{ fontSize: '14px', fontWeight: 600 }}>Tiêu đề</label>
                     <textarea onChange={(e) => this.onChangeHeader(e)} value={this.state.header} rows={1} className='form-control new-header'></textarea>
+
+                    <label style={{ fontSize: '14px', fontWeight: 600 }}>Link ảnh</label>
+                    <textarea onChange={(e) => this.onChangeBanner(e)} value={this.state.banner} rows={1} className='form-control new-header'></textarea>
 
                 </div>
                 <div className='new-body'>
