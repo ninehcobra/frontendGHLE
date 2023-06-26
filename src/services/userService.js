@@ -61,8 +61,12 @@ const getOrderReceptionService = (id) => {
     return axios.get(`/api/get-order-reception?id=${id}`)
 }
 
-const getOrderDetail = (id) => {
+const getOrderHistory = (id) => {
     return axios.get(`api/get-order-history?id=${id}`)
+}
+
+const getOrderDetail = (id) => {
+    return axios.get(`/api/get-order-detail?id=${id}`)
 }
 
 const getAddressName = async (id) => {
@@ -78,7 +82,13 @@ const getProvinceByDistrict = async (provinceId) => {
 }
 
 const getUserOrder = async (data) => {
-    return await axios.get(`/api/get-user-order?id=${data.id}&status=${data.status}&startDate=${data.startDate}&endDate=${data.endDate}`)
+    if (data.staffId) {
+        return await axios.get(`/api/get-user-order?staffId=${data.staffId}`)
+    }
+    else {
+        return await axios.get(`/api/get-user-order?id=${data.id}&status=${data.status}&startDate=${data.startDate}&endDate=${data.endDate}`)
+    }
+
 }
 
 const getNew = async (limit) => {
@@ -126,7 +136,7 @@ export {
     , getFeeService,
     createNewOrderService,
     getOrderReceptionService,
-    getOrderDetail,
+    getOrderHistory,
     createNewWareHouse,
     getAddressName,
     getNearestWarehouse,
@@ -139,5 +149,6 @@ export {
     getProvinceId,
     editWarehouse,
     deleteWarehouseService,
-    getStaffHistory
+    getStaffHistory,
+    getOrderDetail
 }

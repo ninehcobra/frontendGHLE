@@ -71,7 +71,7 @@ export const transportMenu = [
     { //Quản lý giao hàng
         name: 'Giao hàng', menus: [
             {
-                name: 'Đơn hàng', link: '/system/news'
+                name: 'Giao hàng', link: '/system/delivery'
             },
             //Quản lý đơn hàng
 
@@ -84,9 +84,6 @@ export const transportMenu = [
 export const WarehouseMenu = [
     { //Quản lý Kho hàng
         name: 'menu.admin.warehouse', menus: [
-            {
-                name: 'menu.admin.manage-order', link: '/system/manage-order'
-            },
             {
                 name: 'menu.admin.manage-delivery-staff', link: '/system/user-delivery-staff'
 

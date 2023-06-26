@@ -147,3 +147,14 @@
     inset: 0px;
     flex-direction: column;
 }
+
+.detail-order {
+    label {
+        color: #00467f;
+        font-weight: 600;
+
+        span {
+            color: black !important;
+        }
+    }
+}

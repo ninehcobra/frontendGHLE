@@ -52,7 +52,8 @@ class ManageOrder extends Component {
             fee: '',
             note: '',
             userId: this.props.userInfo.id,
-            displayWeight: ''
+            displayWeight: '',
+            isPayed: false
         }
 
     }
@@ -417,9 +418,12 @@ class ManageOrder extends Component {
     handleCreateOrder = async () => {
         let isValid = this.checkValidate()
         let coordinatesen = await this.getDistrictCoordinate(this.props.userInfo.districtId)
-        let resWarehouse = await getNearestWarehouse(coordinatesen.lat, coordinatesen.lng)
+        let coordinaterec = await this.getDistrictCoordinate(this.state.receiveDistrict)
 
-        if (resWarehouse.errCode === 0) {
+        let resWarehouse = await getNearestWarehouse(coordinatesen.lat, coordinatesen.lng)
+        let resWarehouserec = await getNearestWarehouse(coordinaterec.lat, coordinaterec.lng)
+
+        if (resWarehouse.errCode === 0 && resWarehouserec.errCode === 0) {
             if (isValid) {
                 let data = {
                     userId: this.props.userInfo.id,
@@ -442,8 +446,9 @@ class ManageOrder extends Component {
                     note: this.state.note,
                     noteOption: this.state.noteOption,
                     fee: this.state.fee,
-                    payOption: this.state.payOption,
-                    warehouseId: resWarehouse.warehouseId
+                    payOption: this.state.isPayed ? 'P3' : this.state.payOption,
+                    warehouseId: resWarehouse.warehouseId,
+                    recWarehouseId: resWarehouserec.warehouseId
                 }
 
                 let res = await this.props.createNewOrder(data)
@@ -460,7 +465,7 @@ class ManageOrder extends Component {
             }
         }
         else {
-            toast.error('🧐 Hiện tại app chưa hỗ trợ lấy hàng tại đây!!!')
+            toast.error('🧐 Hiện tại app chưa hỗ trợ giao/lấy hàng tại đây!!!')
         }
 
     }
@@ -804,9 +809,9 @@ class ManageOrder extends Component {
                         <div className='footer-body'>
                             <select onChange={(e) => (this.onChangeInput(e, 'payOption'))} className='form-control footer-input'>
                                 <option value=''>Chọn bên trả phí</option>
-                                {this.state.arrPay && this.state.arrPay.map((item, index) => {
-                                    return <option key={index} value={item.key}>{item.valueVi}</option>
-                                })}
+                                <option value={'P1'}>Bên gửi trả phí</option>
+                                <option value={'P2'}>Bên nhận trả phí</option>
+
                             </select>
                         </div>
 
@@ -838,7 +843,9 @@ class ManageOrder extends Component {
                                         }}
                                         onApprove={() => {
                                             toast.success('Thanh toán thành công')
-
+                                            this.setState({
+                                                isPayed: true
+                                            })
                                             setTimeout(() => { this.handleCreateOrder() }, 3000)
 
                                         }}

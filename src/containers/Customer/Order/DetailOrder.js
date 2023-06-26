@@ -4,7 +4,7 @@ import search from '../../../assets/search.png'
 import missing from '../../../assets/missing.png'
 import logo from '../../../assets/logo-giaohangle.png'
 import './DetailOrder.scss'
-import { getOrderDetail } from '../../../services/userService';
+import { getOrderHistory, getOrderDetail } from '../../../services/userService';
 import axios from '../../../axios';
 class DetailOrder extends Component {
 
@@ -14,13 +14,14 @@ class DetailOrder extends Component {
             orderId: this.props.match.params.id,
             history: [],
             isValid: false,
-            id: ''
+            id: '',
+            detail: []
         }
     }
 
     async componentDidMount() {
 
-        let history = await getOrderDetail(this.state.orderId)
+        let history = await getOrderHistory(this.state.orderId)
         if (history.errCode === 0) {
             history.data.reverse()
             this.setState({
@@ -28,6 +29,11 @@ class DetailOrder extends Component {
                 isValid: true
             })
         }
+
+        let detail = await getOrderDetail(this.state.orderId)
+        this.setState({
+            detail: detail.data
+        })
 
 
     }
@@ -48,7 +54,7 @@ class DetailOrder extends Component {
         var hour = date.getUTCHours();
         var minute = date.getUTCMinutes();
 
-        return `${hour + 7}:${minute}`;
+        return `${(hour + 7) >= 24 ? (hour + 7) - 24 : hour + 7}:${minute}`;
     }
 
     changeInput = (e) => {
@@ -72,6 +78,7 @@ class DetailOrder extends Component {
 
     render() {
         let orderId = this.state.orderId
+        let detail = this.state.detail
         return (
             <div className='Layout'>
 
@@ -132,8 +139,26 @@ class DetailOrder extends Component {
 
                         :
                         <div className='container'>
-                            <div className='header'>
-                                <span>Mã đơn hàng: {this.state.orderId}</span>
+                            <div style={{ display: 'flex', flexDirection: 'column' }} className='header'>
+                                <div style={{ width: '100%', float: 'left' }}>
+                                    <span style={{ fontSize: '16px', fontWeight: '600' }}>Mã đơn hàng:
+                                        < span style={{ color: 'black', marginLeft: '5px' }}>{this.state.orderId}</span>
+                                    </span>
+                                    <div style={{ borderBottom: '1px solid grey', margin: '5px' }}></div>
+                                    <div className='row detail-order'>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }} className='col-sm-6'>
+                                            <label>Tên người gửi: <span>{detail.takeName}</span></label>
+                                            <label>Địa chỉ gửi: <span>{detail.takeAddress}</span></label>
+                                            <label>Số điện thoại người gửi: <span>{detail.takePhone ? detail.takePhone.replace(/\d(?=\d{3})/g, '*') : ''}</span></label>
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }} className='col-sm-6'>
+                                            <label>Tên người gửi: <span>{detail.receiverName}</span></label>
+                                            <label>Địa chỉ gửi: <span>{detail.receiverAddress}</span></label>
+                                            <label>Số điện thoại người gửi: <span>{detail.takePhone ? detail.receivePhone.replace(/\d(?=\d{3})/g, '*') : ''}</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div className='tab-content'>
                                 <div className='item'>

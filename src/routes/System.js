@@ -8,6 +8,7 @@ import Header from '../containers/Header/Header';
 import OrderReception from '../containers/System/Order/OrderReception';
 import Warehouse from '../containers/Warehouse/Warehouse';
 import CustomerHome from '../containers/Customer/CustomerHome/CustomerHome';
+import Delivery from '../containers/System/Delivery/Delivery';
 import SystemHome from '../containers/System/SystemHome';
 import New from '../containers/System/New';
 import ManageDeliveryStaff from '../containers/Warehouse/ManageDeliveryStaff';
@@ -33,6 +34,7 @@ class System extends Component {
                             <Route path="/system/manage-order" component={ManageOrder} />
                             <Route path="/system/order-reception" component={OrderReception} />
                             <Route path="/system/user-delivery-staff" component={ManageDeliveryStaff} />
+                            <Route path="/system/delivery" component={Delivery} />
                             <Redirect to="/system/home" />
                         </Switch>
                     </div>
