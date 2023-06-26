@@ -48,7 +48,7 @@ class DetailOrder extends Component {
         var hour = date.getUTCHours();
         var minute = date.getUTCMinutes();
 
-        return `${hour}:${minute}`;
+        return `${hour + 7}:${minute}`;
     }
 
     changeInput = (e) => {

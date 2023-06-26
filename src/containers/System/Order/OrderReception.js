@@ -3,9 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './OrderReception.scss'
 import * as actions from '../../../store/actions'
-import { getOrderReceptionService, getAllUsers } from '../../../services/userService';
+import { getOrderReceptionService, getAllUsers, setOrderStaff } from '../../../services/userService';
 import { withRouter } from 'react-router';
 import logo from '../../../assets/logo.png'
+import { toast } from 'react-toastify';
+
 let numeral = require('numeral');
 
 class OrderReception extends Component {
@@ -23,6 +25,12 @@ class OrderReception extends Component {
 
     async componentDidMount() {
         await this.getOrderReception(this.props.userInfo.warehouseId)
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevState.selectedValues !== this.state.selectedValues) {
+            await this.getOrderReception(this.props.userInfo.warehouseId)
+        }
     }
 
     getOrderReception = async (id) => {
@@ -55,8 +63,21 @@ class OrderReception extends Component {
         });
     }
 
-    handleAcceptOrder = (index) => {
-        console.log(`Selected value for item ${index}:`, this.state.selectedValues[index]);
+    handleAcceptOrder = async (index, id) => {
+        console.log(`Selected value for item ${id}:`, this.state.selectedValues[index]);
+
+        let res = await setOrderStaff({
+            orderId: id,
+            staffId: this.state.selectedValues[index]
+        })
+        if (res.errCode === 0) {
+            toast.success('Đã tiếp nhận và bàn giao đơn cho nhân viên')
+            this.setState((prevState) => {
+                const updatedValues = [...prevState.selectedValues];
+                updatedValues[index] = null;
+                return { selectedValues: updatedValues };
+            });
+        }
     }
 
     render() {
@@ -121,7 +142,7 @@ class OrderReception extends Component {
                                                         })}
                                                     </select>
                                                     <div className='btn-box'>
-                                                        <button selectId={this.state.selectedValues[index]} onClick={() => this.handleAcceptOrder(index)} className='btn-odrcp'>Xác nhận</button>
+                                                        <button selectId={this.state.selectedValues[index]} onClick={() => this.handleAcceptOrder(index, item.id)} className='btn-odrcp'>Xác nhận</button>
                                                         <button onClick={() => this.handleViewDetailProduct(item)} className='btn-odrcp'>Xem chi tiết</button>
                                                     </div>
 

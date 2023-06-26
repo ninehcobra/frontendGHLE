@@ -105,8 +105,17 @@ const editWarehouse = async (data) => {
     return await axios.put(`/api/edit-warehouse`, data)
 }
 
+const setOrderStaff = async (data) => {
+    return await axios.get(`/api/set-order-staff?orderId=${data.orderId}&staffId=${data.staffId}`)
+}
+
+const getStaffHistory = async (id) => {
+    return await axios.get(`/api/get-staff-history?staffId=${id}`)
+}
+
 export {
-    handleLoginApi
+    handleLoginApi,
+    setOrderStaff
     , getAllUsers
     , createNewUserService
     , deleteUserService
@@ -129,5 +138,6 @@ export {
     getWarehouse,
     getProvinceId,
     editWarehouse,
-    deleteWarehouseService
+    deleteWarehouseService,
+    getStaffHistory
 }

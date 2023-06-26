@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import notAccept from '../../assets/nonono.webp'
 import './ManageDeliveryStaff.scss'
-import { getWarehouse, getAllUsers, editUserService } from '../../services/userService';
+import { getWarehouse, getAllUsers, editUserService, getStaffHistory } from '../../services/userService';
 import logo from '../../assets/logo.png'
 import { toast } from 'react-toastify';
 
@@ -16,7 +16,8 @@ class ManageDeliveryStaff extends Component {
             warehouse: '',
             arrUsers: [],
             selectedStaff: '',
-            isDeleted: false
+            isDeleted: false,
+            history: []
         }
     }
 
@@ -35,7 +36,10 @@ class ManageDeliveryStaff extends Component {
             arrUsers: user.users
         })
 
-
+        let history = await getStaffHistory('All')
+        this.setState({
+            history: history.data
+        })
     }
 
     async componentDidUpdate(prevProps, prevState,) {
@@ -129,6 +133,17 @@ class ManageDeliveryStaff extends Component {
 
     }
 
+    countOrder = (id) => {
+        let history = this.state.history
+        let count = 0
+        history.map((item, index) => {
+            if (item.staffId === id) {
+                count = count + 1
+            }
+        })
+        return count
+    }
+
     render() {
         let { userInfo } = this.props
         let arrUsers = this.state.arrUsers
@@ -196,9 +211,9 @@ class ManageDeliveryStaff extends Component {
                                                             <td>{item.lastName + ' ' + item.firstName}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.phoneNumber}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td>{this.countOrder(item.id)}</td>
+                                                            <td>0</td>
+                                                            <td>{this.countOrder(item.id)}</td>
                                                             <td>
 
                                                                 <button onClick={() => this.handleDeleteUser(item.id)} className='btn-delete'><i className='fas fa-trash'></i></button>
@@ -259,7 +274,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDeliveryStaff);
-
 
 
 
