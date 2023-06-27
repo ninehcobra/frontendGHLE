@@ -87,22 +87,22 @@ class OrderReception extends Component {
 
         return (
             <div className='orderreception-body'>
-                <div style={{}} class="center">
-                    <div class="left">
-                        <div class="logo">
+                <div style={{}} className="center">
+                    <div className="left">
+                        <div className="logo">
                             <img style={{ width: '100%' }} src={logo}></img>
                         </div>
-                        <div style={{ marginTop: '40px' }} class="company">
-                            <div class="company-name">GHLE</div>
-                            <div class="company-description">Tiếp nhận đơn hàng</div>
-                            <div class="company-description">STAFF: <span>{' ' + userInfo.lastName + " " + userInfo.firstName}</span></div>
+                        <div style={{ marginTop: '40px' }} className="company">
+                            <div className="company-name">GHLE</div>
+                            <div className="company-description">Tiếp nhận đơn hàng</div>
+                            <div className="company-description">STAFF: <span>{' ' + userInfo.lastName + " " + userInfo.firstName}</span></div>
                             <div className='ln'></div>
                         </div>
 
                     </div>
-                    <div class="right">
-                        <div class="title">Tiếp nhận đơn hàng</div>
-                        <div style={{ textAlign: 'center' }} class="description">{'~Nói với họ là thôi đừng gọi tên tôi, tôi không xuất hiện đâu, tôi không rảnh~'}</div>
+                    <div className="right">
+                        <div className="title">Tiếp nhận đơn hàng</div>
+                        <div style={{ textAlign: 'center' }} className="description">{'~Nói với họ là thôi đừng gọi tên tôi, tôi không xuất hiện đâu, tôi không rảnh~'}</div>
                         <div style={{ border: '1px solid #7871ff' }}></div>
 
                         <div className="users-container">

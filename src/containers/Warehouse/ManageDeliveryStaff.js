@@ -136,12 +136,22 @@ class ManageDeliveryStaff extends Component {
     countOrder = (id) => {
         let history = this.state.history
         let count = 0
+        let countDone = 0
         history.map((item, index) => {
-            if (item.staffId === id) {
+            if (item.staffId === id && item.orderStatus === 'Đã tiếp nhận') {
                 count = count + 1
             }
         })
-        return count
+        history.map((item, index) => {
+            if (item.staffId === id && item.orderStatus.split(' ').slice(0, 3).join(' ') === 'Đã giao đến') {
+                countDone = countDone + 1
+            }
+        })
+        return {
+            countProcess: count - countDone,
+            countDone: countDone,
+            countTotal: count
+        }
     }
 
     render() {
@@ -154,19 +164,19 @@ class ManageDeliveryStaff extends Component {
 
                     <div className='manageWh-main'>
 
-                        <div class="center">
-                            <div class="left">
-                                <div class="logo">
+                        <div className="center">
+                            <div className="left">
+                                <div className="logo">
                                     <img style={{ width: '100%' }} src={logo}></img>
                                 </div>
-                                <div style={{ marginTop: '40px' }} class="company">
-                                    <div class="company-name">GHLE</div>
-                                    <div class="company-description">Quản lý nhân sự kho</div>
-                                    <div class="company-description">STAFF: <span>{' ' + userInfo.lastName + " " + userInfo.firstName}</span></div>
+                                <div style={{ marginTop: '40px' }} className="company">
+                                    <div className="company-name">GHLE</div>
+                                    <div className="company-description">Quản lý nhân sự kho</div>
+                                    <div className="company-description">STAFF: <span>{' ' + userInfo.lastName + " " + userInfo.firstName}</span></div>
                                     <div className='ln'></div>
                                 </div>
-                                <div style={{ marginTop: '10px' }} class="company">
-                                    <div class="company-name">Thêm nhân viên</div>
+                                <div style={{ marginTop: '10px' }} className="company">
+                                    <div className="company-name">Thêm nhân viên</div>
                                     <select onChange={(e) => this.onChangeSelect(e.target.value)} value={this.state.selectedStaff} style={{ margin: '4px' }} className='form-control'>
                                         <option value={''}>Chọn nhân viên</option>
                                         {arrUsers.map((item, index) => {
@@ -184,9 +194,9 @@ class ManageDeliveryStaff extends Component {
                                     <div style={{ marginTop: '10px' }} className='ln'></div>
                                 </div>
                             </div>
-                            <div class="right">
-                                <div class="title">Quản lý nhân sự kho</div>
-                                <div style={{ textAlign: 'center' }} class="description">{'~Sắm cho mình một con mắt mới, mở ra đường ta đi sắp tới~'}</div>
+                            <div className="right">
+                                <div className="title">Quản lý nhân sự kho</div>
+                                <div style={{ textAlign: 'center' }} className="description">{'~Sắm cho mình một con mắt mới, mở ra đường ta đi sắp tới~'}</div>
                                 <div style={{ border: '1px solid #7871ff' }}></div>
 
                                 <table style={{ marginTop: '20px' }} id='TableManageUser'  >
@@ -211,9 +221,9 @@ class ManageDeliveryStaff extends Component {
                                                             <td>{item.lastName + ' ' + item.firstName}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.phoneNumber}</td>
-                                                            <td>{this.countOrder(item.id)}</td>
-                                                            <td>0</td>
-                                                            <td>{this.countOrder(item.id)}</td>
+                                                            <td>{this.countOrder(item.id).countProcess}</td>
+                                                            <td>{this.countOrder(item.id).countDone}</td>
+                                                            <td>{this.countOrder(item.id).countTotal}</td>
                                                             <td>
 
                                                                 <button onClick={() => this.handleDeleteUser(item.id)} className='btn-delete'><i className='fas fa-trash'></i></button>

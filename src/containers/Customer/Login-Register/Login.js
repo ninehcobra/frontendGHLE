@@ -21,7 +21,7 @@ class Login extends Component {
         const { processLogout, language, userInfo } = this.props;
         return (
 
-            <div class="login-container" >
+            <div className="login-container" >
                 <div className="btn btn-logout" onClick={processLogout}>
                     <i className="fas fa-sign-out-alt"></i>
                 </div>

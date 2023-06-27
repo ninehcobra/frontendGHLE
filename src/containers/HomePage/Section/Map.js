@@ -59,10 +59,10 @@ class Map extends Component {
             <div className='section-map'>
                 <div className='map-container'>
                     <div className='row'>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-left">
-                            <div class="s-title">
+                        <div className="col-md-4 col-sm-12 col-xs-12 col-left">
+                            <div className="s-title">
                                 <h2><FormattedMessage id="home-header.post-offices" />
-                                    <span class="text-color"><FormattedMessage id="home-header.app-name" /></span>
+                                    <span className="text-color"><FormattedMessage id="home-header.app-name" /></span>
                                 </h2>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ class Map extends Component {
                                         })}
 
                                     </select>
-                                    <select onChange={(e) => this.onChaneInput(e.target.value)} name="select-quan" class="select-quan"><option value="all">Chọn Quận/huyện</option>
+                                    <select onChange={(e) => this.onChaneInput(e.target.value)} name="select-quan" className="select-quan"><option value="all">Chọn Quận/huyện</option>
                                         {this.state.arrDistrict.map((item, index) => {
                                             return (<option value={item.id}>{item.name}</option>)
                                         })}
@@ -95,7 +95,7 @@ class Map extends Component {
                                                                 <b>{item.name}</b>
                                                                 <div className='item-detail'>{item.address}</div>
                                                                 <span></span>
-                                                                <div class="item-time">Thời gian hoạt động: 08h00-18h00 (Thứ Hai - Chủ Nhật)</div>
+                                                                <div className="item-time">Thời gian hoạt động: 08h00-18h00 (Thứ Hai - Chủ Nhật)</div>
                                                             </a>
                                                         </li>
                                                     )
@@ -114,7 +114,7 @@ class Map extends Component {
                             </div>
                         </div>
                         <div className='col-md-8 col-sm-12 col-xs-12 col-right'>
-                            <div class="img-map" id="map-store"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4902.890827548273!2d106.80047917589918!3d10.870014157458748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527587e9ad5bf%3A0xafa66f9c8be3c91!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiAtIMSQSFFHIFRQLkhDTQ!5e1!3m2!1svi!2sus!4v1687229635657!5m2!1svi!2sus" width="100%" height="576"></iframe></div>
+                            <div className="img-map" id="map-store"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4902.890827548273!2d106.80047917589918!3d10.870014157458748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527587e9ad5bf%3A0xafa66f9c8be3c91!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiAtIMSQSFFHIFRQLkhDTQ!5e1!3m2!1svi!2sus!4v1687229635657!5m2!1svi!2sus" width="100%" height="576"></iframe></div>
                         </div>
 
                     </div>

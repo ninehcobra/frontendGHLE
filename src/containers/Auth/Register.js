@@ -289,7 +289,7 @@ class Register extends Component {
                                             </div>
 
                                             <div className='register-row-3'>
-                                                <label class="">{'Bạn đã có tài khoản? '}</label>
+                                                <label className="">{'Bạn đã có tài khoản? '}</label>
                                                 <a href='/login' style={{ color: '#ff6339', textDecoration: 'none' }}> <span>Đăng nhập ngay</span></a>
                                             </div>
                                         </div>
@@ -302,7 +302,7 @@ class Register extends Component {
 
 
                                                 <div className='register-row-3'>
-                                                    <label class="">{'Quay về trang đăng nhập '}</label>
+                                                    <label className="">{'Quay về trang đăng nhập '}</label>
                                                     <a href='/login' style={{ color: '#ff6339', textDecoration: 'none' }}> <span>tại đây</span></a>
                                                 </div>
                                             </div>

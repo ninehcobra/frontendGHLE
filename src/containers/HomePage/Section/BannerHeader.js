@@ -55,13 +55,13 @@ class BannerHeader extends Component {
                             <p><FormattedMessage id="home-header.slide1-1" /><br /><FormattedMessage id="home-header.slide1-2" /></p>
                         </div>
                         <div className='slide-info'>
-                            <p class=""><FormattedMessage id="home-header.slide2-1" /><br /> <FormattedMessage id="home-header.slide2-2" /></p>
+                            <p className=""><FormattedMessage id="home-header.slide2-1" /><br /> <FormattedMessage id="home-header.slide2-2" /></p>
                         </div>
                         <div className='slide-info'>
-                            <p class=""><FormattedMessage id="home-header.slide3-1" /><br /> <FormattedMessage id="home-header.slide3-2" /></p>
+                            <p className=""><FormattedMessage id="home-header.slide3-1" /><br /> <FormattedMessage id="home-header.slide3-2" /></p>
                         </div>
                         <div className='slide-info'>
-                            <p class=""><FormattedMessage id="home-header.slide4-1" /><br /><FormattedMessage id="home-header.slide4-2" /></p>
+                            <p className=""><FormattedMessage id="home-header.slide4-1" /><br /><FormattedMessage id="home-header.slide4-2" /></p>
                         </div>
 
                     </div>

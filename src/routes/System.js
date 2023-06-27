@@ -12,6 +12,7 @@ import Delivery from '../containers/System/Delivery/Delivery';
 import SystemHome from '../containers/System/SystemHome';
 import New from '../containers/System/New';
 import ManageDeliveryStaff from '../containers/Warehouse/ManageDeliveryStaff';
+import ManageWarehouse from '../containers/Warehouse/ManageWarehouse';
 
 class System extends Component {
     render() {
@@ -32,6 +33,9 @@ class System extends Component {
                             <Route path="/system/manage-warehouse" component={Warehouse} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-order" component={ManageOrder} />
+
+                            <Route path="/system/manage-warehouse-order" component={ManageWarehouse} />
+
                             <Route path="/system/order-reception" component={OrderReception} />
                             <Route path="/system/user-delivery-staff" component={ManageDeliveryStaff} />
                             <Route path="/system/delivery" component={Delivery} />

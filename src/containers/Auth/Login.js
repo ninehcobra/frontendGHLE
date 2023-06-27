@@ -138,7 +138,7 @@ class Login extends Component {
                                             <p></p>
                                             <button onClick={() => { this.handleLogin() }} className='login-button'>Đăng nhập</button>
                                             <div className='login-row-3'>
-                                                <label class="">{'Bạn chưa có tài khoản '}</label>
+                                                <label className="">{'Bạn chưa có tài khoản '}</label>
                                                 <a href='/register'> <span>Đăng ký ngay</span></a>
                                             </div>
                                             <div className='note'>

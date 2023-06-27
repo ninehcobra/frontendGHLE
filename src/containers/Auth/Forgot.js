@@ -139,7 +139,7 @@ class Forgot extends Component {
                                             <p></p>
                                             <button onClick={() => { this.handleLogin() }} className='login-button'>Khôi phục</button>
                                             <div className='login-row-3'>
-                                                <label class="">{'Quay lại trang '}</label>
+                                                <label className="">{'Quay lại trang '}</label>
                                                 <a href='/login'><span> Đăng nhập</span></a>
                                             </div>
 

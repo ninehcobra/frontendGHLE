@@ -452,7 +452,9 @@ class ManageOrder extends Component {
                 }
 
                 let res = await this.props.createNewOrder(data)
-
+                this.setState({
+                    isPayed: false
+                })
                 if (res && res.errCode === 0) {
                     toast.success('🧐 Create order success!!!')
                 }
@@ -627,9 +629,9 @@ class ManageOrder extends Component {
                                         </div>
                                         <div className='item-info ml-1'>
                                             <div className='block-center'>
-                                                <div class="package-title">KL (gam)</div>
+                                                <div className="package-title">KL (gam)</div>
                                                 <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productWeight', index)} value={item.productWeight ? item.productWeight : "0"} min="0" type='number' className='mx-1 custom-input form-control'></input>
-                                                <div class="package-title">SL</div>
+                                                <div className="package-title">SL</div>
                                                 <input onChange={(e) => this.onChangeInputProduct(e.target.value, 'productQuantity', index)} value={item.productQuantity ? item.productQuantity : '1'} min="0" type='number' className='mx-1 custom-input form-control'></input>
                                                 <div className='package-add-icon'>
                                                     {arrLength === index ? <i onClick={() => this.addProducts()} className="fa fa-plus-square"></i> : ''}
@@ -692,7 +694,7 @@ class ManageOrder extends Component {
                                 <div className='cost-container'>
                                     <label className='cost-title'>
                                         <span>Tổng tiền thu hộ COD </span>
-                                        <span class="note fz-12">Thu hộ tiền(COD) là gì
+                                        <span className="note fz-12">Thu hộ tiền(COD) là gì
                                             <i className="fas fa-question-circle"></i>
                                         </span>
                                     </label>
@@ -701,7 +703,7 @@ class ManageOrder extends Component {
                                 <div className='cost-container'>
                                     <label className='cost-title'>
                                         <span>Tổng giá trị hàng hoá</span>
-                                        <span class="note fz-12">Giá trị hàng hoá là gì
+                                        <span className="note fz-12">Giá trị hàng hoá là gì
                                             <i className="fas fa-question-circle"></i>
                                         </span>
                                     </label>
@@ -722,7 +724,7 @@ class ManageOrder extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-8 offset-md-2"> <hr /></div>
+                    <div className="col-sm-12 col-md-8 offset-md-2"> <hr /></div>
                     <div className='row'>
                         <div className='col-sm-12 col-md-8 offset-md-2'>
                             <div className='fee-info'>
@@ -781,7 +783,7 @@ class ManageOrder extends Component {
                             <div className='note-info'>
                                 <label className='note-required'>Ghi chú
                                 </label>
-                                <textarea onChange={(e) => (this.onChangeInput(e, 'note'))} value={this.state.note ? this.state.note : ""} maxLength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" class="form-control" style={{ height: "122px" }}></textarea>
+                                <textarea onChange={(e) => (this.onChangeInput(e, 'note'))} value={this.state.note ? this.state.note : ""} maxLength="500" placeholder="Ví dụ: Lấy sản phẩm 1 2 cái, lấy sản phẩm 2 1 cái" className="form-control" style={{ height: "122px" }}></textarea>
                             </div>
                         </div>
                     </div>

@@ -56,10 +56,10 @@ class New extends Component {
                 {this.state.new.header ? <>
                     <nav aria-label="breadcrumb">
 
-                        <ol class="breadcrumb">
+                        <ol className="breadcrumb">
                             <div className='container' style={{ display: 'flex' }}>
-                                <li class="breadcrumb-item " ><a className='breadcrumb-news' href="/home">Trang chủ</a></li>
-                                <li style={{ textTransform: 'lowercase' }} class="breadcrumb-item active" aria-current="page">{this.state.new ? this.state.new.header : ''}</li>
+                                <li className="breadcrumb-item " ><a className='breadcrumb-news' href="/home">Trang chủ</a></li>
+                                <li style={{ textTransform: 'lowercase' }} className="breadcrumb-item active" aria-current="page">{this.state.new ? this.state.new.header : ''}</li>
                             </div>
                         </ol>
                     </nav>
@@ -78,10 +78,10 @@ class New extends Component {
                     <>
                         <nav aria-label="breadcrumb">
 
-                            <ol class="breadcrumb">
+                            <ol className="breadcrumb">
                                 <div className='container' style={{ display: 'flex' }}>
-                                    <li class="breadcrumb-item " ><a className='breadcrumb-news' href="/home">Trang chủ</a></li>
-                                    <li style={{ textTransform: 'lowercase' }} class="breadcrumb-item active" aria-current="page">Tin tức GHLE</li>
+                                    <li className="breadcrumb-item " ><a className='breadcrumb-news' href="/home">Trang chủ</a></li>
+                                    <li style={{ textTransform: 'lowercase' }} className="breadcrumb-item active" aria-current="page">Tin tức GHLE</li>
                                 </div>
                             </ol>
                         </nav>
@@ -108,7 +108,7 @@ class New extends Component {
                                                             <div className='blog-date'>
                                                                 <span className='date'>
                                                                     <span style={{ display: 'flex', alignItems: 'center' }}>
-                                                                        <i class="fa fa-calendar"></i>
+                                                                        <i className="fa fa-calendar"></i>
 
                                                                         <div>{this.state.lastNew.updatedAt ? (
                                                                             this.getDate(this.state.lastNew.updatedAt)
@@ -145,7 +145,7 @@ class New extends Component {
                                                                             </h3>
                                                                             <span className='date'>
                                                                                 <span style={{ display: 'flex', alignItems: 'center' }}>
-                                                                                    <i class="fa fa-calendar"></i>
+                                                                                    <i className="fa fa-calendar"></i>
                                                                                     <div>{this.getDate(item.updatedAt)}</div>
                                                                                 </span>
 

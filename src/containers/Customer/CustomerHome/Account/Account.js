@@ -175,7 +175,7 @@ class Account extends Component {
         let { userProvince, userDistrict } = this.state
         return (
 
-            <div class="account-container" >
+            <div className="account-container" >
                 <div className='breadcrump'>
                     <div className='breadcrump-content'>Trang chủ - thông tin tài khoản</div>
                 </div>

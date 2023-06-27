@@ -331,7 +331,7 @@ class UserRedux extends Component {
 
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.gender" /></label>
-                                <select id="inputState" class="form-control"
+                                <select id="inputState" className="form-control"
                                     value={gender}
                                     onChange={(event) => { this.onChangeInput(event, 'gender') }}
                                 >
@@ -344,7 +344,7 @@ class UserRedux extends Component {
                             </div>
                             <div className='col-3'>
                                 <label><FormattedMessage id="menu.manage-user.role-id" /></label>
-                                <select id="inputState" class="form-control"
+                                <select id="inputState" className="form-control"
                                     value={role}
                                     onChange={(event) => { this.onChangeInput(event, 'role') }}>
 

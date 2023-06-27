@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import notAccept from '../../../assets/nonono.webp'
-import './Delivery.scss'
-import { getUserOrder, getAllCodeService } from '../../../services/userService';
-import logo from '../../../assets/logo.png'
+import notAccept from '../../assets/nonono.webp'
+import './ManageWarehouse.scss'
+import { getUserOrder, getAllCodeService, getWarehouse, getWarehouseOrder } from '../../services/userService';
+import logo from '../../assets/logo.png'
 import { toast } from 'react-toastify';
-import { staffSetOrder } from '../../../services/userService';
 
 
-class Delivery extends Component {
+
+class ManageWarehouse extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            warehouse: [],
             orders: [],
             statusArr: [],
             payArr: [],
@@ -21,12 +22,22 @@ class Delivery extends Component {
     }
 
     async componentDidMount() {
-        let res = await getUserOrder({
-            staffId: this.props.userInfo.id
+        let warehouse = await getWarehouse('All')
+        warehouse.data.map((item, index) => {
+            if (item.staffId === this.props.userInfo.id) {
+                this.setState({
+                    warehouse: item
+                })
+            }
         })
+
+
+        let res = await getWarehouseOrder(this.props.userInfo.warehouseId)
         this.setState({
             orders: res.data
         })
+
+
 
         let status = await getAllCodeService('STATUS')
         this.setState({
@@ -37,17 +48,11 @@ class Delivery extends Component {
         this.setState({
             payArr: pay.data
         })
+
     }
 
-    async componentDidUpdate(prevProps, prevState) {
-        if (prevState.reLoad !== this.state.reLoad) {
-            let res = await getUserOrder({
-                staffId: this.props.userInfo.id
-            })
-            this.setState({
-                orders: res.data
-            })
-        }
+    async componentDidUpdate(prevProps, prevState,) {
+
     }
 
     getStatus = (id) => {
@@ -70,34 +75,13 @@ class Delivery extends Component {
         return pay
     }
 
-    onSuccess = async (item) => {
-        let res = await staffSetOrder({
-            id: item.id,
-            status: item.status,
-            payOption: item.payOption,
-            staffId: item.staffId
-        })
-
-        if (res.errCode === 0) {
-            toast.success("Xác nhận thành công")
-            this.setState({
-                reLoad: this.state.reLoad + 1
-            })
-        }
-        else {
-            toast.warning("Lỗi server")
-        }
-    }
-
-
     render() {
-        let userInfo = this.props.userInfo
-        let orders = this.state.orders
-
+        let { userInfo } = this.props
+        let { orders, warehouse } = this.state
         return (
             <>
-                {userInfo.warehouseId
-                    ?
+                {this.state.warehouse.id ?
+
                     <div className='manageWh-main'>
 
                         <div className="center">
@@ -107,23 +91,15 @@ class Delivery extends Component {
                                 </div>
                                 <div style={{ marginTop: '40px' }} className="company">
                                     <div className="company-name">GHLE</div>
-                                    <div className="company-description">Nhân viên giao hàng</div>
+                                    <div className="company-description">Quản lý Kho</div>
                                     <div className="company-description">STAFF: <span>{' ' + userInfo.lastName + " " + userInfo.firstName}</span></div>
                                     <div className='ln'></div>
                                 </div>
-                                <div style={{ marginTop: '10px' }} className="company">
-                                    <div className="company-name">Lọc</div>
-                                    <select onChange={(e) => this.onChangeSelect(e.target.value)} value={this.state.selectedStaff} style={{ margin: '4px' }} className='form-control'>
-                                        <option value={''}>Tất cả</option>
 
-                                    </select>
-
-                                    <div style={{ marginTop: '10px' }} className='ln'></div>
-                                </div>
                             </div>
                             <div className="right">
-                                <div className="title">Quản lý đơn hàng</div>
-                                <div style={{ textAlign: 'center' }} className="description">{`~ngắm nhìn, cảnh sắc đan xen, trăng tròn, khoảnh khắc ban đêm. Chụp lại, xong rồi up, đăng lên, thở dài, đánh mắt sang bên~`}</div>
+                                <div className="title">Quản lý Kho</div>
+                                <div style={{ textAlign: 'center' }} className="description">{'~Sắm cho mình một con mắt mới, mở ra đường ta đi sắp tới~'}</div>
                                 <div style={{ border: '1px solid #7871ff' }}></div>
 
                                 <table style={{ marginTop: '20px' }} id='TableManageUser'  >
@@ -138,10 +114,11 @@ class Delivery extends Component {
                                             <th>Tình trạng đơn hàng</th>
                                             <th>Tình trạng thanh toán</th>
                                             <th>Thao tác</th>
+
                                         </tr>
 
                                         {orders && orders.map((item, index) => {
-                                            if (item.status === 'S13' || item.status === 'S14')
+                                            if (item.status === 'S3' && item.warehouseId === warehouse.id || item.status === 'S15' && item.recWarehouseId === warehouse.id)
                                                 return (
                                                     <tr>
                                                         <td>{item.id}</td>
@@ -152,12 +129,11 @@ class Delivery extends Component {
                                                         <td>{this.getStatus(item.status)}</td>
                                                         <td>{this.getPayOption(item.payOption)}</td>
                                                         <td>
-                                                            <button onClick={() => this.onSuccess(item)} className={item.status === 'S13' ? 'add-btn' : item.status === 'S14' ? 'add-btn orange' : 'add-btn yellow'}>{item.status === 'S13' ? 'Xác nhận lấy đơn hàng' : item.status === 'S14' ? 'Xác nhận đã lấy hàng thành công' : 'Xác nhận nhập về kho thành công'}</button>
+                                                            <button onClick={() => this.onSuccess(item)} className={item.status === 'S3' ? 'add-btn' : item.status === 'S14' ? 'add-btn orange' : 'add-btn yellow'}>{item.status === 'S3' ? 'Xuất kho' : item.status === 'S14' ? 'Xác nhận đã lấy hàng thành công' : 'Xác nhận nhập về kho thành công'}</button>
                                                         </td>
                                                     </tr>
                                                 )
                                         })}
-
 
                                     </tbody>
 
@@ -168,12 +144,21 @@ class Delivery extends Component {
 
 
                     </div>
+
+
+
+
+
                     :
+
+
+
+
                     <div className='manageWh-body'>
                         <div className='container'>
                             <div>
                                 <img src={notAccept}></img>
-                                <div className='manageWh-warn'>Có vẻ như bạn chưa được cấp quyền để giao hàng
+                                <div className='manageWh-warn'>Có vẻ như bạn chưa được cấp quyền quản lý bất kỳ kho nào
                                     <br />
                                     Hoặc có vấn đề ở hệ thống vui lòng liên hệ quản trị viên để được hỗ trợ
                                 </div>
@@ -182,9 +167,6 @@ class Delivery extends Component {
                         </div>
                     </div>
                 }
-
-
-
             </>
         )
     }
@@ -202,7 +184,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Delivery);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageWarehouse);
 
 
 

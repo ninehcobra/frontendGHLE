@@ -13,34 +13,34 @@ class HomeFooter extends Component {
             <>
                 <div className='home-footer-top'>
                     <div className='container'>
-                        <div class="row">
+                        <div className="row">
 
-                            <div class="col-md-4 col-sm-6 col-xs-12 col-lg">
-                                <div class="footer-col">
-                                    <h4 class="footer-title">
+                            <div className="col-md-4 col-sm-6 col-xs-12 col-lg">
+                                <div className="footer-col">
+                                    <h4 className="footer-title">
                                         CÔNG TY CỔ PHẦN DỊCH VỤ GIAO HÀNG LẸ
                                     </h4>
-                                    <div class="footer-content">
+                                    <div className="footer-content">
                                         <p>Đây là đồ án 1 của sinh viên Trương Nguyễn Công Chính - 20520884 trường Đại Học Công Nghệ Thông Tin dưới sự hướng dẫn của Th.S Nguyễn Trịnh Đông
 
                                             <br />Mọi thông tin liên quan đến đồ án có thể liên hệ trực tiếp với tôi (Mr. Chính) để trao đổi </p>
-                                        <div class="hr"></div>
+                                        <div className="hr"></div>
                                         <ul>
-                                            <li><b><i class="fa fa-map-marker"></i>Địa chỉ: </b>Hẻm 224, ấp 3, xã An Phước, Long Thành, Đồng Nai</li>
-                                            <li><b><i class="fa fa-envelope"></i>Email: </b>20520884@gm.uit.edu.vn</li>
-                                            <li><b><i class="fa fa-phone"></i>Hotline: </b>0797260870</li>
+                                            <li><b><i className="fa fa-map-marker"></i>Địa chỉ: </b>Hẻm 224, ấp 3, xã An Phước, Long Thành, Đồng Nai</li>
+                                            <li><b><i className="fa fa-envelope"></i>Email: </b>20520884@gm.uit.edu.vn</li>
+                                            <li><b><i className="fa fa-phone"></i>Hotline: </b>0797260870</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div class="col-md-2 col-sm-6 col-xs-12 col-lg">
-                                <div class="footer-col footer-link">
-                                    <h4 class="footer-title">
+                            <div className="col-md-2 col-sm-6 col-xs-12 col-lg">
+                                <div className="footer-col footer-link">
+                                    <h4 className="footer-title">
                                         VỀ GHN
                                     </h4>
-                                    <div class="footer-content toggle-footer">
+                                    <div className="footer-content toggle-footer">
                                         <ul>
 
                                             <li>
@@ -61,12 +61,12 @@ class HomeFooter extends Component {
                             </div>
 
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 col-lg">
-                                <div class="footer-col footer-link">
-                                    <h4 class="footer-title">
+                            <div className="col-md-3 col-sm-6 col-xs-12 col-lg">
+                                <div className="footer-col footer-link">
+                                    <h4 className="footer-title">
                                         THÔNG TIN DỊCH VỤ
                                     </h4>
-                                    <div class="footer-content toggle-footer">
+                                    <div className="footer-content toggle-footer">
                                         <ul>
 
                                             <li>
@@ -95,12 +95,12 @@ class HomeFooter extends Component {
                             </div>
 
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 col-lg">
-                                <div class="footer-col footer-link">
-                                    <h4 class="footer-title">
+                            <div className="col-md-3 col-sm-6 col-xs-12 col-lg">
+                                <div className="footer-col footer-link">
+                                    <h4 className="footer-title">
                                         Kết nối
                                     </h4>
-                                    <div class="footer-content toggle-footer">
+                                    <div className="footer-content toggle-footer">
                                         <ul>
 
                                             <li>

@@ -92,7 +92,7 @@ class Order extends Component {
         const { processLogout, language, userInfo } = this.props;
         return (
 
-            <div class="order-container" >
+            <div className="order-container" >
                 <div className='line'></div>
                 {
                     arr.length !== 0 ?
@@ -130,7 +130,7 @@ class Order extends Component {
                                     <div className='col-md-1 order-info blue-color' style={{ fontSize: '15px' }}>{item.Orders.totalCost + " vnđ"}</div>
                                     <div className='col-md-4 order-info' style={{ flexDirection: 'row' }} >
                                         <div style={{ height: '100%', width: '30%' }}>
-                                            <div className='orange-color'>{item.Orders.payOption === 'P1' ? 'Bên gửi trả phí' : 'Bên nhận trả phí'}</div>
+                                            <div className='orange-color'>{item.Orders.payOption === 'P1' ? 'Bên gửi trả phí' : item.Orders.payOption === 'P2' ? 'Bên nhận trả phí' : 'Đã thanh toán'}</div>
                                             <div className=' blue-color'>{'Tổng phí: ' + item.Orders.fee + ' vnđ'}</div>
                                         </div>
                                         <div style={{ height: '100%', width: '70%', flexDirection: 'column !important' }}>

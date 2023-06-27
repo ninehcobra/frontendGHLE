@@ -31,7 +31,7 @@ export const adminMenu = [
             },
 
             {
-                name: 'menu.admin.report-statistic', link: '/system/report-statistic'
+                name: 'Quản lý kho', link: '/system/manage-warehouse-order'
 
             },
             {
@@ -90,7 +90,7 @@ export const WarehouseMenu = [
             },
 
             {
-                name: 'menu.admin.report-statistic', link: '/system/report-statistic'
+                name: 'Quản lý kho', link: '/system/manage-warehouse-order'
 
             },
             {

@@ -29,48 +29,48 @@ class BannerSlick extends Component {
                 <div className='section-icon'>
                     <div className='icon-content'>
                         <div className='row'>
-                            <div class="col-md-3 col-sm-6 col-xs-6 ">
-                                <div class="container">
-                                    <div class="icon-img">
+                            <div className="col-md-3 col-sm-6 col-xs-6 ">
+                                <div className="container">
+                                    <div className="icon-img">
                                         <img src={icon1} />
                                     </div>
-                                    <div class="icon-info">
+                                    <div className="icon-info">
                                         <p><FormattedMessage id="home-header.icon-info1-1" /><br />
                                             <FormattedMessage id="home-header.icon-info1-2" /></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-3 col-sm-6 col-xs-6 ">
-                                <div class="container">
-                                    <div class="icon-img">
+                            <div className="col-md-3 col-sm-6 col-xs-6 ">
+                                <div className="container">
+                                    <div className="icon-img">
                                         <img src={icon2} />
                                     </div>
-                                    <div class="icon-info">
+                                    <div className="icon-info">
                                         <p><FormattedMessage id="home-header.icon-info2-1" /><br />
                                             <FormattedMessage id="home-header.icon-info2-2" /></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-3 col-sm-6 col-xs-6 ">
-                                <div class="container">
-                                    <div class="icon-img">
+                            <div className="col-md-3 col-sm-6 col-xs-6 ">
+                                <div className="container">
+                                    <div className="icon-img">
                                         <img src={icon3} />
                                     </div>
-                                    <div class="icon-info">
+                                    <div className="icon-info">
                                         <p><FormattedMessage id="home-header.icon-info3-1" /><br />
                                             <FormattedMessage id="home-header.icon-info3-2" /></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-3 col-sm-6 col-xs-6 ">
-                                <div class="container">
-                                    <div class="icon-img">
+                            <div className="col-md-3 col-sm-6 col-xs-6 ">
+                                <div className="container">
+                                    <div className="icon-img">
                                         <img src={icon4} />
                                     </div>
-                                    <div class="icon-info">
+                                    <div className="icon-info">
                                         <p><FormattedMessage id="home-header.icon-info4-1" /><br />
                                             <FormattedMessage id="home-header.icon-info4-2" /></p>
                                     </div>

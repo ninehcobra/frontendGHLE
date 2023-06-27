@@ -123,7 +123,18 @@ const getStaffHistory = async (id) => {
     return await axios.get(`/api/get-staff-history?staffId=${id}`)
 }
 
+const staffSetOrder = async (data) => {
+    return await axios.post(`/api/staff-set-order`, data)
+}
+
+const getWarehouseOrder = async (id) => {
+    return await axios.get(`/api/get-warehouse-order?id=${id}`)
+}
+
+
 export {
+    getWarehouseOrder,
+    staffSetOrder,
     handleLoginApi,
     setOrderStaff
     , getAllUsers

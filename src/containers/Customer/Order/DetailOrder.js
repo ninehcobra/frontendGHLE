@@ -54,7 +54,7 @@ class DetailOrder extends Component {
         var hour = date.getUTCHours();
         var minute = date.getUTCMinutes();
 
-        return `${(hour + 7) >= 24 ? (hour + 7) - 24 : hour + 7}:${minute}`;
+        return `${((hour + 7) >= 24 ? (hour + 7) - 24 : hour + 7) < 10 ? `0${hour}` : ((hour + 7) >= 24 ? (hour + 7) - 24 : hour + 7)}:${minute < 10 ? `0${minute}` : minute}`;
     }
 
     changeInput = (e) => {
@@ -100,7 +100,7 @@ class DetailOrder extends Component {
                                         </div>
                                         <a href={"/orders/" + this.state.id} style={{ textDecoration: "none" }}>
                                             <button type='button' className='search-button'>
-                                                <i class="fas fa-search"></i>
+                                                <i className="fas fa-search"></i>
                                                 <span>TÌM KIẾM
                                                 </span>
                                             </button>
@@ -166,11 +166,11 @@ class DetailOrder extends Component {
                                         {this.state.history.map((item, index) => {
                                             return (
                                                 <div className='row' style={{ padding: '10px 0', borderBottom: '1px solid grey' }}>
-                                                    <div style={{ borderRight: '1px solid grey' }} class="col-2">
+                                                    <div style={{ borderRight: '1px solid grey' }} className="col-2">
                                                         <div style={{ textAlign: 'right', fontSize: '15px', fontWeight: '600' }}>{this.formatDay(item.createdAt)}</div>
                                                         <div style={{ textAlign: 'right', fontSize: '14px', color: 'grey' }}>{this.formatTime(item.createdAt)}</div>
                                                     </div>
-                                                    <div class="col-10" >
+                                                    <div className="col-10" >
                                                         <div style={{ textAlign: 'left', fontSize: '15px', fontWeight: '300' }}>{item.orderStatus}</div>
                                                         <div style={{ textAlign: 'left', fontSize: '14px', color: 'grey' }}>{ }</div>
                                                     </div>

@@ -69,7 +69,7 @@ class Header extends Component {
                                 <div className="shop-switch__text-box">
                                     <div className="icon-box">
                                         <div className="shop-witch_icon-box">
-                                            <i class="fas fa-lightbulb shop-witch_icon"></i>
+                                            <i className="fas fa-lightbulb shop-witch_icon"></i>
 
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@ class Header extends Component {
 
                                 </div>
                                 {/* <div className="shop-switch__drop-down-icon-box">
-                                    <i class="fas fa-caret-down shop-switch__drop-down-icon"></i>
+                                    <i className="fas fa-caret-down shop-switch__drop-down-icon"></i>
 
                                 </div> */}
                             </div>

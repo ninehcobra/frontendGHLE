@@ -228,7 +228,7 @@ class Report extends Component {
                                         <div className='box-text-value'>0 vnđ</div>
                                     </div>
 
-                                    <div class="line-break"></div>
+                                    <div className="line-break"></div>
 
                                     <div className='box-text'>
                                         <div className='box-text-title'>Tổng số dư hoàn tất hiện tại </div>
@@ -263,7 +263,7 @@ class Report extends Component {
                                         <div className='box-text-value'>0 vnđ</div>
                                     </div>
 
-                                    <div class="line-break"></div>
+                                    <div className="line-break"></div>
 
                                     <div className='box-text'>
                                         <div className='box-text-title'>Tổng số dư còn lại</div>
