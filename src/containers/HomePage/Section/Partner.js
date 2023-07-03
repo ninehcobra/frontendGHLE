@@ -7,7 +7,6 @@ import Slider from "react-slick";
 import avatar1 from "../../../assets/images/avatar1.jpg"
 import avatar2 from "../../../assets/images/avatar2.jpg"
 import avatar3 from "../../../assets/images/avatar3.jpg"
-import sorry from "../../../assets/sorry.mp3"
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -36,7 +35,6 @@ class Partner extends Component {
         };
         return (
             <div className='section-partner'>
-                <audio src={sorry} autoPlay></audio>
                 <div className='container'>
                     <div className='s-title'>
                         <h2>

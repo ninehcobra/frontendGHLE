@@ -63,7 +63,7 @@
         transform: translate(-50%, -50%);
         width: 80vw;
         height: 88vh;
-        max-width: 1400px;
+        max-width: 1600px;
         display: flex;
     }
 
@@ -160,6 +160,11 @@
         font-weight: 600;
         outline: none;
         margin-top: 10px;
+    }
+
+    .table-container {
+        max-height: 635px;
+        overflow-y: scroll;
     }
 
 }

@@ -141,7 +141,7 @@ class Delivery extends Component {
                                         </tr>
 
                                         {orders && orders.map((item, index) => {
-                                            if (item.status === 'S13' || item.status === 'S14')
+                                            if (item.status === 'S13' || item.status === 'S14' || item.status === 'S4')
                                                 return (
                                                     <tr>
                                                         <td>{item.id}</td>
@@ -152,7 +152,7 @@ class Delivery extends Component {
                                                         <td>{this.getStatus(item.status)}</td>
                                                         <td>{this.getPayOption(item.payOption)}</td>
                                                         <td>
-                                                            <button onClick={() => this.onSuccess(item)} className={item.status === 'S13' ? 'add-btn' : item.status === 'S14' ? 'add-btn orange' : 'add-btn yellow'}>{item.status === 'S13' ? 'Xác nhận lấy đơn hàng' : item.status === 'S14' ? 'Xác nhận đã lấy hàng thành công' : 'Xác nhận nhập về kho thành công'}</button>
+                                                            <button onClick={() => this.onSuccess(item)} className={item.status === 'S13' ? 'add-btn' : item.status === 'S14' ? 'add-btn orange' : 'add-btn yellow'}>{item.status === 'S13' ? 'Xác nhận lấy đơn hàng' : item.status === 'S14' ? 'Xác nhận đã lấy hàng thành công' : item.status === 'S4' ? 'Xác nhận giao hàng thành công' : 'Xác nhận nhập về kho thành công'}</button>
                                                         </td>
                                                     </tr>
                                                 )

@@ -52,7 +52,7 @@ class CustomerManageOrder extends Component {
                 })
             }
 
-            if (item === 'S6' || item === 'S11') {
+            if (item === 'S13' || item === 'S14') {
                 let data = orderWait.data
                 await this.setState({
                     orderTakeWaitarr: [...this.state.orderTakeWaitarr, ...data],
@@ -60,7 +60,7 @@ class CustomerManageOrder extends Component {
                 })
             }
 
-            if (item === 'S3' || item === 'S4' || item === 'S8') {
+            if (item === 'S3' || item === 'S4' || item === 'S8' || item === 'S15' || item === 'S16') {
                 let data = orderWait.data
                 await this.setState({
                     orderSendingarr: [...this.state.orderSendingarr, ...data],
@@ -76,7 +76,7 @@ class CustomerManageOrder extends Component {
                 })
             }
 
-            if (item === 'S9' || item === 'S5') {
+            if (item === 'S5') {
                 let data = orderWait.data
                 await this.setState({
                     orderSuccessarr: [...this.state.orderSuccessarr, ...data],

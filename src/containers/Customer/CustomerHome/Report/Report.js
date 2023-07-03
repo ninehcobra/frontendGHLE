@@ -17,12 +17,13 @@ class Report extends Component {
             orderSuccessarr: [],
             orderCancelarr: [],
             orderLostarr: [],
-            date: moment(new Date).format('HH:mm DD/MM/YYYY')
+            date: moment(new Date).format('HH:mm DD/MM/YYYY'),
+            CODmoney: 0,
         }
     }
 
     async componentDidMount() {
-        const status = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12']
+        const status = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16']
         await status.map(async (item, index) => {
             let orderWait = await getUserOrder({
                 id: this.props.userInfo.id,
@@ -30,7 +31,7 @@ class Report extends Component {
                 startDate: '',
                 endDate: ''
             })
-            console.log(orderWait.data)
+
             if (item === 'S2') {
                 let data = orderWait.data
                 await this.setState({
@@ -39,7 +40,7 @@ class Report extends Component {
                 })
             }
 
-            if (item === 'S6' || item === 'S11') {
+            if (item === 'S13' || item === 'S14') {
                 let data = orderWait.data
                 await this.setState({
                     orderTakeWaitarr: [...this.state.orderTakeWaitarr, ...data],
@@ -47,7 +48,7 @@ class Report extends Component {
                 })
             }
 
-            if (item === 'S3' || item === 'S4' || item === 'S8') {
+            if (item === 'S3' || item === 'S4' || item === 'S8' || item === 'S15' || item === 'S16') {
                 let data = orderWait.data
                 await this.setState({
                     orderSendingarr: [...this.state.orderSendingarr, ...data],
@@ -63,12 +64,21 @@ class Report extends Component {
                 })
             }
 
-            if (item === 'S9' || item === 'S5') {
+            if (item === 'S5') {
                 let data = orderWait.data
                 await this.setState({
                     orderSuccessarr: [...this.state.orderSuccessarr, ...data],
 
                 })
+                let cost = 0
+                this.state.orderSuccessarr.map((item, index) => {
+                    cost = cost + item.Orders.CODCost
+                })
+
+                this.setState({
+                    CODmoney: cost
+                })
+
             }
 
             if (item === 'S1') {
@@ -213,7 +223,7 @@ class Report extends Component {
                                     </div>
                                     <div className='box-text'>
                                         <div className='box-text-title'>Tiền thu hộ (COD)  <i style={{ marginRight: '10px' }} className="fas fa-chevron-right icon"></i> </div>
-                                        <div className='box-text-value'>0 vnđ</div>
+                                        <div className='box-text-value'>{this.state.CODmoney} vnđ</div>
                                     </div>
                                     <div className='box-text'>
                                         <div className='box-text-title'>Giao thất bại - thu tiền  <i style={{ marginRight: '10px' }} className="fas fa-chevron-right icon"></i> </div>
@@ -232,7 +242,7 @@ class Report extends Component {
 
                                     <div className='box-text'>
                                         <div className='box-text-title'>Tổng số dư hoàn tất hiện tại </div>
-                                        <div className='box-text-value'>0 vnđ</div>
+                                        <div className='box-text-value'>{this.state.CODmoney} vnđ</div>
                                     </div>
 
                                     <div className='note-box'>
@@ -252,7 +262,7 @@ class Report extends Component {
                                     </div>
                                     <div className='box-text'>
                                         <div className='box-text-title'>Số dư qua ví  <i style={{ marginRight: '10px' }} className="fas fa-chevron-right icon"></i> </div>
-                                        <div className='box-text-value'>0 vnđ</div>
+                                        <div className='box-text-value'>{this.state.CODmoney} vnđ</div>
                                     </div>
                                     <div className='box-text'>
                                         <div className='box-text-title'>Giao thất bại - thu tiền / đang xử lý  <i style={{ marginRight: '10px' }} className="fas fa-chevron-right icon"></i> </div>
@@ -267,7 +277,7 @@ class Report extends Component {
 
                                     <div className='box-text'>
                                         <div className='box-text-title'>Tổng số dư còn lại</div>
-                                        <div className='box-text-value'>0 vnđ</div>
+                                        <div className='box-text-value'>{this.state.CODmoney} vnđ</div>
                                     </div>
 
                                     <div className='note-box'>

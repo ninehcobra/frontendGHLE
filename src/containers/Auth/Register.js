@@ -213,7 +213,7 @@ class Register extends Component {
                                             <div className='form-group'>
                                                 <label>Mật khẩu</label>
                                                 <input value={password}
-                                                    onChange={(event) => { this.onChangeInput(event, 'password') }} placeholder='Nhập mật khẩu' className='form-control'></input>
+                                                    type='password' onChange={(event) => { this.onChangeInput(event, 'password') }} placeholder='Nhập mật khẩu' className='form-control'></input>
                                                 <p></p>
                                             </div>
 

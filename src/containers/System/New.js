@@ -103,7 +103,7 @@ class New extends Component {
                 </div>
                 <div className='new-body'>
                     <label style={{ fontSize: '14px', fontWeight: 600 }}>Nội dung</label>
-                    <MdEditor style={{ height: '500px', zIndex: '11' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} />
+                    <MdEditor value={this.state.contentMarkdown} style={{ height: '500px', zIndex: '11' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} />
                 </div>
                 <div className='save-new'>
                     <button onClick={() => this.handleSaveNew()}> Lưu tin</button>
